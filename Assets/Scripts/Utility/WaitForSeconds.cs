@@ -4,13 +4,15 @@ using UnityEngine;
 public class WaitForSeconds : IEnumerator
 {
     public object Current => null;
-    public float Seconds => _seconds;
+    public float Seconds { get { return _seconds; } }
+    public bool IsDone { get; private set; }
 
     private float _seconds;
     private float _elapsed;
 
     public WaitForSeconds(float seconds)
     {
+        IsDone = false;
         _seconds = seconds;
         _elapsed = 0;
     }
@@ -21,7 +23,7 @@ public class WaitForSeconds : IEnumerator
 
         if (_elapsed >= _seconds)
         {
-            Reset();
+            IsDone = true;
             WaitForSecondsFactory.Return(this);
             return false;
         }
@@ -33,6 +35,7 @@ public class WaitForSeconds : IEnumerator
 
     public void Reset()
     {
+        IsDone = false;
         _elapsed = 0;
     }
 }

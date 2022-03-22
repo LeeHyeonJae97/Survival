@@ -14,7 +14,16 @@ public class WaitForSecondsFactory
             _dic.Add(seconds, queue);
         }
 
-        return queue.Count > 0 ? queue.Dequeue() : new WaitForSeconds(seconds);
+        if (queue.Count > 0)
+        {
+            WaitForSeconds wfs = queue.Dequeue();
+            wfs.Reset();
+            return wfs;
+        }
+        else
+        {
+            return new WaitForSeconds(seconds);
+        }
     }
 
     public static void Return(WaitForSeconds wfs)
