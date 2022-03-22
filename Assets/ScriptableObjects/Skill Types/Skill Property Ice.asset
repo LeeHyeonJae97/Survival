@@ -9,7 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ff64457ffc1c96c4b99a941e337092f2, type: 3}
-  m_Name: Skill Property Electricity
+  m_Script: {fileID: 11500000, guid: 69539507e9ed34f4b8d997cc45b405bb, type: 3}
+  m_Name: Skill Property Ice
   m_EditorClassIdentifier: 
-  <Type>k__BackingField: 4
+  <Type>k__BackingField: 1
+  _percent: 100
+  _duration: 5
+  _slow: 0.75

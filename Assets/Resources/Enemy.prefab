@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2142159500497581960}
   - component: {fileID: 8851086677786359779}
   - component: {fileID: 4373018749040440239}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Circle
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -110,7 +110,7 @@ GameObject:
   - component: {fileID: 6019351175225832476}
   - component: {fileID: 3637573546203360003}
   - component: {fileID: 4015516730274857677}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Enemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -144,6 +144,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd92c0f71cd03b44ab889ffe67509c7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _hp: 100
+  _speed: 2
 --- !u!50 &4015516730274857677
 Rigidbody2D:
   serializedVersion: 4

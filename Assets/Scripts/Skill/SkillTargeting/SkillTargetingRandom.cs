@@ -10,8 +10,8 @@ public class SkillTargetingRandom : SkillTargeting
         Type = SkillTargetingType.Random;
     }
 
-    public override Enemy GetTarget()
+    public override GameObject GetTarget()
     {
-        return EnemySpawner.Instance.Random();
+        return EnemySpawner.Instance.Random()?.gameObject;
     }
 }

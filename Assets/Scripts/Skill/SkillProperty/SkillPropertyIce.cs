@@ -2,17 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = FILE_NAME + "Poison", menuName = MENU_NAME + "Poison")]
-public class SkillPropertyPoison : SkillProperty
+[CreateAssetMenu(fileName = FILE_NAME + "Ice", menuName = MENU_NAME + "Ice")]
+public class SkillPropertyIce : SkillProperty
 {
-    [SerializeField] private int _percent;
+    [SerializeField] private float _percent;
     [SerializeField] private float _duration;
-    [SerializeField] private float _continuous;
-    [SerializeField] private float _interval;
+    [SerializeField] private float _slow;
 
     private void OnValidate()
     {
-        Type = SkillPropertyType.Poison;
+        Type = SkillPropertyType.Ice;
     }
 
     public override void OnHit(SkillProjectile projectile, Enemy enemy)
@@ -21,7 +20,7 @@ public class SkillPropertyPoison : SkillProperty
         int percent = RandomExtension.percent;
 
         // get damaging coroutine by percent
-        IEnumerator cor = percent < _percent ? CoDamageContinuously(enemy) : null;
+        IEnumerator cor = percent < _percent ? percent < _percent / 2 ? CoFreeze(enemy) : CoSlowDown(enemy) : null;
 
         if (cor != null)
         {
@@ -41,19 +40,20 @@ public class SkillPropertyPoison : SkillProperty
         }
     }
 
-    private IEnumerator CoDamageContinuously(Enemy enemy)
+    private IEnumerator CoSlowDown(Enemy enemy)
     {
-        float elapsed = 0;
-        float continuous = _continuous;
+        enemy.Speed -= _slow;
+        yield return WaitForSecondsFactory.Get(_duration);
 
-        while (elapsed < _duration)
-        {
-            enemy.HP -= (int)continuous;
-            yield return WaitForSecondsFactory.Get(_interval);
+        enemy.Speed += _slow;
+    }
 
-            elapsed += Time.deltaTime;
-            // increase continuous
-            continuous += 0.5f;
-        }
+    private IEnumerator CoFreeze(Enemy enemy)
+    {
+        float org = enemy.Speed;
+        enemy.Speed = 0;
+        yield return WaitForSecondsFactory.Get(_duration);
+
+        enemy.Speed = org;
     }
 }

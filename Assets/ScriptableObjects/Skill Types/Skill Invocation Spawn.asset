@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f3b2cea6c7835d14d87a415c371063da, type: 3}
-  m_Name: Skill Projection Sin
+  m_Script: {fileID: 11500000, guid: c7053b04d8396bd4bbc5c78c2af3b874, type: 3}
+  m_Name: Skill Invocation Spawn
   m_EditorClassIdentifier: 
   <Type>k__BackingField: 1

@@ -85,14 +85,17 @@ public class SkillProjectile : MonoBehaviour
     {
         if (enemy != null && !_enemies.Contains(enemy.GetInstanceID()))
         {
-            // calculate damaging cooldown
-            StartCoroutine(CoCalculateDamagingCooldown(enemy.GetInstanceID()));
-
             // apply damage
             enemy.HP -= Stat.Damage;
 
-            // apply property effect
-            Property?.OnHit(enemy);
+            if (enemy.HP > 0)
+            {
+                // calculate damaging cooldown
+                StartCoroutine(CoCalculateDamagingCooldown(enemy.GetInstanceID()));
+
+                // apply property effect
+                Property?.OnHit(this, enemy);
+            }
         }
     }
 

@@ -9,7 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c7053b04d8396bd4bbc5c78c2af3b874, type: 3}
-  m_Name: SkillInvocation - Spawn
+  m_Script: {fileID: 11500000, guid: b7c17e82226b39742ba07c224171ba23, type: 3}
+  m_Name: Skill Property Explosion
   m_EditorClassIdentifier: 
-  <Type>k__BackingField: 1
+  <Type>k__BackingField: 4
+  _percent: 100
+  _splash: 100
+  _range: 3

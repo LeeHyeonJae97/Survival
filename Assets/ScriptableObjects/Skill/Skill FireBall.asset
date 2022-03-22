@@ -19,10 +19,10 @@ MonoBehaviour:
     <Cooldown>k__BackingField: 1
     <LifeSpan>k__BackingField: 5
     <FlySpeed>k__BackingField: 10
-    <Amount>k__BackingField: 5
-    <Interval>k__BackingField: 0.2
-  <Property>k__BackingField: {fileID: 11400000, guid: 3ba20ca23e6e54b49b303fc71c636d49, type: 2}
+    <Amount>k__BackingField: 1
+    <Interval>k__BackingField: 0
+  <Property>k__BackingField: {fileID: 11400000, guid: 1d76041b22918df40bb503debf771c27, type: 2}
   <Invocation>k__BackingField: {fileID: 11400000, guid: b69d67e105d7d934cb5138a3e83ee3c5, type: 2}
   <Targeting>k__BackingField: {fileID: 11400000, guid: 603b8e211d9465e4bb46ceef4da6aaef, type: 2}
   <Projection>k__BackingField: {fileID: 11400000, guid: 8f2e46c15bc2aef458c4f7f3da7ed091, type: 2}
-  <Hit>k__BackingField: {fileID: 11400000, guid: 98f39ca960735b840b77bdd22aa84ecf, type: 2}
+  <Hit>k__BackingField: {fileID: 11400000, guid: dfcf9b8ea86c2884096e4eac8ce39ebb, type: 2}

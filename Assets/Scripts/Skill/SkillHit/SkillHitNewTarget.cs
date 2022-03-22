@@ -16,7 +16,7 @@ public class SkillHitNewTarget : SkillHit
         {
             case "Enemy":
                 // set new target
-                Enemy newTarget = projectile.Targeting.GetTarget();
+                GameObject newTarget = projectile.Targeting.GetTarget();
                 if (newTarget != null)
                 {
                     Vector3 direction = newTarget.transform.position - projectile.transform.position;

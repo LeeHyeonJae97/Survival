@@ -13,3 +13,5 @@ MonoBehaviour:
   m_Name: Skill Property Wind
   m_EditorClassIdentifier: 
   <Type>k__BackingField: 2
+  _percent: 100
+  _knockback: 0.4

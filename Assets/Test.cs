@@ -4,13 +4,32 @@ using UnityEngine;
 
 public class Test : MonoBehaviour
 {
-    private void OnTriggerEnter2D(Collider2D collision)
+    private IEnumerator _testCor;
+
+    private void Start()
     {
-        Debug.Log("Enter");
+        StartCoroutine(CoTest());
+        StartCoroutine(CoTest());
+        StartCoroutine(CoTest());
+        StartCoroutine(CoTest());
+        StartCoroutine(CoTest());
     }
 
-    private void OnTriggerStay2D(Collider2D collision)
+    private void Update()
     {
-        Debug.Log("Stay");
+        if (Input.GetKeyDown(KeyCode.A))
+        {
+            ((WaitForSeconds)_testCor.Current).Reset();
+        }
+    }
+
+    private IEnumerator CoTest()
+    {
+        int count = 5;
+        while(count-- > 0)
+        {
+            Debug.Log(count);
+            yield return WaitForSecondsFactory.Get(1f);
+        }
     }
 }

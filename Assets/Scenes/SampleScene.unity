@@ -614,7 +614,7 @@ PrefabInstance:
     - target: {fileID: -6473976676163971318, guid: 65018eac2752ee844a3528992f7063cb, type: 3}
       propertyPath: _skills.Array.data[0]
       value: 
-      objectReference: {fileID: 11400000, guid: 314403f43f2d505428bac8bbb24f26c3, type: 2}
+      objectReference: {fileID: 11400000, guid: 6473df77f8a3e3744ad50feddc1bbd1f, type: 2}
     - target: {fileID: 2339478622299035865, guid: 65018eac2752ee844a3528992f7063cb, type: 3}
       propertyPath: m_RootOrder
       value: 2

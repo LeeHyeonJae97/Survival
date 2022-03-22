@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public enum SkillPropertyType { Fire, Water, Wind, Poison, Electricity }
+public enum SkillPropertyType { Fire, Ice, Wind, Poison, Explosion }
 
 public abstract class SkillProperty : ScriptableObject
 {
@@ -9,5 +9,5 @@ public abstract class SkillProperty : ScriptableObject
 
     [field: SerializeField] public SkillPropertyType Type { get; protected set; }
 
-    public abstract void OnHit(Enemy enemy);
+    public abstract void OnHit(SkillProjectile projectile, Enemy enemy);
 }

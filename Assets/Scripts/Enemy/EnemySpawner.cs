@@ -12,7 +12,7 @@ public class EnemySpawner : SingletonMonoBehaviour<EnemySpawner>
     private My.Camera _camera;
     // NOTICE :
     // need to change 'StageInfo'
-    private float _spawnCooldown = .1f;
+    private float _spawnCooldown = .5f;
 
     protected override void Awake()
     {
@@ -31,10 +31,19 @@ public class EnemySpawner : SingletonMonoBehaviour<EnemySpawner>
 
     private IEnumerator CoSpawn()
     {
+        //Enemy enemy = PoolingManager.Instance.Spawn<Enemy>("Enemy");
+        //enemy.transform.position = Camera.RandomPointOnBounds(_spawnBoundsOffset);
+        //enemy.Init();
+
+        //_enemies.Add(enemy);
+
+        //yield return null;
+
         while (true)
         {
             Enemy enemy = PoolingManager.Instance.Spawn<Enemy>("Enemy");
             enemy.transform.position = Camera.RandomPointOnBounds(_spawnBoundsOffset);
+            enemy.Init();
 
             _enemies.Add(enemy);
 

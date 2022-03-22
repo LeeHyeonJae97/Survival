@@ -13,3 +13,7 @@ MonoBehaviour:
   m_Name: Skill Property Fire
   m_EditorClassIdentifier: 
   <Type>k__BackingField: 0
+  _percent: 100
+  _duration: 5
+  _continuous: 1
+  _interval: 0.1

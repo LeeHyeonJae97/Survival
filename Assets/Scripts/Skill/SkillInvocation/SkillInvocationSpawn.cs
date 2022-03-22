@@ -15,7 +15,7 @@ public class SkillInvocationSpawn : SkillInvocation
         for (int i = 0; i < skill.Stat.Amount; i++)
         {
             // get target
-            Enemy target = skill.Targeting.GetTarget();
+            GameObject target = skill.Targeting.GetTarget();
 
             // if there's no enemy just skip
             if (target != null)

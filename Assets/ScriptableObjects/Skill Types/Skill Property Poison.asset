@@ -13,3 +13,7 @@ MonoBehaviour:
   m_Name: Skill Property Poison
   m_EditorClassIdentifier: 
   <Type>k__BackingField: 3
+  _percent: 100
+  _duration: 3
+  _continuous: 1
+  _interval: 0.1
