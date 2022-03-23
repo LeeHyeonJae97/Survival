@@ -43,3 +43,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 762556e98c5f6a34d8885ca1cf4bc0aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _range: 20
+  _checkOutOfRangeInterval: 5
+  _spawnBoundsOffset: 0

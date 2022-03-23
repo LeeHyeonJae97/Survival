@@ -4,12 +4,14 @@ using UnityEngine;
 
 public class EnemySpawner : SingletonMonoBehaviour<EnemySpawner>
 {
+    [SerializeField] private float _range;
+    [SerializeField] private float _checkOutOfRangeInterval;
     [SerializeField] private float _spawnBoundsOffset;
 
-    private My.Camera Camera { get { if (_camera == null) _camera = new My.Camera(UnityEngine.Camera.main); return _camera; } }
+    private CameraBounds CameraBounds { get { if (_cameraBounds == null) _cameraBounds = new CameraBounds(Camera.main); return _cameraBounds; } }
 
     private List<Enemy> _enemies = new List<Enemy>();
-    private My.Camera _camera;
+    private CameraBounds _cameraBounds;
     // NOTICE :
     // need to change 'StageInfo'
     private float _spawnCooldown = .5f;
@@ -18,15 +20,18 @@ public class EnemySpawner : SingletonMonoBehaviour<EnemySpawner>
     {
         base.Awake();
 
-        // DEPRECATED :
-        Spawn();
+        // DEPRECATED
+        Init();
     }
 
-    public void Spawn()
+    public void Init()
     {
+        // create pool of enemy and start spawning
         PoolingManager.Instance.Create("Enemy", "Enemy", 10);
-
         StartCoroutine(CoSpawn());
+
+        // start checking out of range
+        StartCoroutine(CheckOutOfRange());
     }
 
     private IEnumerator CoSpawn()
@@ -42,7 +47,7 @@ public class EnemySpawner : SingletonMonoBehaviour<EnemySpawner>
         while (true)
         {
             Enemy enemy = PoolingManager.Instance.Spawn<Enemy>("Enemy");
-            enemy.transform.position = Camera.RandomPointOnBounds(_spawnBoundsOffset);
+            enemy.transform.position = CameraBounds.RandomPointOnBounds(_spawnBoundsOffset);
             enemy.Init();
 
             _enemies.Add(enemy);
@@ -56,6 +61,23 @@ public class EnemySpawner : SingletonMonoBehaviour<EnemySpawner>
         _enemies.Remove(enemy);
 
         PoolingManager.Instance.Despawn(enemy);
+    }
+
+    private IEnumerator CheckOutOfRange()
+    {
+        while (true)
+        {
+            // check enemy is out of range (too far from player)
+            for (int i = 0; i < _enemies.Count; i++)
+            {
+                if ((_enemies[i].transform.position - Player.Instance.transform.position).sqrMagnitude >= _range * _range)
+                {
+                    _enemies[i].Die();
+                }
+            }
+
+            yield return WaitForSecondsFactory.Get(_checkOutOfRangeInterval);
+        }
     }
 
     public Enemy Closest(Vector3 position)
@@ -81,5 +103,10 @@ public class EnemySpawner : SingletonMonoBehaviour<EnemySpawner>
     public Enemy Random()
     {
         return _enemies.Count == 0 ? null : _enemies[UnityEngine.Random.Range(0, _enemies.Count)];
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        GizmosExtension.DrawCircle(Camera.main.transform.position, _range);
     }
 }

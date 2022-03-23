@@ -48,9 +48,9 @@ public class SkillPropertyFire : SkillProperty
         while (elapsed < _duration)
         {
             enemy.HP -= (int)continuous;
-            elapsed += _interval;
-
             yield return WaitForSecondsFactory.Get(_interval);
+
+            elapsed += _interval;
         }
     }
 }

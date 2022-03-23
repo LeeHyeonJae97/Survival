@@ -2,17 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = FILE_NAME + "Poison", menuName = MENU_NAME + "Poison")]
-public class SkillPropertyPoison : SkillProperty
+[CreateAssetMenu(fileName = FILE_NAME + "Curse", menuName = MENU_NAME + "Curse")]
+public class SkillPropertyCurse : SkillProperty
 {
     [SerializeField] private int _percent;
     [SerializeField] private float _duration;
-    [SerializeField] private float _continuous;
-    [SerializeField] private float _interval;
 
     private void OnValidate()
     {
-        Type = SkillPropertyType.Poison;
+        Type = SkillPropertyType.Curse;
     }
 
     public override void OnHit(SkillProjectile projectile, Enemy enemy)
@@ -20,7 +18,7 @@ public class SkillPropertyPoison : SkillProperty
         // check aroused
         if (RandomExtension.CheckPercent(_percent))
         {
-            IEnumerator cor = CoDamageContinuously(enemy);
+            IEnumerator cor = CoCursed(enemy);
 
             // check already applied
             if (enemy.CrowdControlCorDic.ContainsKey(Type))
@@ -39,19 +37,12 @@ public class SkillPropertyPoison : SkillProperty
         }
     }
 
-    private IEnumerator CoDamageContinuously(Enemy enemy)
+    private IEnumerator CoCursed(Enemy enemy)
     {
-        float elapsed = 0;
-        float continuous = _continuous;
+        // change enemy's movement type
 
-        while (elapsed < _duration)
-        {
-            enemy.HP -= (int)continuous;
-            yield return WaitForSecondsFactory.Get(_interval);
+        yield return WaitForSecondsFactory.Get(_duration);
 
-            elapsed += _interval;
-            // increase continuous
-            continuous += 0.5f;
-        }
+        // recover enemy's movement type
     }
 }

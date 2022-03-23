@@ -2,9 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// TODO :
+// need to separate playable enemy and data (like player and character)
+
 public class Enemy : MonoBehaviour, IDamagable
 {
-    private const float MIN_SPEED = 0.1f;
+    public const float MIN_SPEED = 0.1f;
 
     public int HP
     {
@@ -23,12 +26,13 @@ public class Enemy : MonoBehaviour, IDamagable
 
     [SerializeField] private int _hp;
     [SerializeField] private float _speed;
+    [SerializeField] private EnemyMovement _movement;
     private int _curHP;
     private float _curSpeed;
 
     private void Update()
     {
-        transform.Translate((Player.Instance.transform.position - transform.position).normalized * _speed * Time.deltaTime);
+        _movement.Movement_Update(this);
     }
 
     public void Init()
@@ -36,6 +40,9 @@ public class Enemy : MonoBehaviour, IDamagable
         // initialize values
         HP = _hp;
         Speed = _speed;
+
+        //
+        _movement.Movement_Start(this);
     }
 
     public void Die()

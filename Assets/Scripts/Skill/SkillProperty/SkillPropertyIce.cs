@@ -5,7 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = FILE_NAME + "Ice", menuName = MENU_NAME + "Ice")]
 public class SkillPropertyIce : SkillProperty
 {
-    [SerializeField] private float _percent;
+    [SerializeField] private int _percent;
     [SerializeField] private float _duration;
     [SerializeField] private float _slow;
 
@@ -18,6 +18,9 @@ public class SkillPropertyIce : SkillProperty
     {
         // check aroused
         int percent = RandomExtension.percent;
+
+        // TODO :
+        // need to set each percent for freezing and slowing down
 
         // get damaging coroutine by percent
         IEnumerator cor = percent < _percent ? percent < _percent / 2 ? CoFreeze(enemy) : CoSlowDown(enemy) : null;
@@ -51,7 +54,7 @@ public class SkillPropertyIce : SkillProperty
     private IEnumerator CoFreeze(Enemy enemy)
     {
         float org = enemy.Speed;
-        enemy.Speed = 0;
+        enemy.Speed = -Enemy.MIN_SPEED;
         yield return WaitForSecondsFactory.Get(_duration);
 
         enemy.Speed = org;

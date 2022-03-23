@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public enum SkillPropertyType { Fire, Ice, Wind, Poison, Explosion }
+public enum SkillPropertyType { Fire, Ice, Wind, Poison, Explosion, Curse }
 
 public abstract class SkillProperty : ScriptableObject
 {
