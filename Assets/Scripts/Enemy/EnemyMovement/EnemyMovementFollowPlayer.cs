@@ -10,14 +10,14 @@ public class EnemyMovementFollowPlayer : EnemyMovement
         Type = EnemyMovementType.FollowPlayer;
     }
 
-    public override void Movement_Start(Enemy enemy)
+    public override void Movement_Start(EnemyPlayer enemy)
     {
 
     }
 
-    public override void Movement_Update(Enemy enemy)
+    public override void Movement_Update(EnemyPlayer enemy)
     {
         enemy.transform.right = Player.Instance.transform.position - enemy.transform.position;
-        enemy.transform.Translate(enemy.transform.right * enemy.Speed * Time.deltaTime);
+        enemy.transform.Translate(Vector2.right * enemy.Speed * Time.deltaTime);
     }
 }

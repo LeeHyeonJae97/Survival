@@ -15,7 +15,7 @@ public class SkillPropertyPoison : SkillProperty
         Type = SkillPropertyType.Poison;
     }
 
-    public override void OnHit(SkillProjectile projectile, Enemy enemy)
+    public override void OnHit(SkillProjectile projectile, EnemyPlayer enemy)
     {
         // check aroused
         if (RandomExtension.CheckPercent(_percent))
@@ -39,7 +39,7 @@ public class SkillPropertyPoison : SkillProperty
         }
     }
 
-    private IEnumerator CoDamageContinuously(Enemy enemy)
+    private IEnumerator CoDamageContinuously(EnemyPlayer enemy)
     {
         float elapsed = 0;
         float continuous = _continuous;

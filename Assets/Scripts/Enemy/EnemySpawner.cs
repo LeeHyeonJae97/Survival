@@ -10,7 +10,7 @@ public class EnemySpawner : SingletonMonoBehaviour<EnemySpawner>
 
     private CameraBounds CameraBounds { get { if (_cameraBounds == null) _cameraBounds = new CameraBounds(Camera.main); return _cameraBounds; } }
 
-    private List<Enemy> _enemies = new List<Enemy>();
+    private List<EnemyPlayer> _enemies = new List<EnemyPlayer>();
     private CameraBounds _cameraBounds;
     // NOTICE :
     // need to change 'StageInfo'
@@ -27,7 +27,7 @@ public class EnemySpawner : SingletonMonoBehaviour<EnemySpawner>
     public void Init()
     {
         // create pool of enemy and start spawning
-        PoolingManager.Instance.Create("Enemy", "Enemy", 10);
+        PoolingManager.Instance.Create("EnemyPlayer", "EnemyPlayer", 10);
         StartCoroutine(CoSpawn());
 
         // start checking out of range
@@ -46,7 +46,7 @@ public class EnemySpawner : SingletonMonoBehaviour<EnemySpawner>
 
         while (true)
         {
-            Enemy enemy = PoolingManager.Instance.Spawn<Enemy>("Enemy");
+            EnemyPlayer enemy = PoolingManager.Instance.Spawn<EnemyPlayer>("EnemyPlayer");
             enemy.transform.position = CameraBounds.RandomPointOnBounds(_spawnBoundsOffset);
             enemy.Init();
 
@@ -56,7 +56,7 @@ public class EnemySpawner : SingletonMonoBehaviour<EnemySpawner>
         }
     }
 
-    public void Despawn(Enemy enemy)
+    public void Despawn(EnemyPlayer enemy)
     {
         _enemies.Remove(enemy);
 
@@ -80,13 +80,13 @@ public class EnemySpawner : SingletonMonoBehaviour<EnemySpawner>
         }
     }
 
-    public Enemy Closest(Vector3 position)
+    public EnemyPlayer Closest(Vector3 position)
     {
         if (_enemies.Count == 0) return null;
 
         float dstThreshold = 1f;
         float minDst = float.MaxValue;
-        Enemy target = null;
+        EnemyPlayer target = null;
 
         for (int i = 0; i < _enemies.Count; i++)
         {
@@ -100,7 +100,7 @@ public class EnemySpawner : SingletonMonoBehaviour<EnemySpawner>
         return target;
     }
 
-    public Enemy Random()
+    public EnemyPlayer Random()
     {
         return _enemies.Count == 0 ? null : _enemies[UnityEngine.Random.Range(0, _enemies.Count)];
     }

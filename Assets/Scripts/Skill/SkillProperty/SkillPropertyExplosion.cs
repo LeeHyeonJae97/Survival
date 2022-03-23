@@ -14,7 +14,7 @@ public class SkillPropertyExplosion : SkillProperty
         Type = SkillPropertyType.Explosion;
     }
 
-    public override void OnHit(SkillProjectile projectile, Enemy enemy)
+    public override void OnHit(SkillProjectile projectile, EnemyPlayer enemy)
     {
         // check percent
         if (!RandomExtension.CheckPercent(_percent)) return;
@@ -28,7 +28,7 @@ public class SkillPropertyExplosion : SkillProperty
 
         for (int i = 0; i < colls.Length; i++)
         {
-            Enemy nearby = colls[i].GetComponentInParent<Enemy>();
+            EnemyPlayer nearby = colls[i].GetComponentInParent<EnemyPlayer>();
             if (nearby != null)
             {
                 nearby.HP -= (int)_splash;

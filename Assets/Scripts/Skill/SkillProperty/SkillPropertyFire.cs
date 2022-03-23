@@ -15,7 +15,7 @@ public class SkillPropertyFire : SkillProperty
         Type = SkillPropertyType.Fire;
     }
 
-    public override void OnHit(SkillProjectile projectile, Enemy enemy)
+    public override void OnHit(SkillProjectile projectile, EnemyPlayer enemy)
     {
         // check aroused
         int percent = RandomExtension.percent;
@@ -41,7 +41,7 @@ public class SkillPropertyFire : SkillProperty
         }
     }
 
-    private IEnumerator CoDamageContinuously(float continuous, Enemy enemy)
+    private IEnumerator CoDamageContinuously(float continuous, EnemyPlayer enemy)
     {
         float elapsed = 0;
 

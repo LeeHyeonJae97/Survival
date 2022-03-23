@@ -37,7 +37,7 @@ public class SkillHitNewTarget : SkillHit
         {
             case "Enemy":
                 // damage enemy
-                projectile.Damage(collision.GetComponentInParent<Enemy>());
+                projectile.Damage(collision.GetComponentInParent<EnemyPlayer>());
                 break;
         }
     }

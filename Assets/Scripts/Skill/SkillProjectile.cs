@@ -81,7 +81,7 @@ public class SkillProjectile : MonoBehaviour
         Projection?.Projection_Start(this);
     }
 
-    public void Damage(Enemy enemy)
+    public void Damage(EnemyPlayer enemy)
     {
         if (enemy != null && !_enemies.Contains(enemy.GetInstanceID()))
         {

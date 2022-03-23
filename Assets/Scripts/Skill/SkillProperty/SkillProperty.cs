@@ -9,5 +9,5 @@ public abstract class SkillProperty : ScriptableObject
 
     [field: SerializeField] public SkillPropertyType Type { get; protected set; }
 
-    public abstract void OnHit(SkillProjectile projectile, Enemy enemy);
+    public abstract void OnHit(SkillProjectile projectile, EnemyPlayer enemy);
 }

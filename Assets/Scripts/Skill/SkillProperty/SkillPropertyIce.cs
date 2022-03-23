@@ -14,7 +14,7 @@ public class SkillPropertyIce : SkillProperty
         Type = SkillPropertyType.Ice;
     }
 
-    public override void OnHit(SkillProjectile projectile, Enemy enemy)
+    public override void OnHit(SkillProjectile projectile, EnemyPlayer enemy)
     {
         // check aroused
         int percent = RandomExtension.percent;
@@ -43,7 +43,7 @@ public class SkillPropertyIce : SkillProperty
         }
     }
 
-    private IEnumerator CoSlowDown(Enemy enemy)
+    private IEnumerator CoSlowDown(EnemyPlayer enemy)
     {
         enemy.Speed -= _slow;
         yield return WaitForSecondsFactory.Get(_duration);
@@ -51,10 +51,10 @@ public class SkillPropertyIce : SkillProperty
         enemy.Speed += _slow;
     }
 
-    private IEnumerator CoFreeze(Enemy enemy)
+    private IEnumerator CoFreeze(EnemyPlayer enemy)
     {
         float org = enemy.Speed;
-        enemy.Speed = -Enemy.MIN_SPEED;
+        enemy.Speed = -EnemyPlayer.MIN_SPEED;
         yield return WaitForSecondsFactory.Get(_duration);
 
         enemy.Speed = org;

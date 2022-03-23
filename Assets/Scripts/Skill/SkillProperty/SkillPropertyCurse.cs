@@ -13,7 +13,7 @@ public class SkillPropertyCurse : SkillProperty
         Type = SkillPropertyType.Curse;
     }
 
-    public override void OnHit(SkillProjectile projectile, Enemy enemy)
+    public override void OnHit(SkillProjectile projectile, EnemyPlayer enemy)
     {
         // check aroused
         if (RandomExtension.CheckPercent(_percent))
@@ -37,7 +37,7 @@ public class SkillPropertyCurse : SkillProperty
         }
     }
 
-    private IEnumerator CoCursed(Enemy enemy)
+    private IEnumerator CoCursed(EnemyPlayer enemy)
     {
         // change enemy's movement type
 

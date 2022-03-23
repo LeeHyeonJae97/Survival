@@ -11,6 +11,6 @@ public abstract class EnemyMovement : ScriptableObject
 
     [field: SerializeField] public EnemyMovementType Type { get; protected set; }
 
-    public abstract void Movement_Start(Enemy enemy);
-    public abstract void Movement_Update(Enemy enemy);
+    public abstract void Movement_Start(EnemyPlayer enemy);
+    public abstract void Movement_Update(EnemyPlayer enemy);
 }

@@ -16,7 +16,7 @@ public class SkillHitSingle : SkillHit
         {
             case "Enemy":
                 // damage enemy and despawn it
-                projectile.Damage(collision.GetComponentInParent<Enemy>());
+                projectile.Damage(collision.GetComponentInParent<EnemyPlayer>());
                 PoolingManager.Instance.Despawn<SkillProjectile>(projectile);
                 break;
 

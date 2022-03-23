@@ -13,7 +13,7 @@ public class SkillPropertyWind : SkillProperty
         Type = SkillPropertyType.Wind;
     }
 
-    public override void OnHit(SkillProjectile projectile, Enemy enemy)
+    public override void OnHit(SkillProjectile projectile, EnemyPlayer enemy)
     {
         // check percent
         if (!RandomExtension.CheckPercent(_percent)) return;

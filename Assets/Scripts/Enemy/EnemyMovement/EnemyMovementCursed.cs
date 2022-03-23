@@ -10,13 +10,13 @@ public class EnemyMovementCursed : EnemyMovement
         Type = EnemyMovementType.Cursed;
     }
 
-    public override void Movement_Start(Enemy enemy)
+    public override void Movement_Start(EnemyPlayer enemy)
     {
         // move toward random direction
         enemy.transform.right = -enemy.transform.right + enemy.transform.up * Random.Range(-1f, 1f);
     }
 
-    public override void Movement_Update(Enemy enemy)
+    public override void Movement_Update(EnemyPlayer enemy)
     {
         enemy.transform.Translate(Vector2.right * enemy.Speed * Time.deltaTime);
     }

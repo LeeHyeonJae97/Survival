@@ -27,7 +27,7 @@ public class SkillHitMultiple : SkillHit
         {
             case "Enemy":
                 // damage enemy
-                projectile.Damage(collision.GetComponentInParent<Enemy>());
+                projectile.Damage(collision.GetComponentInParent<EnemyPlayer>());
                 break;
         }
     }
