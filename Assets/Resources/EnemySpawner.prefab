@@ -45,4 +45,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _range: 20
   _checkOutOfRangeInterval: 5
-  _spawnBoundsOffset: 0
+  _waveInfo: {fileID: 11400000, guid: b73f148b835bf7645b914c1d2fdb094c, type: 2}

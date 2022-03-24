@@ -7,6 +7,7 @@ public class SkillPropertyCurse : SkillProperty
 {
     [SerializeField] private int _percent;
     [SerializeField] private float _duration;
+    [SerializeField] private EnemyMovementCursed _emc;
 
     private void OnValidate()
     {
@@ -15,6 +16,9 @@ public class SkillPropertyCurse : SkillProperty
 
     public override void OnHit(SkillProjectile projectile, EnemyPlayer enemy)
     {
+        // check constraint
+        if (enemy.Enemy.Constraint == Constraint.Curse) return;
+
         // check aroused
         if (RandomExtension.CheckPercent(_percent))
         {
@@ -40,9 +44,12 @@ public class SkillPropertyCurse : SkillProperty
     private IEnumerator CoCursed(EnemyPlayer enemy)
     {
         // change enemy's movement type
+        EnemyMovement org = enemy.Movement;
+        enemy.Movement = _emc;
 
         yield return WaitForSecondsFactory.Get(_duration);
 
         // recover enemy's movement type
+        enemy.Movement = org;
     }
 }

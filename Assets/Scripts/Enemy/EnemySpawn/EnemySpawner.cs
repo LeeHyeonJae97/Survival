@@ -6,15 +6,8 @@ public class EnemySpawner : SingletonMonoBehaviour<EnemySpawner>
 {
     [SerializeField] private float _range;
     [SerializeField] private float _checkOutOfRangeInterval;
-    [SerializeField] private float _spawnBoundsOffset;
-
-    private CameraBounds CameraBounds { get { if (_cameraBounds == null) _cameraBounds = new CameraBounds(Camera.main); return _cameraBounds; } }
-
+    [SerializeField] private WaveInfo _waveInfo;
     private List<EnemyPlayer> _enemies = new List<EnemyPlayer>();
-    private CameraBounds _cameraBounds;
-    // NOTICE :
-    // need to change 'StageInfo'
-    private float _spawnCooldown = .5f;
 
     protected override void Awake()
     {
@@ -26,8 +19,11 @@ public class EnemySpawner : SingletonMonoBehaviour<EnemySpawner>
 
     public void Init()
     {
+        // initialize wave info
+        _waveInfo.Init();
+
         // create pool of enemy and start spawning
-        PoolingManager.Instance.Create("EnemyPlayer", "EnemyPlayer", 10);
+        PoolingManager.Instance.Create<EnemyPlayer>(amount: 10);
         StartCoroutine(CoSpawn());
 
         // start checking out of range
@@ -36,23 +32,19 @@ public class EnemySpawner : SingletonMonoBehaviour<EnemySpawner>
 
     private IEnumerator CoSpawn()
     {
-        //Enemy enemy = PoolingManager.Instance.Spawn<Enemy>("Enemy");
-        //enemy.transform.position = Camera.RandomPointOnBounds(_spawnBoundsOffset);
-        //enemy.Init();
+        EnemySpawning spawning;
 
-        //_enemies.Add(enemy);
-
-        //yield return null;
-
-        while (true)
+        while ((spawning = _waveInfo.Next) != null)
         {
-            EnemyPlayer enemy = PoolingManager.Instance.Spawn<EnemyPlayer>("EnemyPlayer");
-            enemy.transform.position = CameraBounds.RandomPointOnBounds(_spawnBoundsOffset);
-            enemy.Init();
+            float elapsed = 0;
 
-            _enemies.Add(enemy);
+            while (elapsed < spawning.Duration)
+            {
+                _enemies.AddRange(spawning.Spawn());
+                yield return WaitForSecondsFactory.Get(spawning.Interval);
 
-            yield return WaitForSecondsFactory.Get(_spawnCooldown);
+                elapsed += spawning.Interval;
+            }
         }
     }
 
@@ -72,7 +64,8 @@ public class EnemySpawner : SingletonMonoBehaviour<EnemySpawner>
             {
                 if ((_enemies[i].transform.position - Player.Instance.transform.position).sqrMagnitude >= _range * _range)
                 {
-                    _enemies[i].Die();
+                    // decrease 'i' not to skip erased index
+                    _enemies[i--].Die();
                 }
             }
 
@@ -107,6 +100,6 @@ public class EnemySpawner : SingletonMonoBehaviour<EnemySpawner>
 
     private void OnDrawGizmosSelected()
     {
-        GizmosExtension.DrawCircle(Camera.main.transform.position, _range);
+        if (Application.isPlaying) GizmosExtension.DrawCircle(Player.Instance.transform.position, _range);
     }
 }

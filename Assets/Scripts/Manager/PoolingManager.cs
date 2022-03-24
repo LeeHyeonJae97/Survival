@@ -59,6 +59,12 @@ public class PoolingManager : SingletonMonoBehaviour<PoolingManager>
 
     private Dictionary<string, Pool> _dic = new Dictionary<string, Pool>();
 
+    public void Create<T>(string key = null, string path = null, int amount = 5)
+    {
+        string name = typeof(T).ToString();
+        _dic.Add(string.IsNullOrEmpty(key) ? name : key, new Pool(string.IsNullOrEmpty(path) ? name : path, amount));
+    }
+
     public void Create(string key, string path, int amount = 5)
     {
         _dic.Add(key, new Pool(path, amount));
@@ -74,9 +80,9 @@ public class PoolingManager : SingletonMonoBehaviour<PoolingManager>
         return _dic.TryGetValue(key, out Pool pool) ? pool.Spawn() : null;
     }
 
-    public T Spawn<T>(string key) where T : Component
+    public T Spawn<T>(string key = null) where T : Component
     {
-        return Spawn(key).GetComponent<T>();
+        return Spawn(string.IsNullOrEmpty(key) ? typeof(T).ToString() : key).GetComponent<T>();
     }
 
     public void Despawn(GameObject go)

@@ -15,6 +15,11 @@ public class EnemyMovementFollowPlayer : EnemyMovement
 
     }
 
+    public override void Movement_OnEanble(EnemyPlayer enemy)
+    {
+
+    }
+
     public override void Movement_Update(EnemyPlayer enemy)
     {
         enemy.transform.right = Player.Instance.transform.position - enemy.transform.position;

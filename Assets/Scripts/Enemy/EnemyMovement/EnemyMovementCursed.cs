@@ -12,8 +12,14 @@ public class EnemyMovementCursed : EnemyMovement
 
     public override void Movement_Start(EnemyPlayer enemy)
     {
+
+    }
+
+    public override void Movement_OnEanble(EnemyPlayer enemy)
+    {
         // move toward random direction
-        enemy.transform.right = -enemy.transform.right + enemy.transform.up * Random.Range(-1f, 1f);
+        enemy.transform.right = enemy.transform.position - Player.Instance.transform.position;
+        enemy.transform.right += enemy.transform.up * Random.Range(-1f, 1f);
     }
 
     public override void Movement_Update(EnemyPlayer enemy)

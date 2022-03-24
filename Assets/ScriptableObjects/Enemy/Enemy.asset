@@ -12,6 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd92c0f71cd03b44ab889ffe67509c7b, type: 3}
   m_Name: Enemy
   m_EditorClassIdentifier: 
+  <ID>k__BackingField: 0
   <HP>k__BackingField: 10
-  <Speed>k__BackingField: 5
-  <Movement>k__BackingField: {fileID: 11400000, guid: 50ba4993f721eac47aa4b734f482f0b0, type: 2}
+  <Speed>k__BackingField: 4
+  <Constraint>k__BackingField: 0
+  <Sprite>k__BackingField: {fileID: 0}
+  <Movement>k__BackingField: {fileID: 11400000, guid: a33a1c543d82aac4ba37d4e6f611263e, type: 2}

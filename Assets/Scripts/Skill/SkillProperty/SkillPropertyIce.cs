@@ -16,6 +16,9 @@ public class SkillPropertyIce : SkillProperty
 
     public override void OnHit(SkillProjectile projectile, EnemyPlayer enemy)
     {
+        // check constraint
+        if (enemy.Enemy.Constraint == Constraint.Ice) return;
+
         // check aroused
         int percent = RandomExtension.percent;
 

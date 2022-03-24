@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e531fc9c9520844792b7d38e1e79a25, type: 3}
+  m_Name: Enemy Spawning Fixed
+  m_EditorClassIdentifier: 
+  <Type>k__BackingField: 1
+  <Duration>k__BackingField: 5
+  <Interval>k__BackingField: 1
+  _boundsOffset: 0
+  _enemies:
+  - {fileID: 11400000, guid: 29c8e73f23cfe0c42b63f5f8c62ebb7a, type: 2}
+  _points:
+  - {x: -8, y: 10}
+  - {x: -8, y: 8}
+  - {x: -8, y: 6}
+  - {x: -8, y: 4}
+  - {x: -8, y: 2}
+  - {x: -8, y: 0}
+  - {x: -8, y: -2}
+  - {x: -8, y: -4}
+  - {x: -8, y: -6}
+  - {x: -8, y: -8}
+  - {x: -8, y: -10}

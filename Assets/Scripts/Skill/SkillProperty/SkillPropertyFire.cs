@@ -17,6 +17,9 @@ public class SkillPropertyFire : SkillProperty
 
     public override void OnHit(SkillProjectile projectile, EnemyPlayer enemy)
     {
+        // check constraint
+        if (enemy.Enemy.Constraint == Constraint.Fire) return;
+
         // check aroused
         int percent = RandomExtension.percent;
 

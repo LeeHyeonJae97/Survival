@@ -15,6 +15,9 @@ public class SkillPropertyWind : SkillProperty
 
     public override void OnHit(SkillProjectile projectile, EnemyPlayer enemy)
     {
+        // check constraint
+        if (enemy.Enemy.Constraint == Constraint.Wind) return;
+
         // check percent
         if (!RandomExtension.CheckPercent(_percent)) return;
 

@@ -472,6 +472,36 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 816028997}
   m_CullTransparentMesh: 1
+--- !u!1 &1007387414
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1007387415}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1007387415
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1007387414}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.25, y: 12.87, z: -12.625787}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1549443689
 GameObject:
   m_ObjectHideFlags: 0
@@ -598,6 +628,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5926112348065041601, guid: f8fb0b71995bc7e4a98ce528e6a41e22, type: 3}
+      propertyPath: _spawning
+      value: 
+      objectReference: {fileID: 11400000, guid: 873e6c034e5cdaa43b1f7b50857c4229, type: 2}
+    - target: {fileID: 5926112348065041601, guid: f8fb0b71995bc7e4a98ce528e6a41e22, type: 3}
+      propertyPath: _spawnings.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5926112348065041601, guid: f8fb0b71995bc7e4a98ce528e6a41e22, type: 3}
+      propertyPath: _spawnings.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: 873e6c034e5cdaa43b1f7b50857c4229, type: 2}
+    - target: {fileID: 5926112348065041601, guid: f8fb0b71995bc7e4a98ce528e6a41e22, type: 3}
+      propertyPath: _spawnings.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: 6a3d1a221677d2d4ca4ca538a95ebb0a, type: 2}
     - target: {fileID: 6972206450735955546, guid: f8fb0b71995bc7e4a98ce528e6a41e22, type: 3}
       propertyPath: m_Name
       value: EnemySpawner

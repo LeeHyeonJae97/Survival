@@ -9,6 +9,21 @@ public class EnemyPlayer : MonoBehaviour, IDamagable
 {
     public const float MIN_SPEED = 0.1f;
 
+    public Enemy Enemy
+    {
+        get { return _enemy; }
+
+        set
+        {
+            _enemy = value;
+
+            HP = _enemy.HP;
+            Speed = _enemy.Speed;
+            Movement = _enemy.Movement;
+
+            Movement.Movement_Start(this);
+        }
+    }
     public int HP
     {
         get { return _curHP; }
@@ -19,33 +34,41 @@ public class EnemyPlayer : MonoBehaviour, IDamagable
             if (_curHP <= 0) Die();
         }
     }
-    // TODO :
-    // need to tell whether 'stiff' or 'slow down'
-    public float Speed { get { return _curSpeed + MIN_SPEED; } set { _curSpeed = value; } }
+    public float Speed
+    {
+        get { return _curSpeed + MIN_SPEED; }
+        set { _curSpeed = value; }
+    }
+    public EnemyMovement Movement
+    {
+        get { return _movement; }
+
+        set
+        {
+            _movement = value;
+            _movement.Movement_OnEanble(this);
+        }
+    }
     public Dictionary<SkillPropertyType, IEnumerator> CrowdControlCorDic { get; private set; } = new Dictionary<SkillPropertyType, IEnumerator>();
 
-    private int _curHP;
+    private Enemy _enemy;
+    // TODO :
+    // remove serializefield attribute
+    [SerializeField] private int _curHP;
     private float _curSpeed;
     // TODO :
     // remove serializefield attribute
-    [SerializeField] private Enemy _enemy;
+    [SerializeField] private EnemyMovement _movement;
 
     private void Update()
     {
-        _enemy.Movement.Movement_Update(this);
+        Movement.Movement_Update(this);
     }
 
-    public void Init()
+    public void Init(Enemy enemy)
     {
         // initialize values
-        HP = _enemy.HP;
-        Speed = _enemy.Speed;
-
-        //
-        _enemy.Movement.Movement_Start(this);
-
-        //
-        // _enemy = (parameter)
+        Enemy = enemy;
     }
 
     public void Die()

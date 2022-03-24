@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,8 +15,18 @@ public abstract class UI : MonoBehaviour
             return _canvas;
         }
     }
+    private UITween[] UITweens
+    {
+        get
+        {
+            if (_uiTweens == null) _uiTweens = GetComponentsInChildren<UITween>();
+            return _uiTweens;
+        }
+    }
 
+    [SerializeField] protected bool _showOnAwake;
     private Canvas _canvas;
+    private UITween[] _uiTweens;
 
     public event UnityAction<bool> onSetActive;
 
@@ -23,10 +34,10 @@ public abstract class UI : MonoBehaviour
 
     protected virtual void Awake()
     {
-        Canvas.enabled = false;
-
         UIFactory.Add(this);
         onSetActive += OnSetActive;
+
+        SetActive(_showOnAwake, true);
     }
 
     protected virtual void OnDestroy()
@@ -35,9 +46,37 @@ public abstract class UI : MonoBehaviour
         onSetActive -= OnSetActive;
     }
 
-    public void SetActive(bool value)
+    public void SetActive(bool value, bool directly = false)
     {
-        Canvas.enabled = value;
-        onSetActive?.Invoke(value);
+        // NOTICE :
+        // if the duration of tweens are different, need to find logest tween
+
+        if (value)
+        {
+            Canvas.enabled = true;
+            for (int i = 0; i < UITweens.Length; i++)
+            {
+                if (!UITweens[i].IsTweening && !UITweens[i].IsActive)
+                {
+                    UITweens[i].Show(true, directly);
+                    if (i == 0) UITweens[i].Tween.onComplete += () => onSetActive?.Invoke(true);
+                }
+            }
+        }
+        else
+        {
+            for (int i = 0; i < UITweens.Length; i++)
+            {
+                if (!UITweens[i].IsTweening && UITweens[i].IsActive)
+                {
+                    UITweens[i].Show(false, directly);
+                    if (i == 0) UITweens[i].Tween.onComplete += () =>
+                    {
+                        Canvas.enabled = false;
+                        onSetActive?.Invoke(value);
+                    };
+                }
+            }
+        }
     }
 }

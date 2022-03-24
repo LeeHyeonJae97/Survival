@@ -16,6 +16,11 @@ public class EnemyMovementCrossPlayer : EnemyMovement
         enemy.transform.right = Player.Instance.transform.position - enemy.transform.position;
     }
 
+    public override void Movement_OnEanble(EnemyPlayer enemy)
+    {
+
+    }
+
     public override void Movement_Update(EnemyPlayer enemy)
     {
         enemy.transform.Translate(Vector2.right * enemy.Speed * Time.deltaTime);

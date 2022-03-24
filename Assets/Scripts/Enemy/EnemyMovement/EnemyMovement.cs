@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum EnemyMovementType { FollowPlayer, CrossPlayer, Cursed }
+public enum EnemyMovementType { FollowPlayer, CrossPlayer, CrossScreen, Cursed }
 
 public abstract class EnemyMovement : ScriptableObject
 {
@@ -12,5 +12,6 @@ public abstract class EnemyMovement : ScriptableObject
     [field: SerializeField] public EnemyMovementType Type { get; protected set; }
 
     public abstract void Movement_Start(EnemyPlayer enemy);
+    public abstract void Movement_OnEanble(EnemyPlayer enemy);
     public abstract void Movement_Update(EnemyPlayer enemy);
 }

@@ -17,6 +17,9 @@ public class SkillPropertyPoison : SkillProperty
 
     public override void OnHit(SkillProjectile projectile, EnemyPlayer enemy)
     {
+        // check constraint
+        if (enemy.Enemy.Constraint == Constraint.Poison) return;
+
         // check aroused
         if (RandomExtension.CheckPercent(_percent))
         {
