@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 798753992867877908}
   - component: {fileID: 3495633430646196173}
   - component: {fileID: 352121423932799021}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Sprite
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -72,7 +72,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1421861435
-  m_SortingLayer: 2
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: -4945098825930981432, guid: a4c95b4fbe7a72c49a8097cdbe7567df, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -108,7 +108,7 @@ SpriteMask:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2693810903666340434}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -145,8 +145,8 @@ SpriteMask:
   m_MaskAlphaCutoff: 0.2
   m_FrontSortingLayerID: -1421861435
   m_BackSortingLayerID: -1421861435
-  m_FrontSortingLayer: 2
-  m_BackSortingLayer: 2
+  m_FrontSortingLayer: 3
+  m_BackSortingLayer: 3
   m_FrontSortingOrder: 1
   m_BackSortingOrder: 0
   m_IsCustomRangeActive: 1
@@ -275,7 +275,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9012971154852204252}
   - component: {fileID: 8298671784568289800}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Blink
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -334,7 +334,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1421861435
-  m_SortingLayer: 2
+  m_SortingLayer: 3
   m_SortingOrder: 1
   m_Sprite: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

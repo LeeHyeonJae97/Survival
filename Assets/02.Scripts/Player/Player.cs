@@ -20,7 +20,7 @@ public class Player : SingletonMonoBehaviour<Player>, IDamageable
             {
                 PoolingManager.Instance.Spawn<DamagePopUpText>().Init(transform.position, _hp - value);
                 Blink();
-                if (value <= 0) Die();
+                if (value <= 0) CoDie();
             }
 
             _hp = value;
@@ -49,7 +49,7 @@ public class Player : SingletonMonoBehaviour<Player>, IDamageable
         _joystickEventChannel = EventChannelFactory.Get<JoystickEventChannelSO>();
 
         // set main camera as a child
-        //MainCamera.Camera.transform.SetParent(transform);
+        MainCamera.Camera.transform.SetParent(transform);
     }
 
     private void Start()
@@ -98,9 +98,10 @@ public class Player : SingletonMonoBehaviour<Player>, IDamageable
         transform.DOMove(dest, _dashDuration).onComplete += () => _dash = false;
     }
 
-    public void Die()
+    public IEnumerator CoDie()
     {
         Debug.Log("Game Over");
+        yield return null;
     }
 
     public void Blink()
@@ -110,8 +111,11 @@ public class Player : SingletonMonoBehaviour<Player>, IDamageable
 
     public IEnumerator CoBlink()
     {
+        _sm.enabled = true;
         _blinkSr.gameObject.SetActive(true);
         yield return WaitForSecondsFactory.Get(0.1f);
+
+        _sm.enabled = false;
         _blinkSr.gameObject.SetActive(false);
         _blinkCor = null;
     }

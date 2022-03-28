@@ -8,6 +8,8 @@ public class WaitForSecondsFactory
 
     public static WaitForSeconds Get(float seconds)
     {
+        if (seconds <= 0) return null;
+
         if (!_dic.TryGetValue(seconds, out Queue<WaitForSeconds> queue))
         {
             queue = new Queue<WaitForSeconds>();

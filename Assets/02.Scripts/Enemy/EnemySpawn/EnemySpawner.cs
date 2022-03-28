@@ -66,7 +66,7 @@ public class EnemySpawner : SingletonMonoBehaviour<EnemySpawner>
                 if ((Enemies[i].transform.position - Player.Instance.transform.position).sqrMagnitude >= _range * _range)
                 {
                     // decrease 'i' not to skip erased index
-                    Enemies[i--].Die();
+                    Enemies[i--].Despawn();
                 }
             }
 
@@ -74,9 +74,7 @@ public class EnemySpawner : SingletonMonoBehaviour<EnemySpawner>
         }
     }
 
-    // NOTICE :
-    // if boid algorithm can be applied, there's no scenario like character and enemy are overlapped
-    public EnemyPlayer Closest(Vector3 position, float minDstThreshold = 1f)
+    public EnemyPlayer Closest(Vector3 position, float range)
     {
         if (Enemies.Count == 0) return null;
 
@@ -85,8 +83,11 @@ public class EnemySpawner : SingletonMonoBehaviour<EnemySpawner>
 
         for (int i = 0; i < Enemies.Count; i++)
         {
+            if (Enemies[i].transform.position == position) continue;
+
             float dst = Enemies[i].transform.position.SqrDst(position);
-            if (minDstThreshold < dst && dst < minDst)
+
+            if (dst < range * range && dst < minDst)
             {
                 minDst = dst;
                 target = Enemies[i];
@@ -95,9 +96,20 @@ public class EnemySpawner : SingletonMonoBehaviour<EnemySpawner>
         return target;
     }
 
-    public EnemyPlayer Random()
+    public EnemyPlayer Random(Vector3 position, float range)
     {
-        return Enemies.Count == 0 ? null : Enemies[UnityEngine.Random.Range(0, Enemies.Count)];
+        if (Enemies.Count == 0) return null;
+
+        List<EnemyPlayer> enemies = new List<EnemyPlayer>();
+
+        for (int i = 0; i < Enemies.Count; i++)
+        {
+            if (Enemies[i].transform.position.SqrDst(position) < range * range)
+            {
+                enemies.Add(Enemies[i]);
+            }
+        }
+        return enemies.Count == 0 ? null : enemies[UnityEngine.Random.Range(0, enemies.Count)];
     }
 
     private void OnDrawGizmosSelected()

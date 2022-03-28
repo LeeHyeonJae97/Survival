@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public enum SkillTargetingType { Closest, Random, UnderPlayer }
+public enum SkillTargetingType { Closest, Random, Player }
 
 public abstract class SkillTargeting : ScriptableObject
 {
@@ -9,5 +9,5 @@ public abstract class SkillTargeting : ScriptableObject
 
     [field: SerializeField] public SkillTargetingType Type { get; protected set; }
 
-    public abstract GameObject GetTarget();
+    public abstract GameObject GetTarget(Vector3 position, float range);
 }

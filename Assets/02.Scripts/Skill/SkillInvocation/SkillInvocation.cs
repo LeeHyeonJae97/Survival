@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum SkillInvocationType { Projection, Spawn }
+public enum SkillInvocationType { Projection, Spawn, Child }
 
 public abstract class SkillInvocation : ScriptableObject
 {

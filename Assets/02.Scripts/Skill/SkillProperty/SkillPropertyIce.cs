@@ -23,8 +23,6 @@ public class SkillPropertyIce : SkillProperty
         SlowDown(enemy);
     }
 
-    // CONTINUE :
-    // need debugging
     private void SlowDown(EnemyPlayer enemy)
     {
         // if enemy has already crowd controlled before, continue it

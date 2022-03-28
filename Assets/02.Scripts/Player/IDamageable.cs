@@ -6,7 +6,7 @@ public interface IDamageable
 {
     public int HP { get; set; }
 
-    public void Die();
+    public IEnumerator CoDie();
     public void Blink();
     public IEnumerator CoBlink();
 }

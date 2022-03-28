@@ -5,30 +5,29 @@ using UnityEngine;
 [CreateAssetMenu(fileName = FILE_NAME + "Multiple", menuName = MENU_NAME + "Multiple")]
 public class SkillHitMultiple : SkillHit
 {
+    [SerializeField] private int _maxHitCount;
+
     private void OnValidate()
     {
         Type = SkillHitType.Multiple;
     }
 
-    public override void Hit_OnTriggerEnter2D(SkillProjectile projectile, Collider2D collision)
+    public override IEnumerator CoCheckHit(SkillProjectile projectile)
     {
-        switch (collision.tag)
+        while (true)
         {
-            case "Wall":
-                // just despawn projectile
-                PoolingManager.Instance.Despawn<SkillProjectile>(projectile);
-                break;
-        }
-    }
+            Collider2D[] colls = Physics2D.OverlapCircleAll(projectile.transform.position,
+                  projectile.Stat.Scale / 2, 1 << LayerMask.NameToLayer("Enemy"));
 
-    public override void Hit_OnTriggerStay2D(SkillProjectile projectile, Collider2D collision)
-    {
-        switch (collision.tag)
-        {
-            case "Enemy":
-                // damage enemy
-                projectile.Damage(collision.GetComponentInParent<EnemyPlayer>());
-                break;
+            if (colls != null)
+            {
+                for (int i = 0; i < colls.Length && i< _maxHitCount; i++)
+                {
+                    OnHit(projectile, colls[i]);
+                }
+                projectile.OnHit.OnHit(projectile);
+            }
+            yield return WaitForSecondsFactory.Get(projectile.Stat.DamagingCooldown);
         }
     }
 }

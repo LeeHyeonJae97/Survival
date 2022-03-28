@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b71f002f884d2ef49925a4ce2ce30c8a, type: 3}
+  m_Name: Skill PoisonGas
+  m_EditorClassIdentifier: 
+  <Name>k__BackingField: 
+  <Stat>k__BackingField:
+    <Scale>k__BackingField: 1
+    <Damage>k__BackingField: 1
+    <Cooldown>k__BackingField: 0.15
+    <LifeSpan>k__BackingField: 3
+    <FlySpeed>k__BackingField: 0
+    <Amount>k__BackingField: 1
+    <Interval>k__BackingField: 0
+    <TargetingRange>k__BackingField: 0
+    <DamagingCooldown>k__BackingField: 0.5
+  <Property>k__BackingField: {fileID: 11400000, guid: 0c9a2c7357470324c97abbb47d3112bb, type: 2}
+  <Invocation>k__BackingField: {fileID: 11400000, guid: 33632184c5e6875468d1cb9816ab47bb, type: 2}
+  <Targeting>k__BackingField: {fileID: 11400000, guid: 2ab73104e954b0447897fd131287e655, type: 2}
+  <Projection>k__BackingField: {fileID: 0}
+  <Hit>k__BackingField: {fileID: 11400000, guid: dfcf9b8ea86c2884096e4eac8ce39ebb, type: 2}
+  <OnHit>k__BackingField: {fileID: 11400000, guid: d18730b0b3c9d594184da6960240a1bf, type: 2}

@@ -10,8 +10,8 @@ public class SkillTargetingClosest : SkillTargeting
         Type = SkillTargetingType.Closest;
     }
 
-    public override GameObject GetTarget()
+    public override GameObject GetTarget(Vector3 position, float range)
     {
-        return EnemySpawner.Instance.Closest(Player.Instance.transform.position)?.gameObject;
+        return EnemySpawner.Instance.Closest(position, range)?.gameObject;
     }
 }

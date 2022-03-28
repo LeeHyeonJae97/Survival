@@ -12,6 +12,7 @@ public class Skill : ScriptableObject
     [field: SerializeField] public SkillTargeting Targeting { get; private set; }
     [field: SerializeField] public SkillProjection Projection { get; private set; }
     [field: SerializeField] public SkillHit Hit { get; private set; }
+    [field: SerializeField] public SkillOnHit OnHit { get; private set; }
 
     //public Skill(SkillProperty property, SkillInvocation invocation, SkillTargeting targeting, SkillProjection projection, SkillHit hit)
     //{
@@ -25,7 +26,14 @@ public class Skill : ScriptableObject
 
     public void Invoke()
     {
-        Player.Instance.StartCoroutine(CoInvoke());
+        if (Stat.Cooldown == 0)
+        {
+            Player.Instance.StartCoroutine(Invocation?.CoInvoke(this));
+        }
+        else
+        {
+            Player.Instance.StartCoroutine(CoInvoke());
+        }
     }
 
     public void Reinforce()
@@ -49,21 +57,6 @@ public class Skill : ScriptableObject
 [System.Serializable]
 public struct SkillStat
 {
-    //public static SkillStat Random
-    //{
-    //    get
-    //    {
-    //        SkillStat stat = new SkillStat();
-    //        stat.Damage = UnityEngine.Random.Range(1, 2);
-    //        stat.Cooldown = UnityEngine.Random.Range(1f, 2f);
-    //        stat.LifeSpan = UnityEngine.Random.Range(10f, 10f);
-    //        stat.FlySpeed = UnityEngine.Random.Range(8f, 10f);
-    //        stat.Amount = UnityEngine.Random.Range(1, 5);
-    //        stat.Interval = UnityEngine.Random.Range(0, 1f);
-    //        return stat;
-    //    }
-    //}
-
     [field: SerializeField] public float Scale { get; private set; }
     [field: SerializeField] public int Damage { get; private set; }
     [field: SerializeField] public float Cooldown { get; private set; }
@@ -71,6 +64,8 @@ public struct SkillStat
     [field: SerializeField] public float FlySpeed { get; private set; }
     [field: SerializeField] public int Amount { get; private set; }
     [field: SerializeField] public float Interval { get; private set; }
+    [field: SerializeField] public float TargetingRange { get; private set; }
+    [field: SerializeField] public float DamagingCooldown { get; private set; }
 
     public void Reinforce()
     {

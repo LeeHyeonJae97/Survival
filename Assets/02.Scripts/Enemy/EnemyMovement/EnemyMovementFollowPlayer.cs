@@ -23,8 +23,7 @@ public class EnemyMovementFollowPlayer : EnemyMovement
     public override void Movement_Update(EnemyPlayer enemy)
     {
         enemy.Direction = Player.Instance.transform.position - enemy.transform.position;
-        Avoid(enemy);
-
         enemy.transform.Translate(enemy.Direction * enemy.Speed * Time.deltaTime);
+        Avoid(enemy);
     }
 }

@@ -8,6 +8,10 @@ public abstract class EnemyMovement : ScriptableObject
 {
     public const string FILE_NAME = "Enemy Movement ";
     public const string MENU_NAME = "ScriptableObject/Enemy/Movement/";
+    // TODO :
+    // balance offset and enemy avoidance distance threshold
+    private const float avoidOffset = 0.03f;
+    private const float avoidDstThreshold = 0.5f * 0.5f;
 
     [field: SerializeField] public EnemyMovementType Type { get; protected set; }
 
@@ -17,11 +21,21 @@ public abstract class EnemyMovement : ScriptableObject
 
     protected void Avoid(EnemyPlayer enemy)
     {
-        // TODO :
-        // balance offset and enemy avoidance distance threshold
-        float offset = 0.03f;
-        float ead = 0.5f * 0.5f;
+        AvoidPlayer(enemy);
+        AvoidEnemy(enemy);
+    }
 
+    private void AvoidPlayer(EnemyPlayer enemy)
+    {
+        Vector2 dir = enemy.transform.position - Player.Instance.transform.position;
+        if (dir.sqrMagnitude < avoidDstThreshold)
+        {
+            enemy.transform.position += (Vector3)dir.normalized * avoidOffset;
+        }
+    }
+
+    private void AvoidEnemy(EnemyPlayer enemy)
+    {
         var enemies = EnemySpawner.Instance.Enemies;
 
         for (int i = 0; i < enemies.Count; i++)
@@ -29,7 +43,10 @@ public abstract class EnemyMovement : ScriptableObject
             if (enemies[i] == enemy) continue;
 
             Vector2 dir = enemy.transform.position - enemies[i].transform.position;
-            if (dir.sqrMagnitude < ead) enemy.transform.position += (Vector3)dir.normalized * offset;
+            if (dir.sqrMagnitude < avoidDstThreshold)
+            {
+                enemy.transform.position += (Vector3)dir.normalized * avoidOffset;
+            }
         }
     }
 }

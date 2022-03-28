@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1848f25cfd8781e4da8ce1b92a979620, type: 3}
-  m_Name: Skill Hit NewTarget
+  m_Script: {fileID: 11500000, guid: 70b3177a073385843863f13fcddc8287, type: 3}
+  m_Name: Skill OnHit None
   m_EditorClassIdentifier: 
-  <Type>k__BackingField: 2
+  <Type>k__BackingField: 0

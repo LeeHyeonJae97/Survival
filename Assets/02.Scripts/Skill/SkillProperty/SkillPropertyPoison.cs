@@ -23,8 +23,6 @@ public class SkillPropertyPoison : SkillProperty
         Poisoning(enemy);
     }
 
-    // CONTINUE :
-    // need debugging
     private void Poisoning(EnemyPlayer enemy)
     {
         // if enemy has already crowd controlled before, continue it

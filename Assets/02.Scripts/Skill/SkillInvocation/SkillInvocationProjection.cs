@@ -15,19 +15,20 @@ public class SkillInvocationProjection : SkillInvocation
         for (int i = 0; i < skill.Stat.Amount; i++)
         {
             // get target
-            GameObject target = skill.Targeting.GetTarget();
+            GameObject target = skill.Targeting.GetTarget(Player.Instance.transform.position, skill.Stat.TargetingRange);
 
             // if there's no enemy just skip
             if (target != null)
             {
                 // get projectile and initialize it
                 var projectile = PoolingManager.Instance.Spawn<SkillProjectile>();
-                projectile.Init(skill);
 
-                // invoke skill with projectile and target
                 Vector3 position = Player.Instance.transform.position;
                 Vector3 direction = target.transform.position - position;
-                projectile.Init(position, direction);
+
+                projectile.Init(skill);
+                projectile.Init(position, Vector3.one * skill.Stat.Scale, direction);
+                projectile.Init();
 
                 // wait for interval
                 yield return WaitForSecondsFactory.Get(skill.Stat.Interval);

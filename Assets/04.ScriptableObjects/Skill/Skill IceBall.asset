@@ -14,15 +14,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Name>k__BackingField: 
   <Stat>k__BackingField:
-    <Scale>k__BackingField: 3
+    <Scale>k__BackingField: 0.6
     <Damage>k__BackingField: 1
     <Cooldown>k__BackingField: 0.3
-    <LifeSpan>k__BackingField: 1
-    <FlySpeed>k__BackingField: 0
-    <Amount>k__BackingField: 0
-    <Interval>k__BackingField: 0
+    <LifeSpan>k__BackingField: 5
+    <FlySpeed>k__BackingField: 2
+    <Amount>k__BackingField: 1
+    <Interval>k__BackingField: 0.2
+    <TargetingRange>k__BackingField: 7
+    <DamagingCooldown>k__BackingField: 0.3
   <Property>k__BackingField: {fileID: 11400000, guid: 298d8d8f24348c34793664d811b0ec81, type: 2}
-  <Invocation>k__BackingField: {fileID: 11400000, guid: 33632184c5e6875468d1cb9816ab47bb, type: 2}
+  <Invocation>k__BackingField: {fileID: 11400000, guid: b69d67e105d7d934cb5138a3e83ee3c5, type: 2}
   <Targeting>k__BackingField: {fileID: 11400000, guid: 4ccbc879a3b119f43b814394d2391ab0, type: 2}
-  <Projection>k__BackingField: {fileID: 0}
-  <Hit>k__BackingField: {fileID: 11400000, guid: 23fa0166970d9ba4cb7df0a048ba8f5a, type: 2}
+  <Projection>k__BackingField: {fileID: 11400000, guid: 8f2e46c15bc2aef458c4f7f3da7ed091, type: 2}
+  <Hit>k__BackingField: {fileID: 11400000, guid: dfcf9b8ea86c2884096e4eac8ce39ebb, type: 2}
+  <OnHit>k__BackingField: {fileID: 11400000, guid: d18730b0b3c9d594184da6960240a1bf, type: 2}

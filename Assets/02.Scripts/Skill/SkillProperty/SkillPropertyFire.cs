@@ -23,8 +23,6 @@ public class SkillPropertyFire : SkillProperty
         Burning(enemy);
     }
 
-    // CONTINUE :
-    // need debugging
     private void Burning(EnemyPlayer enemy)
     {
         // if enemy has already crowd controlled before, continue it
@@ -35,10 +33,6 @@ public class SkillPropertyFire : SkillProperty
             // if crowd control is active, just reset the duration
             if (cc.IsActive)
             {
-                // CONTINUE :
-                // the remain duration have to be more than half to increase level
-                // or juset reset the duration
-
                 if (cc.Duration > _ccInfo.Durations[cc.Level] / 2)
                 {
                     cc.Level = Mathf.Min(cc.Level + 1, CrowdControlInfo.MAX_LEVEL);

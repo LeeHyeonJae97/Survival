@@ -45,7 +45,7 @@ public class EnemyMovementCrossScreen : EnemyMovement
 
     public override void Movement_Update(EnemyPlayer enemy)
     {
-        Avoid(enemy);
         enemy.transform.Translate(enemy.Direction * enemy.Speed * Time.deltaTime);
+        Avoid(enemy);
     }
 }

@@ -10,25 +10,18 @@ public class SkillHitSingle : SkillHit
         Type = SkillHitType.Single;
     }
 
-    public override void Hit_OnTriggerEnter2D(SkillProjectile projectile, Collider2D collision)
+    public override IEnumerator CoCheckHit(SkillProjectile projectile)
     {
-        switch (collision.tag)
+        while (true)
         {
-            case "Enemy":
-                // damage enemy and despawn it
-                projectile.Damage(collision.GetComponentInParent<EnemyPlayer>());
-                PoolingManager.Instance.Despawn<SkillProjectile>(projectile);
-                break;
-
-            case "Wall":
-                // just despawn projectile
-                PoolingManager.Instance.Despawn<SkillProjectile>(projectile);
-                break;
+            Collider2D coll = Physics2D.OverlapCircle(projectile.transform.position,
+                projectile.Stat.Scale / 2, 1 << LayerMask.NameToLayer("Enemy"));
+            if (coll != null)
+            {
+                OnHit(projectile, coll);
+                projectile.OnHit.OnHit(projectile);
+            }
+            yield return WaitForSecondsFactory.Get(projectile.Stat.DamagingCooldown);
         }
-    }
-
-    public override void Hit_OnTriggerStay2D(SkillProjectile projectile, Collider2D collision)
-    {
-
     }
 }

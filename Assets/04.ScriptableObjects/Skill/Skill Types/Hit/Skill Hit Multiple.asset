@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: Skill Hit Multiple
   m_EditorClassIdentifier: 
   <Type>k__BackingField: 1
+  _maxHitCount: 10

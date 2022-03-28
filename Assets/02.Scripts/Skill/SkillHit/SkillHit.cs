@@ -11,7 +11,22 @@ public abstract class SkillHit : ScriptableObject
 
     [field: SerializeField] public SkillHitType Type { get; protected set; }
 
-    public abstract void Hit_OnTriggerEnter2D(SkillProjectile projectile, Collider2D collision);
-    public abstract void Hit_OnTriggerStay2D(SkillProjectile projectile, Collider2D collision);
+    public abstract IEnumerator CoCheckHit(SkillProjectile projectile);
+
+    protected void OnHit(SkillProjectile projectile, Collider2D collision)
+    {
+        switch (collision.tag)
+        {
+            case "Enemy":
+                // damage enemy
+                projectile.Damage(collision.GetComponentInParent<EnemyPlayer>());
+                break;
+
+            case "Wall":
+                // just despawn projectile
+                PoolingManager.Instance.Despawn<SkillProjectile>(projectile);
+                break;
+        }
+    }
 }
 

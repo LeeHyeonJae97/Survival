@@ -13,9 +13,10 @@ MonoBehaviour:
   m_Name: Enemy
   m_EditorClassIdentifier: 
   <Id>k__BackingField: 0
-  <Hp>k__BackingField: 1000
+  <Hp>k__BackingField: 10
   <Damage>k__BackingField: 5
   <Speed>k__BackingField: 1
   <Constraint>k__BackingField: 0
   <Sprite>k__BackingField: {fileID: -4945098825930981432, guid: a4c95b4fbe7a72c49a8097cdbe7567df, type: 3}
   <Movement>k__BackingField: {fileID: 11400000, guid: 50ba4993f721eac47aa4b734f482f0b0, type: 2}
+  <Coin>k__BackingField: 5

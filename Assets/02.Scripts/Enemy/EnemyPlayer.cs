@@ -31,7 +31,7 @@ public class EnemyPlayer : MonoBehaviour, IDamageable
         {
             if (value < _hp) Blink();
             _hp = value;
-            if (_hp <= 0) Die();
+            if (_hp <= 0) StartCoroutine(CoDie());
         }
     }
     public float Speed
@@ -91,10 +91,28 @@ public class EnemyPlayer : MonoBehaviour, IDamageable
     {
         // initialize values
         Enemy = enemy;
+
+        // reset
+        _sm.enabled = false;
+        _blinkSr.gameObject.SetActive(false);
+        _blinkCor = null;
     }
 
-    public void Die()
+    public IEnumerator CoDie()
     {
+        // drop coins
+        for (int i = 0; i < Enemy.Coin; i++)
+        {
+            PoolingManager.Instance.Spawn<Coin>().Init(transform.position);
+        }
+
+        yield return WaitForSecondsFactory.Get(0.15f);
+        Despawn();
+    }
+
+    public void Despawn()
+    {
+        // despawn
         EnemySpawner.Instance.Despawn(this);
     }
 
@@ -105,8 +123,11 @@ public class EnemyPlayer : MonoBehaviour, IDamageable
 
     public IEnumerator CoBlink()
     {
+        _sm.enabled = true;
         _blinkSr.gameObject.SetActive(true);
         yield return WaitForSecondsFactory.Get(0.1f);
+
+        _sm.enabled = false;
         _blinkSr.gameObject.SetActive(false);
         _blinkCor = null;
     }

@@ -47,6 +47,9 @@ MonoBehaviour:
   - <Key>k__BackingField: CrowdControlIcon
     _prefab: {fileID: 6808955073483212204, guid: bf808f5f08b0bea46b9c1c33a3524915, type: 3}
     _amount: 3
+  - <Key>k__BackingField: Coin
+    _prefab: {fileID: 4070479033444804562, guid: b450201dedaac6f438f78263a427ac9e, type: 3}
+    _amount: 5
   - <Key>k__BackingField: DamagePopUpText
     _prefab: {fileID: 485807916737497476, guid: 049eabc47f535e647856749e52eaf67a, type: 3}
     _amount: 3
