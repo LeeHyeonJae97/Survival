@@ -43,6 +43,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 762556e98c5f6a34d8885ca1cf4bc0aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _range: 20
+  _range: 10
   _checkOutOfRangeInterval: 5
   _waveInfo: {fileID: 11400000, guid: b73f148b835bf7645b914c1d2fdb094c, type: 2}

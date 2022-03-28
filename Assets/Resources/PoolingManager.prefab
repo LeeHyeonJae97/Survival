@@ -43,3 +43,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6abae85885ad5884b88141c57092332d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _pools:
+  - <Key>k__BackingField: CrowdControlIcon
+    _prefab: {fileID: 6808955073483212204, guid: bf808f5f08b0bea46b9c1c33a3524915, type: 3}
+    _amount: 3
+  - <Key>k__BackingField: DamagePopUpText
+    _prefab: {fileID: 485807916737497476, guid: 049eabc47f535e647856749e52eaf67a, type: 3}
+    _amount: 3

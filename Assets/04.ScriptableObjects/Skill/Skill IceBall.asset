@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b71f002f884d2ef49925a4ce2ce30c8a, type: 3}
+  m_Name: Skill IceBall
+  m_EditorClassIdentifier: 
+  <Name>k__BackingField: 
+  <Stat>k__BackingField:
+    <Scale>k__BackingField: 3
+    <Damage>k__BackingField: 1
+    <Cooldown>k__BackingField: 0.3
+    <LifeSpan>k__BackingField: 1
+    <FlySpeed>k__BackingField: 0
+    <Amount>k__BackingField: 0
+    <Interval>k__BackingField: 0
+  <Property>k__BackingField: {fileID: 11400000, guid: 298d8d8f24348c34793664d811b0ec81, type: 2}
+  <Invocation>k__BackingField: {fileID: 11400000, guid: 33632184c5e6875468d1cb9816ab47bb, type: 2}
+  <Targeting>k__BackingField: {fileID: 11400000, guid: 4ccbc879a3b119f43b814394d2391ab0, type: 2}
+  <Projection>k__BackingField: {fileID: 0}
+  <Hit>k__BackingField: {fileID: 11400000, guid: 23fa0166970d9ba4cb7df0a048ba8f5a, type: 2}
