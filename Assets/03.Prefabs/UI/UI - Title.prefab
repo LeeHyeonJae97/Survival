@@ -134,7 +134,7 @@ GameObject:
   - component: {fileID: 6707936741367420572}
   - component: {fileID: 365235348112608321}
   m_Layer: 5
-  m_Name: Button - Start
+  m_Name: Button - Play
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -707,3 +707,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _showOnAwake: 1
+  _playButton: {fileID: 365235348112608321}
+  _exitButton: {fileID: 4326802858502653896}

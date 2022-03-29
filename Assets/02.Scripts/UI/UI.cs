@@ -7,7 +7,7 @@ using UnityEngine.Events;
 [RequireComponent(typeof(Canvas))]
 public abstract class UI : MonoBehaviour
 {
-    public bool Active { get; private set; }
+    public bool IsActive { get; private set; }
     private Canvas Canvas
     {
         get
@@ -38,7 +38,7 @@ public abstract class UI : MonoBehaviour
         UIFactory.Add(this);
         onSetActive += OnSetActive;
 
-        SetActive(_showOnAwake, true);
+        SetActive(_showOnAwake, true, true);
     }
 
     protected virtual void OnDestroy()
@@ -47,7 +47,7 @@ public abstract class UI : MonoBehaviour
         onSetActive -= OnSetActive;
     }
 
-    public void SetActive(bool value, bool directly = false)
+    public void SetActive(bool value, bool directly = false, bool forcibly = false)
     {
         // NOTICE :
         // if the duration of tweens are different, need to find logest tween
@@ -61,7 +61,7 @@ public abstract class UI : MonoBehaviour
             {
                 for (int i = 0; i < UITweens.Length; i++)
                 {
-                    if (!UITweens[i].IsTweening && !UITweens[i].IsActive)
+                    if (!UITweens[i].IsTweening && (forcibly || !UITweens[i].IsActive))
                     {
                         UITweens[i].Show(true, directly);
                         if (i == 0) UITweens[i].Tween.onComplete += () => onSetActive?.Invoke(true);
@@ -74,7 +74,7 @@ public abstract class UI : MonoBehaviour
                 onSetActive?.Invoke(true);
             }
 
-            Active = true;
+            IsActive = true;
         }
         else
         {
@@ -83,7 +83,10 @@ public abstract class UI : MonoBehaviour
             {
                 for (int i = 0; i < UITweens.Length; i++)
                 {
-                    if (!UITweens[i].IsTweening && UITweens[i].IsActive)
+                    // CONTINUE :
+                    Debug.Log($"{!UITweens[i].IsTweening} {UITweens[i].IsActive}");
+
+                    if (!UITweens[i].IsTweening && (forcibly ||UITweens[i].IsActive))
                     {
                         UITweens[i].Show(false, directly);
                         if (i == 0) UITweens[i].Tween.onComplete += () =>
@@ -101,7 +104,7 @@ public abstract class UI : MonoBehaviour
                 onSetActive?.Invoke(value);
             }
 
-            Active = false;
+            IsActive = false;
         }
     }
 }

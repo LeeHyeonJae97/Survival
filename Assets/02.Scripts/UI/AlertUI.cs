@@ -24,7 +24,7 @@ public class AlertUI : UI
 
     public void Alert(string message)
     {
-        if (!Active)
+        if (!IsActive)
         {
             _messageText.text = message;
             SetActive(true);

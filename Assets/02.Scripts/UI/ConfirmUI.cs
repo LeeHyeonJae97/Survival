@@ -33,7 +33,7 @@ public class ConfirmUI : UI
 
     public void Confirm(string message, UnityAction onAccepted)
     {
-        if (!Active)
+        if (!IsActive)
         {
             _messageText.text = message;
             this.onAccepted += onAccepted;

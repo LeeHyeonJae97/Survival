@@ -15,8 +15,9 @@ public class JoystickUI : MonoBehaviour, IPointerDownHandler, IPointerUpHandler,
     }
 
     [SerializeField] private float _radius;
-    private Transform _base;
-    private Transform _stick;
+    [SerializeField] private Canvas _canvas;
+    [SerializeField] private Transform _base;
+    [SerializeField] private Transform _stick;
     private bool _inRange;
     private bool _pressed;
     private JoystickEventChannelSO _joystickEventChannel;
@@ -29,30 +30,34 @@ public class JoystickUI : MonoBehaviour, IPointerDownHandler, IPointerUpHandler,
 
     private void Update()
     {
-        if (_pressed) JoystickEventChannel.OnDrag(_stick.position - _base.position);
+        if (_pressed) JoystickEventChannel.OnDrag(_canvas.InverseTransformDirection(_stick.position - _base.position));
     }
 
     public void OnPointerDown(PointerEventData eventData)
     {
         _pressed = true;
 
+        Vector3 position = _canvas.TransformScreenPoint(eventData.position);
+
         // check pressed position is in range
-        _inRange = InRange(eventData.position, _base.position, _radius);
+        _inRange = InRange(position, _base.position, _radius);
 
         // if in range, set stick's initial position and invoke event
         if (_inRange)
         {
-            _stick.position = eventData.position;
-            JoystickEventChannel.OnBeginDrag(_stick.position - _base.position);
+            _stick.position = position;
+            JoystickEventChannel.OnBeginDrag(_canvas.InverseTransformDirection( _stick.position - _base.position));
         }
     }
 
     public void OnPointerClick(PointerEventData eventData)
     {
+        Vector3 position = _canvas.TransformScreenPoint(eventData.position);
+
         // check boundary double click
-        if (eventData.clickCount == 2 && !InRange(eventData.position, _base.position, _radius))
+        if (eventData.clickCount == 2 && !InRange(position, _base.position, _radius))
         {
-            JoystickEventChannel.OnBoundaryDoubleClicked(eventData.position - (Vector2)_base.position);
+            JoystickEventChannel.OnBoundaryDoubleClicked(_canvas.InverseTransformDirection(position - _base.position));
         }
     }
 
@@ -67,8 +72,10 @@ public class JoystickUI : MonoBehaviour, IPointerDownHandler, IPointerUpHandler,
 
     public void OnDrag(PointerEventData eventData)
     {
+        Vector3 position = _canvas.TransformScreenPoint(eventData.position);
+
         // set stick's position
-        if (_inRange) _stick.position = Bound(eventData.position, _base.position, _radius);
+        if (_inRange) _stick.position = Bound(position, _base.position, _radius);
     }
 
     private bool InRange(Vector3 position, Vector3 center, float radius)
@@ -77,7 +84,7 @@ public class JoystickUI : MonoBehaviour, IPointerDownHandler, IPointerUpHandler,
         return (position - center).sqrMagnitude < radius * radius;
     }
 
-    private Vector2 Bound(Vector3 position, Vector3 center, float radius)
+    private Vector3 Bound(Vector3 position, Vector3 center, float radius)
     {
         // bound stick's position not to get out of base of joystick
         return InRange(position, center, radius) ? position : center + (position - center).normalized * radius;
