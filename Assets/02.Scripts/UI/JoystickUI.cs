@@ -31,12 +31,10 @@ public class JoystickUI : MonoBehaviour, IPointerDownHandler, IPointerUpHandler,
     {
         _pressed = true;
 
-        Vector3 position = eventData.position - _base.anchoredPosition;
-
-        Debug.Log(position);
+        Vector2 position = CalculateStickPosition(eventData.position);
 
         // check pressed position is in range
-        _inRange = InRange(position, _base.anchoredPosition, _radius);
+        _inRange = InRange(position, _radius);
 
         // if in range, set stick's initial position and invoke event
         if (_inRange)
@@ -48,10 +46,10 @@ public class JoystickUI : MonoBehaviour, IPointerDownHandler, IPointerUpHandler,
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        Vector2 position = eventData.position - _base.anchoredPosition;
+        Vector2 position = CalculateStickPosition(eventData.position);
 
         // check boundary double click
-        if (eventData.clickCount == 2 && !InRange(position, _base.anchoredPosition, _radius))
+        if (eventData.clickCount == 2 && !InRange(position, _radius))
         {
             JoystickEventChannel.OnBoundaryDoubleClicked(position - _base.anchoredPosition);
         }
@@ -62,27 +60,33 @@ public class JoystickUI : MonoBehaviour, IPointerDownHandler, IPointerUpHandler,
         _pressed = false;
 
         // reset stick's position and invoke event
-        _stick.anchoredPosition = _base.anchoredPosition;
+        _stick.anchoredPosition = Vector2.zero;
         JoystickEventChannel.OnEndDrag();
     }
 
     public void OnDrag(PointerEventData eventData)
     {
-        Vector2 position = eventData.position - _base.anchoredPosition;
+        Vector2 position = CalculateStickPosition(eventData.position);
 
         // set stick's position
-        if (_inRange) _stick.anchoredPosition = Bound(position, _base.anchoredPosition, _radius);
+        if (_inRange) _stick.anchoredPosition = Bound(position, _radius);
     }
 
-    private bool InRange(Vector2 position, Vector2 center, float radius)
+    private bool InRange(Vector2 position, float radius)
     {
         // check position is in radius from center
-        return (position - center).sqrMagnitude < radius * radius;
+        return position.sqrMagnitude < radius * radius;
     }
 
-    private Vector3 Bound(Vector2 position, Vector2 center, float radius)
+    private Vector3 Bound(Vector2 position, float radius)
     {
         // bound stick's position not to get out of base of joystick
-        return InRange(position, center, radius) ? position : center + (position - center).normalized * radius;
+        return InRange(position, radius) ? position : position.normalized * radius;
+    }
+
+    private Vector2 CalculateStickPosition(Vector2 touchPosition)
+    {
+        return touchPosition -
+            (Vector2)(_canvas.renderMode == RenderMode.ScreenSpaceCamera ? MainCamera.Camera.WorldToScreenPoint(_base.position) : _base.position);
     }
 }
