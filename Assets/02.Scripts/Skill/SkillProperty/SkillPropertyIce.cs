@@ -67,14 +67,14 @@ public class SkillPropertyIce : SkillProperty
             // need optimization
             // cost of calling getter and setter per frame can be very expensive
             // and also there can be lots of active enemies
-            enemy.Speed = enemy.Enemy.Speed - _ccInfo.Values[cc.Level];
+            enemy.Speed = enemy.Enemy.Stats[(int)StatType.Speed].Value - _ccInfo.Values[cc.Level];
             yield return null;
 
             cc.Duration -= Time.deltaTime;
         }
 
         // recover speed
-        enemy.Speed = enemy.Enemy.Speed;
+        enemy.Speed = enemy.Enemy.Stats[(int)StatType.Speed].Value;
         
         // despawn icon
         PoolingManager.Instance.Despawn<SpriteRenderer>(icon);

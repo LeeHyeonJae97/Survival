@@ -19,7 +19,6 @@ public class ConfirmUI : UI
 
         _acceptButton.onClick.AddListener(() => onAccepted?.Invoke());
         _cancelButton.onClick.AddListener(() => SetActive(false));
-        DontDestroyOnLoad(gameObject);
     }
 
     protected override void OnSetActive(bool value)

@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class SkillGenerator : SingletonMonoBehaviour<SkillGenerator>
 {
-    [SerializeField] private Skill[] _skills;
+    [SerializeField] private SkillSO[] _skills;
 
     private void Start()
     {
@@ -14,12 +14,13 @@ public class SkillGenerator : SingletonMonoBehaviour<SkillGenerator>
         Generate();
     }
 
-    public Skill Generate()
+    public LiveSkill Generate()
     {
         // DEPRECATED
-        Skill skill = _skills[Random.Range(0, _skills.Length)];
-        Player.Instance.Skills.Add(skill);
-        skill.Invoke();
-        return skill;
+        //LiveSkill skill = new LiveSkill(_skills[Random.Range(0, _skills.Length)]);
+        //Player.Instance.Equip(skill);
+        //skill.Invoke();
+
+        return null;
     }
 }

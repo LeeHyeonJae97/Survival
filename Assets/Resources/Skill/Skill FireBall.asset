@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b71f002f884d2ef49925a4ce2ce30c8a, type: 3}
+  m_Name: Skill FireBall
+  m_EditorClassIdentifier: 
+  <Id>k__BackingField: 0
+  <Icon>k__BackingField: {fileID: 0}
+  <Name>k__BackingField: Fireball
+  <Description>k__BackingField: 
+  <Stats>k__BackingField:
+  - <Scale>k__BackingField: 0
+    <Damage>k__BackingField: 0
+    <Cooldown>k__BackingField: 0
+    <LifeSpan>k__BackingField: 0
+    <FlySpeed>k__BackingField: 0
+    <Amount>k__BackingField: 0
+    <Interval>k__BackingField: 0
+    <TargetingRange>k__BackingField: 0
+    <DamagingCooldown>k__BackingField: 0
+  <Property>k__BackingField: {fileID: 11400000, guid: 3ba20ca23e6e54b49b303fc71c636d49, type: 2}
+  <Invocation>k__BackingField: {fileID: 11400000, guid: b69d67e105d7d934cb5138a3e83ee3c5, type: 2}
+  <Targeting>k__BackingField: {fileID: 11400000, guid: 603b8e211d9465e4bb46ceef4da6aaef, type: 2}
+  <Projection>k__BackingField: {fileID: 11400000, guid: 8f2e46c15bc2aef458c4f7f3da7ed091, type: 2}
+  <Hit>k__BackingField: {fileID: 11400000, guid: 23fa0166970d9ba4cb7df0a048ba8f5a, type: 2}
+  <OnHit>k__BackingField: {fileID: 11400000, guid: f7f4b8ceda010d64194392092c262090, type: 2}

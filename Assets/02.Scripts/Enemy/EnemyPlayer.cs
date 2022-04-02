@@ -6,7 +6,7 @@ public class EnemyPlayer : MonoBehaviour, IDamageable
 {
     public const float MIN_SPEED = 0.1f;
 
-    public Enemy Enemy
+    public EnemySO Enemy
     {
         get { return _enemy; }
 
@@ -14,8 +14,8 @@ public class EnemyPlayer : MonoBehaviour, IDamageable
         {
             _enemy = value;
 
-            HP = _enemy.Hp;
-            Speed = _enemy.Speed;
+            HP = _enemy.Stats[(int)StatType.Hp].Value;
+            Speed = _enemy.Stats[(int)StatType.Speed].Value;
             _sr.sprite = _enemy.Sprite;
             _sm.sprite = _enemy.Sprite;
             Movement = _enemy.Movement;
@@ -72,7 +72,7 @@ public class EnemyPlayer : MonoBehaviour, IDamageable
     [SerializeField] private Transform _crowdControlIconsHolder;
     private int _hp;
     private float _speed;
-    private Enemy _enemy;
+    private EnemySO _enemy;
     private EnemyMovement _movement;
     private Vector2 _direction;
     private Coroutine _blinkCor;
@@ -84,10 +84,10 @@ public class EnemyPlayer : MonoBehaviour, IDamageable
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player")) collision.GetComponentInParent<Player>().HP -= Enemy.Damage;
+        if (collision.CompareTag("Player")) collision.GetComponentInParent<Player>().HP -= Enemy.Stats[(int)StatType.Hp].Value;
     }
 
-    public void Init(Enemy enemy)
+    public void Init(EnemySO enemy)
     {
         // initialize values
         Enemy = enemy;

@@ -8,22 +8,6 @@ using UnityEngine.Events;
 public abstract class UI : MonoBehaviour
 {
     public bool IsActive { get; private set; }
-    private Canvas Canvas
-    {
-        get
-        {
-            if (_canvas == null) _canvas = GetComponent<Canvas>();
-            return _canvas;
-        }
-    }
-    private UITween[] UITweens
-    {
-        get
-        {
-            if (_uiTweens == null) _uiTweens = GetComponentsInChildren<UITween>();
-            return _uiTweens;
-        }
-    }
 
     [SerializeField] protected bool _showOnAwake;
     private Canvas _canvas;
@@ -35,10 +19,15 @@ public abstract class UI : MonoBehaviour
 
     protected virtual void Awake()
     {
+        _canvas = GetComponent<Canvas>();
+        _uiTweens = GetComponentsInChildren<UITween>();
+
+        _canvas.worldCamera = MainCamera.Camera;
+
+        SetActive(_showOnAwake, true);
+
         UIFactory.Add(this);
         onSetActive += OnSetActive;
-
-        SetActive(_showOnAwake, true, true);
     }
 
     protected virtual void OnDestroy()
@@ -47,24 +36,29 @@ public abstract class UI : MonoBehaviour
         onSetActive -= OnSetActive;
     }
 
-    public void SetActive(bool value, bool directly = false, bool forcibly = false)
+    protected void ResetOnSetActive()
+    {
+        onSetActive = null;
+    }
+
+    public void SetActive(bool value, bool directly = false)
     {
         // NOTICE :
         // if the duration of tweens are different, need to find logest tween
 
         if (value)
         {
-            Canvas.enabled = true;
+            _canvas.enabled = true;
 
             // if there is at least one UITween
-            if (UITweens.Length > 0)
+            if (_uiTweens.Length > 0)
             {
-                for (int i = 0; i < UITweens.Length; i++)
+                for (int i = 0; i < _uiTweens.Length; i++)
                 {
-                    if (!UITweens[i].IsTweening && (forcibly || !UITweens[i].IsActive))
+                    if (!_uiTweens[i].IsTweening && (directly || !_uiTweens[i].IsActive))
                     {
-                        UITweens[i].Show(true, directly);
-                        if (i == 0) UITweens[i].Tween.onComplete += () => onSetActive?.Invoke(true);
+                        _uiTweens[i].Show(true, directly);
+                        if (i == 0) _uiTweens[i].Tween.onComplete += () => onSetActive?.Invoke(true);
                     }
                 }
             }
@@ -79,19 +73,16 @@ public abstract class UI : MonoBehaviour
         else
         {
             // if there is at least one UITween
-            if (UITweens.Length > 0)
+            if (_uiTweens.Length > 0)
             {
-                for (int i = 0; i < UITweens.Length; i++)
+                for (int i = 0; i < _uiTweens.Length; i++)
                 {
-                    // CONTINUE :
-                    Debug.Log($"{!UITweens[i].IsTweening} {UITweens[i].IsActive}");
-
-                    if (!UITweens[i].IsTweening && (forcibly ||UITweens[i].IsActive))
+                    if (!_uiTweens[i].IsTweening && (directly || _uiTweens[i].IsActive))
                     {
-                        UITweens[i].Show(false, directly);
-                        if (i == 0) UITweens[i].Tween.onComplete += () =>
+                        _uiTweens[i].Show(false, directly);
+                        if (i == 0) _uiTweens[i].Tween.onComplete += () =>
                         {
-                            Canvas.enabled = false;
+                            _canvas.enabled = false;
                             onSetActive?.Invoke(value);
                         };
                     }
@@ -100,7 +91,7 @@ public abstract class UI : MonoBehaviour
             // if there's no UITween
             else
             {
-                Canvas.enabled = false;
+                _canvas.enabled = false;
                 onSetActive?.Invoke(value);
             }
 

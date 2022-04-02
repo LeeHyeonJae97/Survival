@@ -23,7 +23,7 @@ public class UITweenAlpha : UITween
     public override void Show(bool value, bool directly)
     {
         // need to wait until last tweening is finished
-        if (!IsTweening && value != IsActive)
+        if (!IsTweening && (directly || value != IsActive))
         {
             // set start and end position
             float start = value ? 0 : 1;

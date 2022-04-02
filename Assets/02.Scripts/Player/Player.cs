@@ -8,8 +8,9 @@ public class Player : SingletonMonoBehaviour<Player>, IDamageable
 {
     // TODO :
     // need to be static
-    [SerializeField] private Character _character;
+    [field: SerializeField] public CharacterSO Character { get; private set; }
 
+    public LiveStat Stats { get; private set; }
     public int HP
     {
         get { return _hp; }
@@ -24,20 +25,22 @@ public class Player : SingletonMonoBehaviour<Player>, IDamageable
             }
 
             _hp = value;
-            onHpUpdated?.Invoke((float)_hp / _character.HP);
+            onHpUpdated?.Invoke((float)_hp / Stats[(int)StatType.Hp]);
         }
     }
-    public List<Skill> Skills { get; set; } = new List<Skill>();
+    // TODO :
+    // change to list?
+    public Dictionary<int, LiveSkill> SkillDic { get; private set; } = new Dictionary<int, LiveSkill>();
+    // TODO :
+    // change to list?
+    public Dictionary<int, LiveItem> ItemDic { get; private set; } = new Dictionary<int, LiveItem>();
+    public List<LivePotion> Potions { get; private set; } = new List<LivePotion>();
+    public int Coin { get; private set; }
 
-    [SerializeField] private CircleCollider2D _coll;
     [SerializeField] private SpriteRenderer _sr;
     [SerializeField] private SpriteMask _sm;
     [SerializeField] private SpriteRenderer _blinkSr;
-    [SerializeField] private float _dashDst;
-    [SerializeField] private float _dashDuration;
     private int _hp;
-    private bool _dash;
-    private JoystickEventChannelSO _joystickEventChannel;
     private Coroutine _blinkCor;
 
     public event UnityAction<float> onHpUpdated;
@@ -46,56 +49,49 @@ public class Player : SingletonMonoBehaviour<Player>, IDamageable
     {
         base.Awake();
 
-        _joystickEventChannel = EventChannelFactory.Get<JoystickEventChannelSO>();
+        Stats = new LiveStat(Character.Stats);
 
         // set main camera as a child
-        MainCamera.Camera.transform.SetParent(transform);
+        //MainCamera.Camera.transform.SetParent(transform);
     }
 
     private void Start()
     {
         // initialize values
-        HP = _character.HP;
-        _sr.sprite = _character.Sprite;
-        _sm.sprite = _character.Sprite;
+        HP = Stats[(int)StatType.Hp];
+        _sr.sprite = Character.Sprite;
+        _sm.sprite = Character.Sprite;
     }
 
     private void OnEnable()
     {
-        _joystickEventChannel.onBeginDrag += Move;
-        _joystickEventChannel.onDrag += Move;
-        _joystickEventChannel.onBoundaryDoubleClicked += Dash;
+        JoystickEventChannelSO joystickEventChannel = EventChannelFactory.Get<JoystickEventChannelSO>();
+        joystickEventChannel.onBeginDrag += Move;
+        joystickEventChannel.onDrag += Move;
+
+        PlayEventChannelSO playEventChannel = EventChannelFactory.Get<PlayEventChannelSO>();
+        playEventChannel.onWaveStarted += OnWaveStarted;
+        playEventChannel.onWaveFinished += OnWaveFinished;
     }
 
     private void OnDisable()
     {
-        _joystickEventChannel.onBeginDrag -= Move;
-        _joystickEventChannel.onDrag -= Move;
-        _joystickEventChannel.onBoundaryDoubleClicked -= Dash;
+        JoystickEventChannelSO joystickEventChannel = EventChannelFactory.Get<JoystickEventChannelSO>();
+        joystickEventChannel.onBeginDrag -= Move;
+        joystickEventChannel.onDrag -= Move;
+
+        PlayEventChannelSO playEventChannel = EventChannelFactory.Get<PlayEventChannelSO>();
+        playEventChannel.onWaveStarted -= OnWaveStarted;
+        playEventChannel.onWaveFinished -= OnWaveFinished;
     }
 
     private void Move(Vector2 dir)
     {
-        // cannot move during dash
-        if (_dash) return;
-
         // move
-        transform.Translate(dir.normalized * _character.MoveSpeed * Time.deltaTime);
+        transform.Translate(dir.normalized * Stats[(int)StatType.Speed] * Time.deltaTime);
 
         // flip sprite
         _sr.transform.rotation = Quaternion.Euler(new Vector3(0, dir.x > 0 ? 0 : 180, 0));
-    }
-
-    private void Dash(Vector2 dir)
-    {
-        _dash = true;
-
-        // check if blocked by wall
-        var hit = Physics2D.CircleCast(transform.position, _coll.radius, dir, _dashDst, 1 << LayerMask.NameToLayer("Wall"));
-
-        // dash to the destination position
-        Vector2 dest = hit.collider == null ? (Vector2)transform.position + dir.normalized * _dashDst : hit.centroid - dir.normalized * 0.1f;
-        transform.DOMove(dest, _dashDuration).onComplete += () => _dash = false;
     }
 
     public IEnumerator CoDie()
@@ -118,5 +114,46 @@ public class Player : SingletonMonoBehaviour<Player>, IDamageable
         _sm.enabled = false;
         _blinkSr.gameObject.SetActive(false);
         _blinkCor = null;
+    }
+
+    public void Equip(LiveSkill liveSkill)
+    {
+        SkillDic.Add(liveSkill.Skill.Id, liveSkill);
+    }
+
+    public void Equip(LiveItem liveItem)
+    {
+        ItemDic.Add(liveItem.Item.Id, liveItem);
+        Stats.Buffed(liveItem.Item.Buff, liveItem.Level);
+    }
+
+    public void Equip(LivePotion livePotion)
+    {
+        Potions.Add(livePotion);
+        Stats.Buffed(livePotion.Potion.Buff);
+    }
+
+    public void Release(LivePotion livePotion)
+    {
+        Potions.Remove(livePotion);
+        Stats.Debuffed(livePotion.Potion.Buff);
+    }
+
+    private void OnWaveStarted()
+    {
+        // start to invoking skills
+        foreach (var skill in SkillDic.Values)
+        {
+            skill.Invoke();
+        }
+    }
+
+    private void OnWaveFinished()
+    {
+        for (int i = 0; i < Potions.Count; i++)
+        {
+            Potions[i].Duration--;
+            if (Potions[i].Duration == 0) Release(Potions[i]);
+        }
     }
 }

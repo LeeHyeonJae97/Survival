@@ -10,12 +10,14 @@ public class SkillInvocationProjection : SkillInvocation
         Type = SkillInvocationType.Projection;
     }
 
-    public override IEnumerator CoInvoke(Skill skill)
+    public override IEnumerator CoInvoke(LiveSkill liveSkill)
     {
-        for (int i = 0; i < skill.Stat.Amount; i++)
+        SkillStat stat = liveSkill.Skill.Stats[liveSkill.Level];
+
+        for (int i = 0; i < stat.Amount; i++)
         {
             // get target
-            GameObject target = skill.Targeting.GetTarget(Player.Instance.transform.position, skill.Stat.TargetingRange);
+            GameObject target = liveSkill.Skill.Targeting.GetTarget(Player.Instance.transform.position, stat.TargetingRange);
 
             // if there's no enemy just skip
             if (target != null)
@@ -26,12 +28,12 @@ public class SkillInvocationProjection : SkillInvocation
                 Vector3 position = Player.Instance.transform.position;
                 Vector3 direction = target.transform.position - position;
 
-                projectile.Init(skill);
-                projectile.Init(position, Vector3.one * skill.Stat.Scale, direction);
+                projectile.Init(liveSkill);
+                projectile.Init(position, Vector3.one * stat.Scale, direction);
                 projectile.Init();
 
                 // wait for interval
-                yield return WaitForSecondsFactory.Get(skill.Stat.Interval);
+                yield return WaitForSecondsFactory.Get(stat.Interval);
             }
         }
     }

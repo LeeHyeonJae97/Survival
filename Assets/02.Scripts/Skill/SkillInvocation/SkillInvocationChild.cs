@@ -10,12 +10,14 @@ public class SkillInvocationChild : SkillInvocation
         Type = SkillInvocationType.Child;
     }
 
-    public override IEnumerator CoInvoke(Skill skill)
+    public override IEnumerator CoInvoke(LiveSkill liveSkill)
     {
-        for (int i = 0; i < skill.Stat.Amount; i++)
+        SkillStat stat = liveSkill.Skill.Stats[liveSkill.Level];
+
+        for (int i = 0; i < stat.Amount; i++)
         {
             // get target
-            GameObject target = skill.Targeting.GetTarget(Player.Instance.transform.position, skill.Stat.TargetingRange);
+            GameObject target = liveSkill.Skill.Targeting.GetTarget(Player.Instance.transform.position, stat.TargetingRange);
 
             // if there's no enemy just skip
             if (target != null)
@@ -23,12 +25,12 @@ public class SkillInvocationChild : SkillInvocation
                 // get projectile and initialize it
                 var projectile = PoolingManager.Instance.Spawn<SkillProjectile>();
 
-                projectile.Init(skill);
-                projectile.Init(target.transform.position, Vector3.one * skill.Stat.Scale, parent: target.transform);
+                projectile.Init(liveSkill);
+                projectile.Init(target.transform.position, Vector3.one * stat.Scale, parent: target.transform);
                 projectile.Init();
 
                 // wait for interval
-                yield return WaitForSecondsFactory.Get(skill.Stat.Interval);
+                yield return WaitForSecondsFactory.Get(stat.Interval);
             }
         }
     }

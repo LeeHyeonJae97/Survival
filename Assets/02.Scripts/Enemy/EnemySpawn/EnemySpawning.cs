@@ -14,7 +14,7 @@ public abstract class EnemySpawning : ScriptableObject
     [field: SerializeField] public float Interval { get; protected set; }
 
     [SerializeField] protected float _boundsOffset;
-    [SerializeField] protected Enemy[] _enemies;
+    [SerializeField] protected EnemySO[] _enemies;
 
     public abstract EnemyPlayer[] Spawn();
 }

@@ -14,7 +14,6 @@ public class AlertUI : UI
         base.Awake();
 
         _cancelButton.onClick.AddListener(() => SetActive(false));
-        DontDestroyOnLoad(gameObject);
     }
 
     protected override void OnSetActive(bool value)

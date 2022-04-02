@@ -24,26 +24,34 @@ public class TitleUI : UI
 
     private void OnClickPlayButton()
     {
-        StartCoroutine(CoOnClickPlayButton());
-    }
-
-    private IEnumerator CoOnClickPlayButton()
-    {
         LoadingUI loadingUI = UIFactory.Get<LoadingUI>();
+
         loadingUI.onSetActive += (value) =>
         {
-            if (!value) EventChannelFactory.Get<PlayEventChannelSO>().OnPlayStarted();
+            if (value)
+            {
+                // unload title scene
+                var op1 = SceneManager.UnloadSceneAsync("Title");
+                op1.completed += (op) =>
+                {
+                    // load play scene
+                    var op2 = SceneManager.LoadSceneAsync("Play", LoadSceneMode.Additive);
+                    // after play scene is loaded, inactivate loading ui
+                    op2.completed += (op) => loadingUI.SetActive(false);
+                };
+            }
+            else
+            {
+                // after all loading is done, invoke play started event
+                EventChannelFactory.Get<PlayEventChannelSO>().OnPlayStarted();
+            }
         };
-
         loadingUI.SetActive(true);
-        var operation = SceneManager.LoadSceneAsync("Play");
-        yield return new WaitUntil(() => loadingUI.IsActive && operation.isDone);
-
-        loadingUI.SetActive(false);
     }
 
     private void OnClickExitButton()
     {
+        // confirm if want to quit
         UIFactory.Get<ConfirmUI>().Confirm("really want to quit?", () => Application.Quit());
     }
 }

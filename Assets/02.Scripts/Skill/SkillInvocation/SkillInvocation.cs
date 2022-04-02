@@ -11,5 +11,5 @@ public abstract class SkillInvocation : ScriptableObject
 
     [field: SerializeField] public SkillInvocationType Type { get; protected set; }
 
-    public abstract IEnumerator CoInvoke(Skill skill);
+    public abstract IEnumerator CoInvoke(LiveSkill liveSkill);
 }

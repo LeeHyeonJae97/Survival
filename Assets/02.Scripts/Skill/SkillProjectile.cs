@@ -33,14 +33,14 @@ public class SkillProjectile : MonoBehaviour
         Projection?.Projection_Update(this);
     }
 
-    public void Init(Skill skill)
+    public void Init(LiveSkill liveSkill)
     {
-        Stat = skill.Stat;
-        Property = skill.Property;
-        Targeting = skill.Targeting;
-        Projection = skill.Projection;
-        Hit = skill.Hit;
-        OnHit = skill.OnHit;
+        Stat = liveSkill.Skill.Stats[liveSkill.Level];
+        Property = liveSkill.Skill.Property;
+        Targeting = liveSkill.Skill.Targeting;
+        Projection = liveSkill.Skill.Projection;
+        Hit = liveSkill.Skill.Hit;
+        OnHit = liveSkill.Skill.OnHit;
 
         if (Stat == default) Debug.LogError("Stat must not be null");
         if (Property == default) Debug.LogError("Property must not be null");

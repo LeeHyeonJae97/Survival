@@ -15,6 +15,9 @@ public class Coin : MonoBehaviour
 
     private void Update()
     {
+        // TODO :
+        // translate towards ui coin icon
+
         Vector3 dir = Player.Instance.transform.position - transform.position;
 
         if (dir.sqrMagnitude < 0.01f)

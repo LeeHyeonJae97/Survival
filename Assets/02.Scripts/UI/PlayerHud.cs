@@ -7,15 +7,21 @@ using UnityEngine.UI;
 public class PlayerHud : MonoBehaviour
 {
     [SerializeField] private Image _hpFillImage;
+    private Player _player;
+
+    private void Awake()
+    {
+        _player = GetComponentInParent<Player>();
+    }
 
     private void OnEnable()
     {
-        Player.Instance.onHpUpdated += OnHpUpdated;
+        _player.onHpUpdated += OnHpUpdated;
     }
 
     private void OnDisable()
     {
-        Player.Instance.onHpUpdated -= OnHpUpdated;
+        _player.onHpUpdated -= OnHpUpdated;
     }
 
     private void OnHpUpdated(float ratio)

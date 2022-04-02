@@ -8,6 +8,6 @@ public class LoadingUI : UI
 {
     protected override void OnSetActive(bool value)
     {
-
+        if (!value) ResetOnSetActive();
     }
 }
