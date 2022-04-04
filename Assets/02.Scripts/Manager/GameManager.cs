@@ -2,17 +2,25 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameManager : MonoBehaviour
+public class GameManager : SingletonMonoBehaviour<GameManager>
 {
-    // Start is called before the first frame update
-    void Start()
+    public UserSO User
     {
-        
+        get
+        {
+            if (_user == null)
+            {
+                _user = Resources.Load<UserSO>("User");
+                _user.Load();
+            }
+            return _user;
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    private UserSO _user;
+
+    private void OnDisable()
     {
-        
+        User.Save();
     }
 }

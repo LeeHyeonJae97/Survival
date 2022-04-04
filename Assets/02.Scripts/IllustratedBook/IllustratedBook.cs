@@ -7,12 +7,14 @@ public class IllustratedBook
 {
     [field: SerializeField] public bool[] Items { get; private set; }
     [field: SerializeField] public bool[] Skills { get; private set; }
+    [field: SerializeField] public bool[] Potions { get; private set; }
     [field: SerializeField] public bool[] Enemies { get; private set; }
 
-    public IllustratedBook()
+    public IllustratedBook(int itemCount, int skillCount, int potionCount, int enemyCount)
     {
-        Items = new bool[ItemFactory.Count];
-        Skills = new bool[SkillFactory.Count];
-        Enemies = new bool[EnemyFactory.Count];
+        Items = new bool[itemCount];
+        Skills = new bool[skillCount];
+        Potions = new bool[potionCount];
+        Enemies = new bool[enemyCount];
     }
 }

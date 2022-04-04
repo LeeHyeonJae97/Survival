@@ -13,6 +13,7 @@ public class SkillProjectile : MonoBehaviour
     public SkillOnHit OnHit { get; private set; }
     public float Elapsed { get { return _birth == 0 ? -1 : Time.time - _birth; } }
 
+    [SerializeField] private SpriteRenderer _sr;
     private float _birth;
 
     private void OnDisable()
@@ -35,6 +36,8 @@ public class SkillProjectile : MonoBehaviour
 
     public void Init(LiveSkill liveSkill)
     {
+        _sr.sprite = liveSkill.Skill.ProjectileSprite;
+
         Stat = liveSkill.Skill.Stats[liveSkill.Level];
         Property = liveSkill.Skill.Property;
         Targeting = liveSkill.Skill.Targeting;

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Enemy Spawning Random
   m_EditorClassIdentifier: 
   <Type>k__BackingField: 0
-  <Duration>k__BackingField: 10
+  <Duration>k__BackingField: 1
   <Interval>k__BackingField: 1
   _boundsOffset: 0
   _enemies:

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class PotionFactory : MonoBehaviour
@@ -23,6 +24,7 @@ public class PotionFactory : MonoBehaviour
             return _dic;
         }
     }
+
     private static Dictionary<int, PotionSO> _dic;
 
     public static PotionSO Get(int id)
@@ -32,5 +34,20 @@ public class PotionFactory : MonoBehaviour
             Debug.LogError($"There's no Item : {id}");
         }
         return potion;
+    }
+
+    public static PotionSO[] GetRandom(int count)
+    {
+        if (count < 1)
+        {
+            Debug.LogError("count should more than zero");
+            return null;
+        }
+
+        // TODO :
+        // upgrade to 'Fisher-Yates shuffle'
+
+        System.Random random = new System.Random();
+        return _dic.Values.OrderBy(x => random.Next()).Take(count).ToArray();
     }
 }

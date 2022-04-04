@@ -7,13 +7,20 @@ using UnityEngine.Events;
 public class PlayEventChannelSO : EventChannelSO
 {
     public event UnityAction onPlayStarted;
+    public event UnityAction onPlayFinished;
     public event UnityAction onWaveStarted;
     public event UnityAction onWaveFinished;
 
     public void OnPlayStarted()
     {
-        Debug.Log("Play Start");
+        Debug.Log("Play Started");
         onPlayStarted?.Invoke();
+    }
+
+    public void OnPlayFinished()
+    {
+        Debug.Log("Play Finished");
+        onPlayFinished?.Invoke();
     }
 
     public void OnWaveStarted()

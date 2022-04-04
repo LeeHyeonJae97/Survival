@@ -12,6 +12,6 @@ public class SkillTargetingRandom : SkillTargeting
 
     public override GameObject GetTarget(Vector3 position, float range)
     {
-        return EnemySpawner.Instance.Random(position, range)?.gameObject;
+        return WaveManager.Instance.Random(position, range)?.gameObject;
     }
 }

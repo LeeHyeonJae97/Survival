@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class TitleUI : UI
 {
     [SerializeField] private Button _playButton;
+    [SerializeField] private Button _illustratedBookButton;
     [SerializeField] private Button _exitButton;
 
     protected override void Awake()
@@ -14,6 +15,7 @@ public class TitleUI : UI
         base.Awake();
 
         _playButton.onClick.AddListener(OnClickPlayButton);
+        _illustratedBookButton.onClick.AddListener(OnClickIllustratedBookButton);
         _exitButton.onClick.AddListener(OnClickExitButton);
     }
 
@@ -49,9 +51,14 @@ public class TitleUI : UI
         loadingUI.SetActive(true);
     }
 
+    private void OnClickIllustratedBookButton()
+    {
+        UIFactory.Get<IllustratedBookUI>().SetActive(true);
+    }
+
     private void OnClickExitButton()
     {
         // confirm if want to quit
-        UIFactory.Get<ConfirmUI>().Confirm("really want to quit?", () => Application.Quit());
+        UIFactory.Get<ConfirmUI>().Confirm("정말 종료하시겠습니까?", () => Application.Quit());
     }
 }

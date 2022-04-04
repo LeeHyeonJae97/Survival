@@ -8,6 +8,7 @@ public class ItemSO : ScriptableObject
     [field: SerializeField] public int Id { get; private set; }
     [field: SerializeField] public Sprite Icon { get; private set; }
     [field: SerializeField] public string Name { get; private set; }
+    [field: SerializeField] public GradeType Grade { get; private set; }
     [field: SerializeField] public string Description { get; private set; }
     [field: SerializeField] public ItemBuff Buff { get; private set; }
 }

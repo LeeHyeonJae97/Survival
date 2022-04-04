@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class SkillSlot : MonoBehaviour
 {
+    [SerializeField] private Image _slotImage;
     [SerializeField] private Image _iconImage;
     [SerializeField] private TextMeshProUGUI _nameText;
     [SerializeField] private TextMeshProUGUI _levelText;
@@ -20,6 +21,7 @@ public class SkillSlot : MonoBehaviour
         bool contains = Player.Instance.SkillDic.ContainsKey(skill.Id);
         int level = contains ? Player.Instance.SkillDic[skill.Id].Level : 0;
 
+        _slotImage.color = Grade.Colors[(int)skill.Grade];
         _iconImage.sprite = skill.Icon;
         _nameText.text = skill.Name;
         _levelText.text = $"{level + 1}";
@@ -28,19 +30,27 @@ public class SkillSlot : MonoBehaviour
         _descriptionText.text = skill.Description;
         _button.interactable = true;
 
+        _button.onClick.RemoveAllListeners();
         _button.onClick.AddListener(() =>
         {
-            // if already had, level up the skill
-            if (contains)
+            UIFactory.Get<ConfirmUI>().Confirm("확실합니까?", () =>
             {
-                Player.Instance.SkillDic[skill.Id].LevelUp();
-            }
+                // if already had, level up the skill
+                if (contains)
+                {
+                    Player.Instance.SkillDic[skill.Id].LevelUp();
+                }
 
-            // if not, equip skill newly
-            else
-            {
-                Player.Instance.Equip(new LiveSkill(skill));
-            }
+                // if not, equip skill newly
+                else
+                {
+                    Player.Instance.Equip(new LiveSkill(skill));
+                }
+
+                // update ui
+                UIFactory.Get<RewardUI>().SetActive(false);
+                UIFactory.Get<NextWaveSelectionUI>().SetActive(true);
+            });
         });
     }
 
@@ -49,6 +59,7 @@ public class SkillSlot : MonoBehaviour
     {
         SkillSO skill = liveSkill.Skill;
 
+        _slotImage.color = Grade.Colors[(int)liveSkill.Skill.Grade];
         _iconImage.sprite = skill.Icon;
         _nameText.text = skill.Name;
         _levelText.text = $"{liveSkill.Level + 1}";

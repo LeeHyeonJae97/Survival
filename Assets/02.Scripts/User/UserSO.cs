@@ -20,7 +20,7 @@ public class UserSO : ScriptableObject
         // if there's no file, make new file
         if (!Directory.Exists(PATH_DIR) || !File.Exists(PATH_FILE))
         {
-            IllustratedBook = new IllustratedBook();
+            IllustratedBook = new IllustratedBook(ItemFactory.Count, SkillFactory.Count, PotionFactory.Count, EnemyFactory.Count);
             Mute = false;
 
             Save();
@@ -31,6 +31,9 @@ public class UserSO : ScriptableObject
         {
             JsonUtility.FromJsonOverwrite(File.ReadAllText(PATH_FILE), this);
         }
+
+        //IllustratedBook = new IllustratedBook(ItemFactory.Count, SkillFactory.Count, PotionFactory.Count, EnemyFactory.Count);
+        //Mute = false;
     }
 
     public void Save()

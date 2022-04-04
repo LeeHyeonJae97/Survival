@@ -4,30 +4,31 @@ using UnityEngine;
 
 public class Coin : MonoBehaviour
 {
+    private const float VANISH_DST_THRESHOLD = 1f;
+
     [SerializeField] private Vector2 _speed;
     private float _curSpeed;
 
     public void Init(Vector3 position)
     {
         transform.position = position + (Vector3)Random.insideUnitCircle;
-        _curSpeed = _speed.y;
+        _curSpeed = _speed.x;
     }
 
     private void Update()
     {
-        // TODO :
-        // translate towards ui coin icon
+        // NOTICE :
+        // maybe need to cachee 'WaveInfoUI'
+        Vector2 target = UIFactory.Get<WaveDurationUI>().DurationFillPosition;
 
-        Vector3 dir = Player.Instance.transform.position - transform.position;
-
-        if (dir.sqrMagnitude < 0.01f)
+        if ((target - (Vector2)transform.position).sqrMagnitude < VANISH_DST_THRESHOLD)
         {
             PoolingManager.Instance.Despawn<Coin>(this);
         }
         else
         {
-            transform.Translate(dir.normalized * _curSpeed * Time.deltaTime);
-            _curSpeed = Mathf.Max(_curSpeed -= Time.deltaTime, _speed.x);
+            transform.position = Vector2.MoveTowards(transform.position, target, _curSpeed * Time.deltaTime);
+            _curSpeed = Mathf.Min(_curSpeed += Time.deltaTime, _speed.y);
         }
     }
 }

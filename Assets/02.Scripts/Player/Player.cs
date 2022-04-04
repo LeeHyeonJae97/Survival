@@ -52,7 +52,7 @@ public class Player : SingletonMonoBehaviour<Player>, IDamageable
         Stats = new LiveStat(Character.Stats);
 
         // set main camera as a child
-        //MainCamera.Camera.transform.SetParent(transform);
+        MainCamera.Camera.transform.SetParent(transform);
     }
 
     private void Start()
@@ -116,21 +116,30 @@ public class Player : SingletonMonoBehaviour<Player>, IDamageable
         _blinkCor = null;
     }
 
-    public void Equip(LiveSkill liveSkill)
-    {
-        SkillDic.Add(liveSkill.Skill.Id, liveSkill);
-    }
-
     public void Equip(LiveItem liveItem)
     {
         ItemDic.Add(liveItem.Item.Id, liveItem);
         Stats.Buffed(liveItem.Item.Buff, liveItem.Level);
+
+        // register on illustrated book
+        GameManager.Instance.User.IllustratedBook.Items[liveItem.Item.Id] = true;
+    }
+
+    public void Equip(LiveSkill liveSkill)
+    {
+        SkillDic.Add(liveSkill.Skill.Id, liveSkill);
+
+        // register on illustrated book
+        GameManager.Instance.User.IllustratedBook.Skills[liveSkill.Skill.Id] = true;
     }
 
     public void Equip(LivePotion livePotion)
     {
         Potions.Add(livePotion);
         Stats.Buffed(livePotion.Potion.Buff);
+
+        // register on illustrated book
+        GameManager.Instance.User.IllustratedBook.Potions[livePotion.Potion.Id] = true;
     }
 
     public void Release(LivePotion livePotion)

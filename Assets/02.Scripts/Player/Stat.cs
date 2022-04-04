@@ -14,6 +14,7 @@ public class Stat
             if (_infos == null)
             {
                 List<StatInfoSO> infos = new List<StatInfoSO>(Resources.LoadAll<StatInfoSO>("StatInfo"));
+
                 if(infos != null)
                 {
                     infos.Sort((l, r) => l.Type.CompareTo(r.Type));

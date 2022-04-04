@@ -20,6 +20,12 @@ public class IllustratedBookSlot : MonoBehaviour
         _coverImage.SetActive(!registered);
     }
 
+    public void Init(PotionSO potion, bool registered)
+    {
+        _iconImage.sprite = potion.Icon;
+        _coverImage.SetActive(!registered);
+    }
+
     public void Init(EnemySO enemy, bool registered)
     {
         _iconImage.sprite = enemy.Sprite;

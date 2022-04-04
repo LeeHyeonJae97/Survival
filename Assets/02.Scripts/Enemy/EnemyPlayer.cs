@@ -113,7 +113,7 @@ public class EnemyPlayer : MonoBehaviour, IDamageable
     public void Despawn()
     {
         // despawn
-        EnemySpawner.Instance.Despawn(this);
+        WaveManager.Instance.Despawn(this);
     }
 
     public void Blink()

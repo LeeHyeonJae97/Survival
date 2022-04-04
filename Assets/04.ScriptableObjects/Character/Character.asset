@@ -9,16 +9,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 85732ffc919722447a8cd3d288bcbe38, type: 3}
+  m_Script: {fileID: 11500000, guid: f9478e26e8d597a4ba7808ae6301c392, type: 3}
   m_Name: Character
   m_EditorClassIdentifier: 
   <Stats>k__BackingField:
   - <Type>k__BackingField: 0
-    <Value>k__BackingField: 100
+    <Value>k__BackingField: 1000
   - <Type>k__BackingField: 1
     <Value>k__BackingField: 5
   - <Type>k__BackingField: 2
     <Value>k__BackingField: 3
   - <Type>k__BackingField: 3
     <Value>k__BackingField: 0
-  <Sprite>k__BackingField: {fileID: 6895495282096838205, guid: 661a9c3c38340c84c92516a93b16d46c, type: 3}
+  <Sprite>k__BackingField: {fileID: -4788347707590985657, guid: 9b85faaeadcd1cf45844fc02a43316eb, type: 3}

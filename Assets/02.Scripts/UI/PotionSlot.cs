@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class PotionSlot : MonoBehaviour
 {
+    [SerializeField] private Image _slotImage;
     [SerializeField] private Image _iconImage;
     [SerializeField] private TextMeshProUGUI _nameText;
     [SerializeField] private Image _statImage;
@@ -15,6 +16,7 @@ public class PotionSlot : MonoBehaviour
 
     public void Init(PotionSO potion)
     {
+        _slotImage.color = Grade.Colors[(int)potion.Grade];
         _iconImage.sprite = potion.Icon;
         _nameText.text = potion.Name;
         _statImage.sprite = Stat.Infos[(int)potion.Buff.Type].Icon;
@@ -22,14 +24,23 @@ public class PotionSlot : MonoBehaviour
         _durationText.text = $"{potion.Duration}";
         _button.interactable = true;
 
+        _button.onClick.RemoveAllListeners();
         _button.onClick.AddListener(() =>
         {
-            Player.Instance.Equip(new LivePotion(potion));
+            UIFactory.Get<ConfirmUI>().Confirm(("확실합니까?"), () =>
+            {
+                Player.Instance.Equip(new LivePotion(potion));
+
+                // update ui
+                UIFactory.Get<RewardUI>().SetActive(false);
+                UIFactory.Get<NextWaveSelectionUI>().SetActive(true);
+            });
         });
     }
 
     public void Init(LivePotion livePotion)
     {
+        _slotImage.color = Grade.Colors[(int)livePotion.Potion.Grade];
         _iconImage.sprite = livePotion.Potion.Icon;
         _nameText.text = livePotion.Potion.Name;
         _statImage.sprite = Stat.Infos[(int)livePotion.Potion.Buff.Type].Icon;

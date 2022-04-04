@@ -65,7 +65,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -8210059557235754342, guid: 661a9c3c38340c84c92516a93b16d46c, type: 3}
+  m_Sprite: {fileID: 6895495282096838205, guid: 661a9c3c38340c84c92516a93b16d46c, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -208,7 +208,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 5465370946947729305, guid: 9602dd08fc326c44ebbbb2e0bb30fef6, type: 3}
+  m_Sprite: {fileID: -8210059557235754342, guid: 661a9c3c38340c84c92516a93b16d46c, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -283,7 +283,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 3153061316549428239, guid: 9602dd08fc326c44ebbbb2e0bb30fef6, type: 3}
+  m_Sprite: {fileID: -1835152398920951053, guid: 661a9c3c38340c84c92516a93b16d46c, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -358,7 +358,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -4202294216434390414, guid: 661a9c3c38340c84c92516a93b16d46c, type: 3}
+  m_Sprite: {fileID: -5295113303118211614, guid: 661a9c3c38340c84c92516a93b16d46c, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -426,6 +426,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db8de1ccf5ff88442b8e5958449353c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _nameText: {fileID: 1300632314835145159}
+  _rewardTypeImage: {fileID: 7273706952255745874}
+  _durationText: {fileID: 2006301902025663338}
+  _enemyImages:
+  - {fileID: 1097113136701280461}
+  - {fileID: 7421236277413028020}
+  - {fileID: 5229935913930981082}
+  - {fileID: 3822246121730031765}
+  - {fileID: 4820073450732195535}
+  - {fileID: 3313636481643548487}
+  _button: {fileID: 59634407072652111}
 --- !u!222 &8585849771326907774
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -723,7 +734,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 6056953753728882971, guid: 9602dd08fc326c44ebbbb2e0bb30fef6, type: 3}
+  m_Sprite: {fileID: -7309582927498218927, guid: 661a9c3c38340c84c92516a93b16d46c, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -798,7 +809,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -1835152398920951053, guid: 661a9c3c38340c84c92516a93b16d46c, type: 3}
+  m_Sprite: {fileID: -7309582927498218927, guid: 661a9c3c38340c84c92516a93b16d46c, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1071,6 +1082,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: abdbc7a4930af5f4a9b37b2c6fb75145, type: 3}
+--- !u!114 &2006301902025663338 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7931033364993210549, guid: abdbc7a4930af5f4a9b37b2c6fb75145, type: 3}
+  m_PrefabInstance: {fileID: 8486857713364425695}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &1616315435868815098 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7181322153477678373, guid: abdbc7a4930af5f4a9b37b2c6fb75145, type: 3}
@@ -1194,3 +1216,14 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 7181322153477678373, guid: abdbc7a4930af5f4a9b37b2c6fb75145, type: 3}
   m_PrefabInstance: {fileID: 8943153665352690034}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1300632314835145159 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7931033364993210549, guid: abdbc7a4930af5f4a9b37b2c6fb75145, type: 3}
+  m_PrefabInstance: {fileID: 8943153665352690034}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

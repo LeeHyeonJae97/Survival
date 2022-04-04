@@ -8,6 +8,7 @@ using UnityEngine;
 public class EnemySO : ScriptableObject
 {
     [field: SerializeField] public int Id { get; private set; }
+    [field: SerializeField] public int Level { get; private set; }
     [field: SerializeField] public Stat[] Stats { get; private set; }
     [field: SerializeField] public Constraint Constraint { get; private set; }
     [field: SerializeField] public Sprite Sprite { get; private set; }

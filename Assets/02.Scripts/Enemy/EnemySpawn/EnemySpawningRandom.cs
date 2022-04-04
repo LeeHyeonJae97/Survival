@@ -12,6 +12,13 @@ public class EnemySpawningRandom : EnemySpawning
         Type = EnemySpawningType.Random;   
     }
 
+    public void Init(float duration, float interval, EnemySO[] enemies)
+    {
+        Duration = duration;
+        Interval = interval;
+        _enemies = enemies;
+    }
+
     public override EnemyPlayer[] Spawn()
     {
         EnemyPlayer[] enemies = new EnemyPlayer[Amount];

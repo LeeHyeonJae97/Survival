@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class ItemSlot : MonoBehaviour
 {
+    [SerializeField] private Image _slotImage;
     [SerializeField] private Image _iconImage;
     [SerializeField] private TextMeshProUGUI _nameText;
     [SerializeField] private TextMeshProUGUI _levelText;
@@ -18,8 +19,9 @@ public class ItemSlot : MonoBehaviour
     public void Init(ItemSO item)
     {
         bool contains = Player.Instance.ItemDic.ContainsKey(item.Id);
-        int level = contains ? Player.Instance.ItemDic[item.Id].Level : 0;
+        int level = contains ? Player.Instance.ItemDic[item.Id].Level + 1 : 0;
 
+        _slotImage.color = Grade.Colors[(int)item.Grade];
         _iconImage.sprite = item.Icon;
         _nameText.text = item.Name;
         _levelText.text = $"{level + 1}";
@@ -28,19 +30,27 @@ public class ItemSlot : MonoBehaviour
         _descriptionText.text = item.Description;
         _button.interactable = true;
 
+        _button.onClick.RemoveAllListeners();
         _button.onClick.AddListener(() =>
         {
-            // if already had, level up the item
-            if (contains)
+            UIFactory.Get<ConfirmUI>().Confirm("확실합니까?", () =>
             {
-                Player.Instance.ItemDic[item.Id].LevelUp();
-            }
+                // if already had, level up the item
+                if (contains)
+                {
+                    Player.Instance.ItemDic[item.Id].LevelUp();
+                }
 
-            // if not, equip item newly
-            else
-            {
-                Player.Instance.Equip(new LiveItem(item));
-            }
+                // if not, equip item newly
+                else
+                {
+                    Player.Instance.Equip(new LiveItem(item));
+                }
+
+                // update ui
+                UIFactory.Get<RewardUI>().SetActive(false);
+                UIFactory.Get<NextWaveSelectionUI>().SetActive(true);
+            });
         });
     }
 
@@ -49,6 +59,7 @@ public class ItemSlot : MonoBehaviour
     {
         ItemSO item = liveItem.Item;
 
+        _slotImage.color = Grade.Colors[(int)liveItem.Item.Grade];
         _iconImage.sprite = item.Icon;
         _nameText.text = item.Name;
         _levelText.text = $"{liveItem.Level + 1}";

@@ -9,11 +9,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d232dde798adbcf44b35b7628664ded5, type: 3}
+  m_Script: {fileID: 11500000, guid: a50b0f88569257346a1042be0820a389, type: 3}
   m_Name: Item - FireSword
   m_EditorClassIdentifier: 
-  <Name>k__BackingField: "\uD30C\uC774\uC5B4\uC18C\uB4DC"
-  <Description>k__BackingField: "\uB9CC\uC9C0\uBA74 \uB728\uAC70\uC6B8\uC9C0\uB3C4...?"
-  <Stat>k__BackingField:
+  <Id>k__BackingField: 0
+  <Icon>k__BackingField: {fileID: -7309582927498218927, guid: 661a9c3c38340c84c92516a93b16d46c, type: 3}
+  <Name>k__BackingField: FireSword
+  <Grade>k__BackingField: 3
+  <Description>k__BackingField: 
+  <Buff>k__BackingField:
     <Type>k__BackingField: 1
-    <Value>k__BackingField: 5
+    <Values>k__BackingField: 0a000000140000001e000000

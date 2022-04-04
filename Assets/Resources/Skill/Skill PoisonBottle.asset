@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b71f002f884d2ef49925a4ce2ce30c8a, type: 3}
   m_Name: Skill PoisonBottle
   m_EditorClassIdentifier: 
-  <Id>k__BackingField: 0
+  <Id>k__BackingField: 3
   <Icon>k__BackingField: {fileID: 0}
   <Name>k__BackingField: PoisonBottle
   <Description>k__BackingField: 

@@ -36,7 +36,7 @@ public abstract class EnemyMovement : ScriptableObject
 
     private void AvoidEnemy(EnemyPlayer enemy)
     {
-        var enemies = EnemySpawner.Instance.Enemies;
+        var enemies = WaveManager.Instance.Enemies;
 
         for (int i = 0; i < enemies.Count; i++)
         {

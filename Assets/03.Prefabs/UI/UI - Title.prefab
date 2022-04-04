@@ -117,6 +117,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f0d10576a45ab9b44ab2d88ccccd5043, type: 3}
+--- !u!114 &5684738647712107263 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5625174134137893829, guid: f0d10576a45ab9b44ab2d88ccccd5043, type: 3}
+  m_PrefabInstance: {fileID: 68853325244774714}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &380216068418369382
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -483,6 +494,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _showOnAwake: 1
   _playButton: {fileID: 5428647818476242083}
+  _illustratedBookButton: {fileID: 5684738647712107263}
   _exitButton: {fileID: 1940568243426820034}
 --- !u!1001 &6124590496772443143
 PrefabInstance:

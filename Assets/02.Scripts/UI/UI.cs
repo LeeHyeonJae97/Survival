@@ -8,6 +8,7 @@ using UnityEngine.Events;
 public abstract class UI : MonoBehaviour
 {
     public bool IsActive { get; private set; }
+    public bool IsActivated { get; private set; }
 
     [SerializeField] protected bool _showOnAwake;
     private Canvas _canvas;
@@ -23,11 +24,13 @@ public abstract class UI : MonoBehaviour
         _uiTweens = GetComponentsInChildren<UITween>();
 
         _canvas.worldCamera = MainCamera.Camera;
-
-        SetActive(_showOnAwake, true);
+        _canvas.planeDistance = MainCamera.Camera.transform.position.z * -1;
+        _canvas.sortingLayerID = SortingLayer.NameToID("UI");
 
         UIFactory.Add(this);
         onSetActive += OnSetActive;
+
+        SetActive(_showOnAwake, true);
     }
 
     protected virtual void OnDestroy()
@@ -58,7 +61,11 @@ public abstract class UI : MonoBehaviour
                     if (!_uiTweens[i].IsTweening && (directly || !_uiTweens[i].IsActive))
                     {
                         _uiTweens[i].Show(true, directly);
-                        if (i == 0) _uiTweens[i].Tween.onComplete += () => onSetActive?.Invoke(true);
+                        if (i == 0) _uiTweens[i].Tween.onComplete += () =>
+                        {
+                            onSetActive?.Invoke(true);
+                            IsActivated = true;
+                        };
                     }
                 }
             }
@@ -66,6 +73,7 @@ public abstract class UI : MonoBehaviour
             else
             {
                 onSetActive?.Invoke(true);
+                IsActivated = true;
             }
 
             IsActive = true;
@@ -84,6 +92,7 @@ public abstract class UI : MonoBehaviour
                         {
                             _canvas.enabled = false;
                             onSetActive?.Invoke(value);
+                            IsActivated = false;
                         };
                     }
                 }
@@ -93,6 +102,7 @@ public abstract class UI : MonoBehaviour
             {
                 _canvas.enabled = false;
                 onSetActive?.Invoke(value);
+                IsActivated = false;
             }
 
             IsActive = false;

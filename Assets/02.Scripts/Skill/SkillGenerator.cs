@@ -17,9 +17,9 @@ public class SkillGenerator : SingletonMonoBehaviour<SkillGenerator>
     public LiveSkill Generate()
     {
         // DEPRECATED
-        //LiveSkill skill = new LiveSkill(_skills[Random.Range(0, _skills.Length)]);
-        //Player.Instance.Equip(skill);
-        //skill.Invoke();
+        LiveSkill skill = new LiveSkill(_skills[Random.Range(0, _skills.Length)]);
+        Player.Instance.Equip(skill);
+        skill.Invoke();
 
         return null;
     }

@@ -1,55 +1,55 @@
 fileFormatVersion: 2
-guid: 9602dd08fc326c44ebbbb2e0bb30fef6
+guid: 9b85faaeadcd1cf45844fc02a43316eb
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 6056953753728882971
-    second: Enemy_1_Colored_0
+      213: 8691162629131612608
+    second: sheet_4x_0
   - first:
-      213: 2131457471801482717
-    second: Enemy_1_Colored_1
+      213: 1562926403783606147
+    second: sheet_4x_1
   - first:
-      213: 2360846766354830453
-    second: Enemy_1_Colored_2
+      213: 6687595428116721282
+    second: sheet_4x_2
   - first:
-      213: 5507302644738241627
-    second: Enemy_1_Colored_3
+      213: -5071476985790007958
+    second: sheet_4x_3
   - first:
-      213: 4998703917998622943
-    second: Enemy_1_Colored_4
+      213: -3726043659915597826
+    second: sheet_4x_4
   - first:
-      213: 5465370946947729305
-    second: Enemy_1_Colored_5
+      213: 6666975876432698594
+    second: sheet_4x_5
   - first:
-      213: 3803672285694869382
-    second: Enemy_1_Colored_6
+      213: -8373392080518774532
+    second: sheet_4x_6
   - first:
-      213: 7800345433001692432
-    second: Enemy_1_Colored_7
+      213: -7269672964912891275
+    second: sheet_4x_7
   - first:
-      213: -1360969275491410942
-    second: Enemy_1_Colored_8
+      213: 4540018810838844115
+    second: sheet_4x_8
   - first:
-      213: -267432374899198891
-    second: Enemy_1_Colored_9
+      213: -2755476979219716516
+    second: sheet_4x_9
   - first:
-      213: -2838624663766899113
-    second: Enemy_1_Colored_10
+      213: 7844207692991927163
+    second: sheet_4x_10
   - first:
-      213: 2184252862935065853
-    second: Enemy_1_Colored_11
+      213: -6837519925838612042
+    second: sheet_4x_11
   - first:
-      213: 165863807136965677
-    second: Enemy_1_Colored_12
+      213: -6284344094245021507
+    second: sheet_4x_12
   - first:
-      213: 1323702509794087968
-    second: Enemy_1_Colored_13
+      213: -4788347707590985657
+    second: sheet_4x_13
   - first:
-      213: -1539734944014495283
-    second: Enemy_1_Colored_14
+      213: 1285083854532841465
+    second: sheet_4x_14
   - first:
-      213: 3153061316549428239
-    second: Enemy_1_Colored_15
+      213: -4383053036267824609
+    second: sheet_4x_15
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -94,7 +94,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 67
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -151,7 +151,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Enemy_1_Colored_0
+      name: sheet_4x_0
       rect:
         serializedVersion: 2
         x: 0
@@ -165,14 +165,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b199aff095f9e0450800000000000000
-      internalID: 6056953753728882971
+      spriteID: 0c13a8a0d563d9870800000000000000
+      internalID: 8691162629131612608
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Enemy_1_Colored_1
+      name: sheet_4x_1
       rect:
         serializedVersion: 2
         x: 67
@@ -186,14 +186,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ddd54941745749d10800000000000000
-      internalID: 2131457471801482717
+      spriteID: 38fb9939841a0b510800000000000000
+      internalID: 1562926403783606147
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Enemy_1_Colored_2
+      name: sheet_4x_2
       rect:
         serializedVersion: 2
         x: 134
@@ -207,14 +207,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 57495bd20a963c020800000000000000
-      internalID: 2360846766354830453
+      spriteID: 28e6c660c9c1fcc50800000000000000
+      internalID: 6687595428116721282
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Enemy_1_Colored_3
+      name: sheet_4x_3
       rect:
         serializedVersion: 2
         x: 201
@@ -228,14 +228,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b543132939edd6c40800000000000000
-      internalID: 5507302644738241627
+      spriteID: a65fa6f1d8e7e99b0800000000000000
+      internalID: -5071476985790007958
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Enemy_1_Colored_4
+      name: sheet_4x_4
       rect:
         serializedVersion: 2
         x: 0
@@ -249,14 +249,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: fd849a9aab6fe5540800000000000000
-      internalID: 4998703917998622943
+      spriteID: ef76221680f6a4cc0800000000000000
+      internalID: -3726043659915597826
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Enemy_1_Colored_5
+      name: sheet_4x_5
       rect:
         serializedVersion: 2
         x: 67
@@ -270,14 +270,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9974f826be5e8db40800000000000000
-      internalID: 5465370946947729305
+      spriteID: 2ec9ed88c3bd58c50800000000000000
+      internalID: 6666975876432698594
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Enemy_1_Colored_6
+      name: sheet_4x_6
       rect:
         serializedVersion: 2
         x: 134
@@ -291,14 +291,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 68f37d68acb59c430800000000000000
-      internalID: 3803672285694869382
+      spriteID: cf00c93544cbbcb80800000000000000
+      internalID: -8373392080518774532
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Enemy_1_Colored_7
+      name: sheet_4x_7
       rect:
         serializedVersion: 2
         x: 201
@@ -312,14 +312,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 01d0863e7d4604c60800000000000000
-      internalID: 7800345433001692432
+      spriteID: 57a3b1d64feec1b90800000000000000
+      internalID: -7269672964912891275
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Enemy_1_Colored_8
+      name: sheet_4x_8
       rect:
         serializedVersion: 2
         x: 0
@@ -333,14 +333,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 20c1d1897addc1de0800000000000000
-      internalID: -1360969275491410942
+      spriteID: 3d204aded03610f30800000000000000
+      internalID: 4540018810838844115
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Enemy_1_Colored_9
+      name: sheet_4x_9
       rect:
         serializedVersion: 2
         x: 67
@@ -354,14 +354,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 554b1b40ca3e94cf0800000000000000
-      internalID: -267432374899198891
+      spriteID: c56a7da594492c9d0800000000000000
+      internalID: -2755476979219716516
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Enemy_1_Colored_10
+      name: sheet_4x_10
       rect:
         serializedVersion: 2
         x: 134
@@ -375,14 +375,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 756e28178ed2b98d0800000000000000
-      internalID: -2838624663766899113
+      spriteID: b739b2d16593cdc60800000000000000
+      internalID: 7844207692991927163
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Enemy_1_Colored_11
+      name: sheet_4x_11
       rect:
         serializedVersion: 2
         x: 201
@@ -396,14 +396,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: df4efdaf766005e10800000000000000
-      internalID: 2184252862935065853
+      spriteID: 6b9fbbbaadf3c11a0800000000000000
+      internalID: -6837519925838612042
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Enemy_1_Colored_12
+      name: sheet_4x_12
       rect:
         serializedVersion: 2
         x: 0
@@ -417,14 +417,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d242e79f0444d4200800000000000000
-      internalID: 165863807136965677
+      spriteID: db89338975689c8a0800000000000000
+      internalID: -6284344094245021507
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Enemy_1_Colored_13
+      name: sheet_4x_13
       rect:
         serializedVersion: 2
         x: 67
@@ -438,14 +438,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 024d19c5b6cbe5210800000000000000
-      internalID: 1323702509794087968
+      spriteID: 748bbf3312f5c8db0800000000000000
+      internalID: -4788347707590985657
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Enemy_1_Colored_14
+      name: sheet_4x_14
       rect:
         serializedVersion: 2
         x: 134
@@ -459,14 +459,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: dc192cde933c1aae0800000000000000
-      internalID: -1539734944014495283
+      spriteID: 9ff050005f885d110800000000000000
+      internalID: 1285083854532841465
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Enemy_1_Colored_15
+      name: sheet_4x_15
       rect:
         serializedVersion: 2
         x: 201
@@ -480,8 +480,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f0444ffcf8ce1cb20800000000000000
-      internalID: 3153061316549428239
+      spriteID: f1a1f856c744c23c0800000000000000
+      internalID: -4383053036267824609
       vertices: []
       indices: 
       edges: []
