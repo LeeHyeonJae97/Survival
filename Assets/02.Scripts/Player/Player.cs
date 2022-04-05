@@ -150,10 +150,12 @@ public class Player : SingletonMonoBehaviour<Player>, IDamageable
 
     private void OnWaveStarted()
     {
+        StopAllCoroutines();
+
         // start to invoking skills
         foreach (var skill in SkillDic.Values)
         {
-            skill.Invoke();
+            skill.Invoke(this);
         }
     }
 

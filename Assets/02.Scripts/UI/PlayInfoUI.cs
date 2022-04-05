@@ -21,6 +21,6 @@ public class PlayInfoUI : UI
 
     private void OnElapsedUpdated(int elapsed)
     {
-        _elapsedText.text = $"{elapsed}";
+        _elapsedText.text = $"{elapsed / 60}:{elapsed % 60}";
     }
 }

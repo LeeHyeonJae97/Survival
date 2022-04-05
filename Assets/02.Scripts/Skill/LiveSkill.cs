@@ -18,15 +18,15 @@ public class LiveSkill
         Level++;
     }
 
-    public void Invoke()
+    public void Invoke(Player player)
     {
         if (Skill.Stats[Level].Cooldown == 0)
         {
-            Player.Instance.StartCoroutine(Skill.Invocation?.CoInvoke(this));
+            player.StartCoroutine(Skill.Invocation?.CoInvoke(this));
         }
         else
         {
-            Player.Instance.StartCoroutine(CoInvoke());
+            player.StartCoroutine(CoInvoke());
         }
     }
 

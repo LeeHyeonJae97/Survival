@@ -23,6 +23,7 @@ public class Coin : MonoBehaviour
 
         if ((target - (Vector2)transform.position).sqrMagnitude < VANISH_DST_THRESHOLD)
         {
+            WaveManager.Instance.Duration -= Time.deltaTime;
             PoolingManager.Instance.Despawn<Coin>(this);
         }
         else

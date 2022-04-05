@@ -3,8 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
+public enum PlayMode { Story, Survival }
+
 public class PlayManager : SingletonMonoBehaviour<PlayManager>
 {
+    // NOTICE :
+    // any better idea than using static variable?
+    public static PlayMode PlayMode { get; set; }
+
     public event UnityAction<int> onElapsedUpdated;
 
     private void OnEnable()

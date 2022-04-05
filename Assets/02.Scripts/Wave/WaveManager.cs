@@ -5,9 +5,12 @@ using UnityEngine.Events;
 
 public class WaveManager : SingletonMonoBehaviour<WaveManager>
 {
-    public WaveSO Wave { get; private set; }
+    // CONTINUE :
+    // use strategy pattern for story mode and survival mode
+
+    public WaveSO Wave { get; }
     public int Index { get; private set; }
-    public bool IsInfinite { get; set; } = true;
+    public float Duration { get; set; }
     public List<EnemyPlayer> Enemies { get; private set; } = new List<EnemyPlayer>();
 
     [SerializeField] private float _range;
@@ -22,16 +25,6 @@ public class WaveManager : SingletonMonoBehaviour<WaveManager>
         Init();
     }
 
-    private void OnEnable()
-    {
-        EventChannelFactory.Get<PlayEventChannelSO>().onPlayStarted += StartNextWave;
-    }
-
-    private void OnDisable()
-    {
-        EventChannelFactory.Get<PlayEventChannelSO>().onPlayStarted -= StartNextWave;
-    }
-
     public void Init()
     {
         // create pool of enemy and start spawning
@@ -40,15 +33,6 @@ public class WaveManager : SingletonMonoBehaviour<WaveManager>
 
     public void StartNextWave()
     {
-        // set wave
-        if (IsInfinite)
-        {
-            Wave = WaveFactory.Random;
-        }
-        else
-        {
-            Wave = WaveFactory.Get(Index++);
-        }
         Wave.Init();
 
         // start spawning
@@ -68,10 +52,14 @@ public class WaveManager : SingletonMonoBehaviour<WaveManager>
 
     private void FinishWave()
     {
+        // stop spawning and checking enemy out of range and duration
         StopAllCoroutines();
 
         // pause
         Time.timeScale = 0;
+
+        // move on to next
+        Index++;
 
         EventChannelFactory.Get<PlayEventChannelSO>().OnWaveFinished();
     }
@@ -121,16 +109,16 @@ public class WaveManager : SingletonMonoBehaviour<WaveManager>
 
     private IEnumerator CoElapse()
     {
-        float start = Time.time;
+        Duration = Wave.Duration;
 
         while (true)
         {
-            float ratio = (Time.time - start) / Wave.Duration;
+            float ratio = 1 - (Duration / Wave.Duration);
             onElapsedUpdated?.Invoke(ratio);
-
             if (ratio >= 1) FinishWave();
-
             yield return null;
+
+            Duration -= Time.deltaTime;
         }
     }
 

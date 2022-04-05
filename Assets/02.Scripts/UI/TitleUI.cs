@@ -6,7 +6,8 @@ using UnityEngine.UI;
 
 public class TitleUI : UI
 {
-    [SerializeField] private Button _playButton;
+    [SerializeField] private Button _storyModeButton;
+    [SerializeField] private Button _survivalModeButton;
     [SerializeField] private Button _illustratedBookButton;
     [SerializeField] private Button _exitButton;
 
@@ -14,7 +15,8 @@ public class TitleUI : UI
     {
         base.Awake();
 
-        _playButton.onClick.AddListener(OnClickPlayButton);
+        _storyModeButton.onClick.AddListener(OnClickStoryModeButton);
+        _survivalModeButton.onClick.AddListener(OnClickSurvivalModeButton);
         _illustratedBookButton.onClick.AddListener(OnClickIllustratedBookButton);
         _exitButton.onClick.AddListener(OnClickExitButton);
     }
@@ -24,10 +26,47 @@ public class TitleUI : UI
 
     }
 
-    private void OnClickPlayButton()
+    private void OnClickStoryModeButton()
     {
+        // set mode
+        PlayManager.PlayMode = PlayMode.Story;
+
+        // loading
         LoadingUI loadingUI = UIFactory.Get<LoadingUI>();
 
+        loadingUI.Title = "떠날 채비를 하는 중입니다.";
+        loadingUI.onSetActive += (value) =>
+        {
+            if (value)
+            {
+                // unload title scene
+                var op1 = SceneManager.UnloadSceneAsync("Title");
+                op1.completed += (op) =>
+                {
+                    // load play scene
+                    var op2 = SceneManager.LoadSceneAsync("Play", LoadSceneMode.Additive);
+                    // after play scene is loaded, inactivate loading ui
+                    op2.completed += (op) => loadingUI.SetActive(false);
+                };
+            }
+            else
+            {
+                // after all loading is done, invoke play started event
+                EventChannelFactory.Get<PlayEventChannelSO>().OnPlayStarted();
+            }
+        };
+        loadingUI.SetActive(true);
+    }
+
+    private void OnClickSurvivalModeButton()
+    {
+        // set mode
+        PlayManager.PlayMode = PlayMode.Survival;
+
+        // loading
+        LoadingUI loadingUI = UIFactory.Get<LoadingUI>();
+
+        loadingUI.Title = "떠날 채비를 하는 중입니다.";
         loadingUI.onSetActive += (value) =>
         {
             if (value)

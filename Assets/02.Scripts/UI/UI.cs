@@ -29,7 +29,10 @@ public abstract class UI : MonoBehaviour
 
         UIFactory.Add(this);
         onSetActive += OnSetActive;
+    }
 
+    protected virtual void Start()
+    {
         SetActive(_showOnAwake, true);
     }
 
