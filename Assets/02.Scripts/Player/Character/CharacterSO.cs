@@ -5,22 +5,26 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Character", menuName = "ScriptableObject/Character/Character")]
 public class CharacterSO : ScriptableObject
 {
-    [field: SerializeField] public Stat[] Stats { get; private set; }
+    [field: SerializeField] public int Id { get; private set; }
+    [field: SerializeField] public string Name { get; private set; }
+    [field: SerializeField] public string Description { get; private set; }
     [field: SerializeField] public Sprite Sprite { get; private set; }
+    [field: SerializeField] public CharacterStatSO[] Stats { get; private set; }
 
     private void OnValidate()
     {
-        int length = System.Enum.GetValues(typeof(StatType)).Length;
-
-        if (Stats == null)
+        if(Stats == null)
         {
-            Stats = new Stat[length];
+            Stats = new CharacterStatSO[Character.MAX_REINFORCED];
         }
-        else if (Stats.Length != length)
+        else if(Stats.Length != Character.MAX_REINFORCED)
         {
-            Stat[] replace = new Stat[length];
-            for (int i = 0; i < Stats.Length && i < length; i++)
+            CharacterStatSO[] replace = new CharacterStatSO[Character.MAX_REINFORCED];
+
+            for (int i=0; i<Stats.Length && i<Character.MAX_REINFORCED; i++)
+            {
                 replace[i] = Stats[i];
+            }
             Stats = replace;
         }
     }

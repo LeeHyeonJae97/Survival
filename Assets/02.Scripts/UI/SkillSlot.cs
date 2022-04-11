@@ -16,18 +16,20 @@ public class SkillSlot : MonoBehaviour
     [SerializeField] private Button _button;
 
     // for new skill (reward)
-    public void Init(SkillSO skill)
+    public void Init(Skill skill)
     {
-        bool contains = Player.Instance.SkillDic.ContainsKey(skill.Id);
-        int level = contains ? Player.Instance.SkillDic[skill.Id].Level : 0;
+        SkillSO info = skill.Info;
 
-        _slotImage.color = Grade.Colors[(int)skill.Grade];
-        _iconImage.sprite = skill.Icon;
-        _nameText.text = skill.Name;
+        bool contains = Player.Instance.SkillDic.ContainsKey(info.Id);
+        int level = contains ? Player.Instance.SkillDic[info.Id].Level : 0;
+
+        _slotImage.color = Grade.Colors[(int)info.Grade];
+        _iconImage.sprite = info.Icon;
+        _nameText.text = info.Names[level];
         _levelText.text = $"{level + 1}";
-        _damageText.text = $"{skill.Stats[level].Damage}";
-        _cooldownText.text = $"{skill.Stats[level].Cooldown}";
-        _descriptionText.text = skill.Description;
+        _damageText.text = $"{info.Stats[level].Stats[skill.Reinforced].Damage}";
+        _cooldownText.text = $"{info.Stats[level].Stats[skill.Reinforced].Cooldown}";
+        _descriptionText.text = info.Descriptions[level];
         _button.interactable = true;
 
         _button.onClick.RemoveAllListeners();
@@ -38,7 +40,7 @@ public class SkillSlot : MonoBehaviour
                 // if already had, level up the skill
                 if (contains)
                 {
-                    Player.Instance.SkillDic[skill.Id].LevelUp();
+                    Player.Instance.SkillDic[info.Id].LevelUp();
                 }
 
                 // if not, equip skill newly
@@ -57,15 +59,15 @@ public class SkillSlot : MonoBehaviour
     // for my skill
     public void Init(LiveSkill liveSkill)
     {
-        SkillSO skill = liveSkill.Skill;
+        SkillSO skill = liveSkill.Skill.Info;
 
-        _slotImage.color = Grade.Colors[(int)liveSkill.Skill.Grade];
+        _slotImage.color = Grade.Colors[(int)skill.Grade];
         _iconImage.sprite = skill.Icon;
-        _nameText.text = skill.Name;
+        _nameText.text = skill.Names[liveSkill.Level];
         _levelText.text = $"{liveSkill.Level + 1}";
-        _damageText.text = $"{skill.Stats[liveSkill.Level].Damage}";
-        _cooldownText.text = $"{skill.Stats[liveSkill.Level].Cooldown}";
-        _descriptionText.text = skill.Description;
+        _damageText.text = $"{skill.Stats[liveSkill.Level].Stats[liveSkill.Skill.Reinforced].Damage}";
+        _cooldownText.text = $"{skill.Stats[liveSkill.Level].Stats[liveSkill.Skill.Reinforced].Cooldown}";
+        _descriptionText.text = skill.Descriptions[liveSkill.Level];
         _button.interactable = false;
     }
 }

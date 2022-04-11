@@ -44,6 +44,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _pools:
+  - <Key>k__BackingField: EnemyPlayer
+    _prefab: {fileID: 5268629335176984782, guid: c97170ed1330bc246b2bd87f8118cde3, type: 3}
+    _amount: 10
   - <Key>k__BackingField: CrowdControlIcon
     _prefab: {fileID: 6808955073483212204, guid: bf808f5f08b0bea46b9c1c33a3524915, type: 3}
     _amount: 3

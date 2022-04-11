@@ -15,7 +15,7 @@ public class NextWaveInfoSlot : MonoBehaviour
     // TODO :
     // implement for story mode
 
-    public void Init(string name, RewardType rewardType, float duration, float interval, EnemySO[] enemies)
+    public void Init(string name, RewardType rewardType, float duration, float interval, Enemy[] enemies)
     {
         _nameText.text = name;
         _rewardTypeImage.sprite = Reward.Infos[(int)rewardType].Icon;
@@ -24,7 +24,7 @@ public class NextWaveInfoSlot : MonoBehaviour
         {
             if (i < enemies.Length)
             {
-                _enemyImages[i].sprite = enemies[i].Sprite;
+                _enemyImages[i].sprite = enemies[i].Info.Sprite;
                 _enemyImages[i].gameObject.SetActive(true);
             }
             else
@@ -38,9 +38,6 @@ public class NextWaveInfoSlot : MonoBehaviour
         {
             UIFactory.Get<ConfirmUI>().Confirm("확실합니까?", () =>
             {
-                // randomize wave
-                WaveFactory.Random.Init(name, rewardType, duration, interval, enemies);
-
                 // update ui
                 UIFactory.Get<NextWaveSelectionUI>().SetActive(false);
 

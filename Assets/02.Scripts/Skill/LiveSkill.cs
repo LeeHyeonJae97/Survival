@@ -5,9 +5,9 @@ using UnityEngine;
 public class LiveSkill
 {
     public int Level { get; private set; }
-    public SkillSO Skill { get; private set; }
+    public Skill Skill { get; private set; }
 
-    public LiveSkill(SkillSO skill)
+    public LiveSkill(Skill skill)
     {
         Level = 0;
         Skill = skill;
@@ -20,9 +20,13 @@ public class LiveSkill
 
     public void Invoke(Player player)
     {
-        if (Skill.Stats[Level].Cooldown == 0)
+        // CONTINUE :
+        // index out of range error occurs
+        // + ui error when wave finished
+
+        if (Skill.Info.Stats[Level].Stats[Skill.Reinforced].Cooldown == 0)
         {
-            player.StartCoroutine(Skill.Invocation?.CoInvoke(this));
+            player.StartCoroutine(Skill.Info.Invocation?.CoInvoke(this));
         }
         else
         {
@@ -35,10 +39,10 @@ public class LiveSkill
         while (true)
         {
             // wait for cooldown
-            yield return WaitForSecondsFactory.Get(Skill.Stats[Level].Cooldown);
+            yield return WaitForSecondsFactory.Get(Skill.Info.Stats[Level].Stats[Skill.Reinforced].Cooldown);
 
             // invoke skill
-            Player.Instance.StartCoroutine(Skill.Invocation?.CoInvoke(this));
+            Player.Instance.StartCoroutine(Skill.Info.Invocation?.CoInvoke(this));
         }
     }
 }

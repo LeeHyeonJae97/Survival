@@ -5,9 +5,9 @@ using UnityEngine;
 public class LiveItem
 {
     public int Level { get; private set; }
-    public ItemSO Item { get; private set; }
+    public Item Item { get; private set; }
 
-    public LiveItem(ItemSO item)
+    public LiveItem(Item item)
     {
         Level = 0;
         Item = item;

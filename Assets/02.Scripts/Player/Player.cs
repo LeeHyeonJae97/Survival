@@ -8,7 +8,7 @@ public class Player : SingletonMonoBehaviour<Player>, IDamageable
 {
     // TODO :
     // need to be static
-    [field: SerializeField] public CharacterSO Character { get; private set; }
+    [field: SerializeField] public Character Character { get; private set; }
 
     public LiveStat Stats { get; private set; }
     public int HP
@@ -35,21 +35,32 @@ public class Player : SingletonMonoBehaviour<Player>, IDamageable
     // change to list?
     public Dictionary<int, LiveItem> ItemDic { get; private set; } = new Dictionary<int, LiveItem>();
     public List<LivePotion> Potions { get; private set; } = new List<LivePotion>();
-    public int Coin { get; private set; }
+    public int Coin
+    {
+        get { return _coin; }
+
+        set
+        {
+            _coin = value;
+            onCoinUpdated?.Invoke(_coin);
+        }
+    }
 
     [SerializeField] private SpriteRenderer _sr;
     [SerializeField] private SpriteMask _sm;
     [SerializeField] private SpriteRenderer _blinkSr;
     private int _hp;
+    private int _coin;
     private Coroutine _blinkCor;
 
     public event UnityAction<float> onHpUpdated;
+    public event UnityAction<int> onCoinUpdated;
 
     protected override void Awake()
     {
         base.Awake();
 
-        Stats = new LiveStat(Character.Stats);
+        Stats = new LiveStat(Character.Info.Stats[Character.Reinforced]);
 
         // set main camera as a child
         MainCamera.Camera.transform.SetParent(transform);
@@ -59,8 +70,8 @@ public class Player : SingletonMonoBehaviour<Player>, IDamageable
     {
         // initialize values
         HP = Stats[(int)StatType.Hp];
-        _sr.sprite = Character.Sprite;
-        _sm.sprite = Character.Sprite;
+        _sr.sprite = Character.Info.Sprite;
+        _sm.sprite = Character.Info.Sprite;
     }
 
     private void OnEnable()
@@ -118,34 +129,34 @@ public class Player : SingletonMonoBehaviour<Player>, IDamageable
 
     public void Equip(LiveItem liveItem)
     {
-        ItemDic.Add(liveItem.Item.Id, liveItem);
-        Stats.Buffed(liveItem.Item.Buff, liveItem.Level);
+        ItemDic.Add(liveItem.Item.Info.Id, liveItem);
+        Stats.Buffed(liveItem.Item.Info.Buffs[liveItem.Level].Buffs[liveItem.Item.Reinforced], liveItem.Level);
 
         // register on illustrated book
-        GameManager.Instance.User.IllustratedBook.Items[liveItem.Item.Id] = true;
+        liveItem.Item.Register();
     }
 
     public void Equip(LiveSkill liveSkill)
     {
-        SkillDic.Add(liveSkill.Skill.Id, liveSkill);
+        SkillDic.Add(liveSkill.Skill.Info.Id, liveSkill);
 
         // register on illustrated book
-        GameManager.Instance.User.IllustratedBook.Skills[liveSkill.Skill.Id] = true;
+        liveSkill.Skill.Register();
     }
 
     public void Equip(LivePotion livePotion)
     {
         Potions.Add(livePotion);
-        Stats.Buffed(livePotion.Potion.Buff);
+        Stats.Buffed(livePotion.Potion.Info.Buff);
 
         // register on illustrated book
-        GameManager.Instance.User.IllustratedBook.Potions[livePotion.Potion.Id] = true;
+        livePotion.Potion.Register();
     }
 
     public void Release(LivePotion livePotion)
     {
         Potions.Remove(livePotion);
-        Stats.Debuffed(livePotion.Potion.Buff);
+        Stats.Debuffed(livePotion.Potion.Info.Buff);
     }
 
     private void OnWaveStarted()

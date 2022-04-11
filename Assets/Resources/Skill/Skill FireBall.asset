@@ -13,21 +13,51 @@ MonoBehaviour:
   m_Name: Skill FireBall
   m_EditorClassIdentifier: 
   <Id>k__BackingField: 0
-  <Icon>k__BackingField: {fileID: 7007725183902490956, guid: 2ed50ea975c0f454f81ee081ad5f991c, type: 3}
-  <Name>k__BackingField: Fireball
   <Grade>k__BackingField: 0
-  <Description>k__BackingField: 
+  <Names>k__BackingField:
+  - 
+  - 
+  - 
+  <Descriptions>k__BackingField:
+  - 
+  - 
+  - 
+  <Icon>k__BackingField: {fileID: 7007725183902490956, guid: 2ed50ea975c0f454f81ee081ad5f991c, type: 3}
   <ProjectileSprite>k__BackingField: {fileID: -4714981180290237000, guid: c36a3034ca286ba44bc9644cad3f65b2, type: 3}
   <Stats>k__BackingField:
-  - <Scale>k__BackingField: 1
-    <Damage>k__BackingField: 3
-    <Cooldown>k__BackingField: 1
-    <LifeSpan>k__BackingField: 5
-    <FlySpeed>k__BackingField: 3
-    <Amount>k__BackingField: 5
-    <Interval>k__BackingField: 0.1
-    <TargetingRange>k__BackingField: 7
-    <DamagingCooldown>k__BackingField: 0.2
+  - Stats:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+  - Stats:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+  - Stats:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
   <Property>k__BackingField: {fileID: 11400000, guid: 3ba20ca23e6e54b49b303fc71c636d49, type: 2}
   <Invocation>k__BackingField: {fileID: 11400000, guid: b69d67e105d7d934cb5138a3e83ee3c5, type: 2}
   <Targeting>k__BackingField: {fileID: 11400000, guid: 603b8e211d9465e4bb46ceef4da6aaef, type: 2}

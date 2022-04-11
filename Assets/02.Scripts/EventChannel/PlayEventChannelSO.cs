@@ -13,25 +13,25 @@ public class PlayEventChannelSO : EventChannelSO
 
     public void OnPlayStarted()
     {
-        Debug.Log("Play Started");
+       if(_log) Debug.Log("Play Started");
         onPlayStarted?.Invoke();
     }
 
     public void OnPlayFinished()
     {
-        Debug.Log("Play Finished");
+        if (_log) Debug.Log("Play Finished");
         onPlayFinished?.Invoke();
     }
 
     public void OnWaveStarted()
     {
-        Debug.Log("Wave Started");
+        if (_log) Debug.Log("Wave Started");
         onWaveStarted?.Invoke();
     }
 
     public void OnWaveFinished()
     {
-        Debug.Log("Wave Finished");
+        if (_log) Debug.Log("Wave Finished");
         onWaveFinished?.Invoke();
     }
 }

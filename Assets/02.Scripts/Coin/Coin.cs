@@ -18,12 +18,13 @@ public class Coin : MonoBehaviour
     private void Update()
     {
         // NOTICE :
-        // maybe need to cachee 'WaveInfoUI'
-        Vector2 target = UIFactory.Get<WaveDurationUI>().DurationFillPosition;
+        // maybe need to cachee 'PlayInfoUI'
+
+        Vector2 target = UIFactory.Get<PlayInfoUI>().CoinImagePosition;
 
         if ((target - (Vector2)transform.position).sqrMagnitude < VANISH_DST_THRESHOLD)
         {
-            WaveManager.Instance.Duration -= Time.deltaTime;
+            Player.Instance.Coin += 1;
             PoolingManager.Instance.Despawn<Coin>(this);
         }
         else

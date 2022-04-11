@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class SkillProjectile : MonoBehaviour
 {
-    public SkillStat Stat { get; private set; }
+    public SkillStatSO Stat { get; private set; }
     public SkillProperty Property { get; private set; }
     public SkillTargeting Targeting { get; private set; }
     public SkillProjection Projection { get; private set; }
@@ -36,14 +36,16 @@ public class SkillProjectile : MonoBehaviour
 
     public void Init(LiveSkill liveSkill)
     {
-        _sr.sprite = liveSkill.Skill.ProjectileSprite;
+        SkillSO info = liveSkill.Skill.Info;
 
-        Stat = liveSkill.Skill.Stats[liveSkill.Level];
-        Property = liveSkill.Skill.Property;
-        Targeting = liveSkill.Skill.Targeting;
-        Projection = liveSkill.Skill.Projection;
-        Hit = liveSkill.Skill.Hit;
-        OnHit = liveSkill.Skill.OnHit;
+        _sr.sprite = info.ProjectileSprite;
+
+        Stat = info.Stats[liveSkill.Level].Stats[liveSkill.Skill.Reinforced];
+        Property = info.Property;
+        Targeting = info.Targeting;
+        Projection = info.Projection;
+        Hit = info.Hit;
+        OnHit = info.OnHit;
 
         if (Stat == default) Debug.LogError("Stat must not be null");
         if (Property == default) Debug.LogError("Property must not be null");

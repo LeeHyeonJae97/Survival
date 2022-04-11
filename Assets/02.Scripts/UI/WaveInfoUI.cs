@@ -35,9 +35,8 @@ public class WaveInfoUI : UI
 
     private IEnumerator CoOnWaveStarted()
     {
-        WaveSO wave = WaveManager.Instance.Wave;
         _indexText.text = $"{WaveManager.Instance.Index}¹øÂ° ¸ô·Á¿È";
-        _nameText.text = wave.Name;
+        _nameText.text = WaveManager.Instance.Current.Name;
         SetActive(true);
         yield return new WaitUntil(() => IsActivated);
 

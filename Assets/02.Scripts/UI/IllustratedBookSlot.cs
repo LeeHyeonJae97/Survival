@@ -7,28 +7,40 @@ public class IllustratedBookSlot : MonoBehaviour
 {
     [SerializeField] private Image _iconImage;
     [SerializeField] private GameObject _coverImage;
+    [SerializeField] private Button _button;
 
-    public void Init(ItemSO item, bool registered)
+    public void Init(Character character)
     {
-        _iconImage.sprite = item.Icon;
-        _coverImage.SetActive(!registered);
+        _iconImage.sprite = character.Info.Sprite;
+        _coverImage.SetActive(!character.Registered);
+        _button.onClick.AddListener(() => UIFactory.Get<IllustratedBookCharacterInfoUI>().SetActive(true, character));
     }
 
-    public void Init(SkillSO skill, bool registered)
+    public void Init(Item item)
     {
-        _iconImage.sprite = skill.Icon;
-        _coverImage.SetActive(!registered);
+        _iconImage.sprite = item.Info.Icon;
+        _coverImage.SetActive(!item.Registered);
+        _button.onClick.AddListener(() => UIFactory.Get<IllustratedBookItemInfoUI>().SetActive(true, item));
     }
 
-    public void Init(PotionSO potion, bool registered)
+    public void Init(Skill skill)
     {
-        _iconImage.sprite = potion.Icon;
-        _coverImage.SetActive(!registered);
+        _iconImage.sprite = skill.Info.Icon;
+        _coverImage.SetActive(!skill.Registered);
+        _button.onClick.AddListener(() => UIFactory.Get<IllustratedBookSkillInfoUI>().SetActive(true, skill));
     }
 
-    public void Init(EnemySO enemy, bool registered)
+    public void Init(Potion potion)
     {
-        _iconImage.sprite = enemy.Sprite;
-        _coverImage.SetActive(!registered);
+        _iconImage.sprite = potion.Info.Icon;
+        _coverImage.SetActive(!potion.Registered);
+        _button.onClick.AddListener(() => UIFactory.Get<IllustratedBookPotionInfoUI>().SetActive(true, potion));
+    }
+
+    public void Init(Enemy enemy)
+    {
+        _iconImage.sprite = enemy.Info.Sprite;
+        _coverImage.SetActive(!enemy.Registered);
+        _button.onClick.AddListener(() => UIFactory.Get<IllustratedBookEnemyInfoUI>().SetActive(true, enemy));
     }
 }

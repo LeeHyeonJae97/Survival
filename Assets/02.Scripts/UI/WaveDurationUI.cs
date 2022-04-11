@@ -5,14 +5,6 @@ using UnityEngine.UI;
 
 public class WaveDurationUI : UI
 {
-    public Vector3 DurationFillPosition
-    {
-        get
-        {
-            return _durationImage.transform.position;
-        }
-    }
-
     [SerializeField] private Image _durationImage;
     [SerializeField] private Image _durationFillImage;
 

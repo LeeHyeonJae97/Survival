@@ -14,14 +14,16 @@ public class PotionSlot : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _durationText;
     [SerializeField] private Button _button;
 
-    public void Init(PotionSO potion)
+    public void Init(Potion potion)
     {
-        _slotImage.color = Grade.Colors[(int)potion.Grade];
-        _iconImage.sprite = potion.Icon;
-        _nameText.text = potion.Name;
-        _statImage.sprite = Stat.Infos[(int)potion.Buff.Type].Icon;
-        _statText.text = $"{potion.Buff.Value}";
-        _durationText.text = $"{potion.Duration}";
+        PotionSO info = potion.Info;
+            
+        _slotImage.color = Grade.Colors[(int)info.Grade];
+        _iconImage.sprite = info.Icon;
+        _nameText.text = info.Name;
+        _statImage.sprite = Stat.Infos[(int)info.Buff.Type].Icon;
+        _statText.text = $"{info.Buff.Value}";
+        _durationText.text = $"{info.Duration}";
         _button.interactable = true;
 
         _button.onClick.RemoveAllListeners();
@@ -40,11 +42,13 @@ public class PotionSlot : MonoBehaviour
 
     public void Init(LivePotion livePotion)
     {
-        _slotImage.color = Grade.Colors[(int)livePotion.Potion.Grade];
-        _iconImage.sprite = livePotion.Potion.Icon;
-        _nameText.text = livePotion.Potion.Name;
-        _statImage.sprite = Stat.Infos[(int)livePotion.Potion.Buff.Type].Icon;
-        _statText.text = $"{livePotion.Potion.Buff.Value}";
+        PotionSO potion = livePotion.Potion.Info;
+
+        _slotImage.color = Grade.Colors[(int)potion.Grade];
+        _iconImage.sprite = potion.Icon;
+        _nameText.text = potion.Name;
+        _statImage.sprite = Stat.Infos[(int)potion.Buff.Type].Icon;
+        _statText.text = $"{potion.Buff.Value}";
         _durationText.text = $"{livePotion.Duration}";
         _button.interactable = false;
     }

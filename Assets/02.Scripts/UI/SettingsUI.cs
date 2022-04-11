@@ -24,7 +24,7 @@ public class SettingsUI : UI
     {
         if (value)
         {
-            UserSO user = GameManager.Instance.User;
+            UserData user = GameManager.Instance.User;
 
             _muteToggle.isOn = !user.Mute;
             _vibrationToggle.isOn = user.Vibration;

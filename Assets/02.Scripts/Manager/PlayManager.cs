@@ -11,6 +11,8 @@ public class PlayManager : SingletonMonoBehaviour<PlayManager>
     // any better idea than using static variable?
     public static PlayMode PlayMode { get; set; }
 
+    public int ElapsedSec { get; private set; }
+
     public event UnityAction<int> onElapsedUpdated;
 
     private void OnEnable()
@@ -29,6 +31,8 @@ public class PlayManager : SingletonMonoBehaviour<PlayManager>
 
     private void OnPlayStarted()
     {
+        PoolingManager.Instance.Create("SkillProjectile", "SkillProjectile", 10);
+
         StartCoroutine(CoElapse());
     }
 
@@ -39,12 +43,12 @@ public class PlayManager : SingletonMonoBehaviour<PlayManager>
 
     private IEnumerator CoElapse()
     {
-        int sec = 0;
+        ElapsedSec = 0;
 
         while (true)
         {
-            onElapsedUpdated?.Invoke(sec);
-            sec++;
+            onElapsedUpdated?.Invoke(ElapsedSec);
+            ElapsedSec++;
             yield return WaitForSecondsFactory.Get(1f);
         }
     }

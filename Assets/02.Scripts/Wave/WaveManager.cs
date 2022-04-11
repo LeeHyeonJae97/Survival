@@ -5,36 +5,55 @@ using UnityEngine.Events;
 
 public class WaveManager : SingletonMonoBehaviour<WaveManager>
 {
-    // CONTINUE :
-    // use strategy pattern for story mode and survival mode
+    [field: SerializeField] public WaveSO InitialWave { get; private set; }
+    public WaveBundleSO WaveBundle
+    {
+        get
+        {
+            if (_waveBundle == null) _waveBundle = Resources.Load<WaveBundleSO>($"Wave/WaveBundle {PlayManager.PlayMode}");
+            return _waveBundle;
+        }
+    }
+    public WaveSO Next
+    {
+        get
+        {
+            Current = WaveBundle.Next;
+            return Current;
+        }
+    }
+    public WaveSO Current
+    {
+        get
+        {
+            if (_current == null) _current = InitialWave;
+            return _current;
+        }
 
-    public WaveSO Wave { get; }
-    public int Index { get; private set; }
-    public float Duration { get; set; }
+        private set { _current = value; }
+    }
+    public int Index { get { return WaveBundle.Index; } }
     public List<EnemyPlayer> Enemies { get; private set; } = new List<EnemyPlayer>();
 
     [SerializeField] private float _range;
     [SerializeField] private float _checkOutOfRangeInterval;
+    private WaveBundleSO _waveBundle;
+    private WaveSO _current;
 
     public event UnityAction<float> onElapsedUpdated;
 
-    protected override void Awake()
+    private void OnDestroy()
     {
-        base.Awake();
-
-        Init();
+        WaveBundle.Reset();
     }
 
-    public void Init()
+    private void OnEnable()
     {
-        // create pool of enemy and start spawning
-        PoolingManager.Instance.Create<EnemyPlayer>(amount: 10);
+        EventChannelFactory.Get<PlayEventChannelSO>().onPlayStarted += FinishWave;
     }
 
     public void StartNextWave()
     {
-        Wave.Init();
-
         // start spawning
         StartCoroutine(CoSpawn());
 
@@ -52,23 +71,23 @@ public class WaveManager : SingletonMonoBehaviour<WaveManager>
 
     private void FinishWave()
     {
+        EventChannelFactory.Get<PlayEventChannelSO>().onPlayStarted -= FinishWave;
+
         // stop spawning and checking enemy out of range and duration
         StopAllCoroutines();
 
         // pause
         Time.timeScale = 0;
 
-        // move on to next
-        Index++;
-
         EventChannelFactory.Get<PlayEventChannelSO>().OnWaveFinished();
     }
 
     private IEnumerator CoSpawn()
     {
+        WaveSO wave = Next;
         EnemySpawning spawning;
 
-        while ((spawning = Wave.Next) != null)
+        while ((spawning = wave.Next) != null)
         {
             float elapsed = 0;
 
@@ -109,16 +128,17 @@ public class WaveManager : SingletonMonoBehaviour<WaveManager>
 
     private IEnumerator CoElapse()
     {
-        Duration = Wave.Duration;
+        float duration = WaveBundle.Current.Duration;
+        float remainDuration = duration;
 
         while (true)
         {
-            float ratio = 1 - (Duration / Wave.Duration);
+            float ratio = 1 - (remainDuration / duration);
             onElapsedUpdated?.Invoke(ratio);
             if (ratio >= 1) FinishWave();
             yield return null;
 
-            Duration -= Time.deltaTime;
+            remainDuration -= Time.deltaTime;
         }
     }
 

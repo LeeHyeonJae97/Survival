@@ -14,18 +14,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Id>k__BackingField: 2
   <Icon>k__BackingField: {fileID: 0}
-  <Name>k__BackingField: 
+  <Name>k__BackingField: PoisonArea
+  <Grade>k__BackingField: 0
   <Description>k__BackingField: 
+  <ProjectileSprite>k__BackingField: {fileID: 0}
   <Stats>k__BackingField:
-  - <Scale>k__BackingField: 0
-    <Damage>k__BackingField: 0
-    <Cooldown>k__BackingField: 0
-    <LifeSpan>k__BackingField: 0
-    <FlySpeed>k__BackingField: 0
-    <Amount>k__BackingField: 0
-    <Interval>k__BackingField: 0
-    <TargetingRange>k__BackingField: 0
-    <DamagingCooldown>k__BackingField: 0
+  - <Scale>k__BackingField: 1
+    <Damage>k__BackingField: 3
+    <Cooldown>k__BackingField: 1
+    <LifeSpan>k__BackingField: 5
+    <FlySpeed>k__BackingField: 3
+    <Amount>k__BackingField: 5
+    <Interval>k__BackingField: 0.1
+    <TargetingRange>k__BackingField: 7
+    <DamagingCooldown>k__BackingField: 0.2
   <Property>k__BackingField: {fileID: 11400000, guid: 0c9a2c7357470324c97abbb47d3112bb, type: 2}
   <Invocation>k__BackingField: {fileID: 11400000, guid: 68b3bb7d3cd327e4e95dfcc067fd02d6, type: 2}
   <Targeting>k__BackingField: {fileID: 11400000, guid: 2ab73104e954b0447897fd131287e655, type: 2}

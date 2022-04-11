@@ -8,7 +8,6 @@ public abstract class SingletonMonoBehaviour<T> : MonoBehaviour where T : Object
     {
         get
         {
-            Debug.Log(typeof(T).ToString());
             if (_instance == null) _instance = Instantiate(Resources.Load<T>(typeof(T).ToString()));
             return _instance;
         }

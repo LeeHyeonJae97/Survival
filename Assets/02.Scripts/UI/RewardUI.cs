@@ -6,9 +6,15 @@ using UnityEngine.UI;
 
 public class RewardUI : UI
 {
-    [SerializeField] private Button _rewardTabButton;
+    [SerializeField] private Button _itemTabButton;
+    [SerializeField] private Button _skillTabButton;
+    [SerializeField] private Button _potionTabButton;
+    [SerializeField] private Button _gamblingTabButton;
     [SerializeField] private Button _myInfoTabButton;
-    [SerializeField] private GameObject _rewardGroup;
+    [SerializeField] private GameObject _itemGroup;
+    [SerializeField] private GameObject _skillGroup;
+    [SerializeField] private GameObject _potionGroup;
+    [SerializeField] private GameObject _gamblingGroup;
     [SerializeField] private GameObject _myInfoGroup;
     [SerializeField] private Transform _rewardItemGroup;
     [SerializeField] private Transform _rewardSkillGroup;
@@ -26,22 +32,25 @@ public class RewardUI : UI
     [SerializeField] private SkillSlot _skillSlotPrefab;
     [SerializeField] private ItemSlot _itemSlotPrefab;
     [SerializeField] private PotionSlot _potionSlotPrefab;
-    [SerializeField] private Button _statTabButton;
-    [SerializeField] private Button _itemTabButton;
-    [SerializeField] private Button _skillTabButton;
-    [SerializeField] private Button _potionTabButton;
+    [SerializeField] private Button _myStatTabButton;
+    [SerializeField] private Button _myItemTabButton;
+    [SerializeField] private Button _mySkillTabButton;
+    [SerializeField] private Button _myPotionTabButton;
 
     protected override void Awake()
     {
         base.Awake();
 
-        _rewardTabButton.onClick.AddListener(() => OnClickTabButton(0));
-        _myInfoTabButton.onClick.AddListener(() => OnClickTabButton(1));
+        _itemTabButton.onClick.AddListener(() => OnClickTabButton(0));
+        _skillTabButton.onClick.AddListener(() => OnClickTabButton(1));
+        _potionTabButton.onClick.AddListener(() => OnClickTabButton(2));
+        _gamblingTabButton.onClick.AddListener(() => OnClickTabButton(3));
+        _myInfoTabButton.onClick.AddListener(() => OnClickTabButton(4));
 
-        _statTabButton.onClick.AddListener(() => OnClickSubTabButton(0));
-        _itemTabButton.onClick.AddListener(() => OnClickSubTabButton(1));
-        _skillTabButton.onClick.AddListener(() => OnClickSubTabButton(2));
-        _potionTabButton.onClick.AddListener(() => OnClickSubTabButton(3));
+        _myStatTabButton.onClick.AddListener(() => OnClickSubTabButton(0));
+        _myItemTabButton.onClick.AddListener(() => OnClickSubTabButton(1));
+        _mySkillTabButton.onClick.AddListener(() => OnClickSubTabButton(2));
+        _myPotionTabButton.onClick.AddListener(() => OnClickSubTabButton(3));
 
         var channel = EventChannelFactory.Get<PlayEventChannelSO>();
         channel.onWaveStarted += OnWaveStarted;
@@ -61,7 +70,7 @@ public class RewardUI : UI
     {
         if (value)
         {
-            Init(WaveManager.Instance.Wave.RewardType);
+            Init(WaveManager.Instance.Current.RewardType);
             Init(Player.Instance);
 
             OnClickTabButton(0);
@@ -84,7 +93,7 @@ public class RewardUI : UI
         switch (type)
         {
             case RewardType.Item:
-                ItemSO[] items = ItemFactory.GetRandom(Reward.Infos[(int)RewardType.Item].Count);
+                Item[] items = ItemFactory.GetRandom(Reward.Infos[(int)RewardType.Item].Count);
                 for (int i = 0; i < _rewardItemGroup.childCount; i++)
                 {
                     _rewardItemGroup.GetChild(i).GetComponent<ItemSlot>().Init(items[i]);
@@ -93,7 +102,7 @@ public class RewardUI : UI
                 break;
 
             case RewardType.Skill:
-                SkillSO[] skills = SkillFactory.GetRandom(Reward.Infos[(int)RewardType.Skill].Count);
+                Skill[] skills = SkillFactory.GetRandom(Reward.Infos[(int)RewardType.Skill].Count);
                 for (int i = 0; i < _rewardSkillGroup.childCount; i++)
                 {
                     _rewardSkillGroup.GetChild(i).GetComponent<SkillSlot>().Init(skills[i]);
@@ -102,7 +111,7 @@ public class RewardUI : UI
                 break;
 
             case RewardType.Potion:
-                PotionSO[] potions = PotionFactory.GetRandom(Reward.Infos[(int)RewardType.Potion].Count);
+                Potion[] potions = PotionFactory.GetRandom(Reward.Infos[(int)RewardType.Potion].Count);
                 for (int i = 0; i < _rewardPotionGroup.childCount; i++)
                 {
                     _rewardPotionGroup.GetChild(i).GetComponent<PotionSlot>().Init(potions[i]);
@@ -115,7 +124,7 @@ public class RewardUI : UI
     private void Init(Player player)
     {
         // set character image
-        _characterImage.sprite = player.Character.Sprite;
+        _characterImage.sprite = player.Character.Info.Sprite;
 
         // set my stats
         for (int i = 0; i < _statImages.Length && i < _statTexts.Length; i++)
@@ -175,11 +184,17 @@ public class RewardUI : UI
 
     private void OnClickTabButton(int index)
     {
-        _rewardGroup.SetActive(index == 0);
-        _myInfoGroup.SetActive(index == 1);
+        _itemGroup.SetActive(index == 0);
+        _skillGroup.SetActive(index == 1);
+        _potionGroup.SetActive(index == 2);
+        _gamblingGroup.SetActive(index == 3);
+        _myInfoGroup.SetActive(index == 4);
 
-        _rewardTabButton.targetGraphic.color = index == 0 ? _rewardTabButton.colors.normalColor : _rewardTabButton.colors.disabledColor;
-        _myInfoTabButton.targetGraphic.color = index == 1 ? _myInfoTabButton.colors.normalColor : _myInfoTabButton.colors.disabledColor;
+        _itemTabButton.targetGraphic.color = index == 0 ? _itemTabButton.colors.normalColor : _itemTabButton.colors.disabledColor;
+        _skillTabButton.targetGraphic.color = index == 1 ? _skillTabButton.colors.normalColor : _skillTabButton.colors.disabledColor;
+        _potionTabButton.targetGraphic.color = index == 2 ? _potionTabButton.colors.normalColor : _potionTabButton.colors.disabledColor;
+        _gamblingTabButton.targetGraphic.color = index == 3 ? _gamblingTabButton.colors.normalColor : _gamblingTabButton.colors.disabledColor;
+        _myInfoTabButton.targetGraphic.color = index == 4 ? _myInfoTabButton.colors.normalColor : _myInfoTabButton.colors.disabledColor;
     }
 
     private void OnClickSubTabButton(int index)
@@ -189,9 +204,9 @@ public class RewardUI : UI
         _mySkillGroup.gameObject.SetActive(index == 2);
         _myPotionGroup.gameObject.SetActive(index == 3);
 
-        _statTabButton.targetGraphic.color = index == 0 ? _statTabButton.colors.normalColor : _statTabButton.colors.disabledColor;
-        _itemTabButton.targetGraphic.color = index == 1 ? _itemTabButton.colors.normalColor : _itemTabButton.colors.disabledColor;
-        _skillTabButton.targetGraphic.color = index == 2 ? _skillTabButton.colors.normalColor : _skillTabButton.colors.disabledColor;
-        _potionTabButton.targetGraphic.color = index == 3 ? _potionTabButton.colors.normalColor : _potionTabButton.colors.disabledColor;
+        _myStatTabButton.targetGraphic.color = index == 0 ? _myStatTabButton.colors.normalColor : _myStatTabButton.colors.disabledColor;
+        _myItemTabButton.targetGraphic.color = index == 1 ? _myItemTabButton.colors.normalColor : _myItemTabButton.colors.disabledColor;
+        _mySkillTabButton.targetGraphic.color = index == 2 ? _mySkillTabButton.colors.normalColor : _mySkillTabButton.colors.disabledColor;
+        _myPotionTabButton.targetGraphic.color = index == 3 ? _myPotionTabButton.colors.normalColor : _myPotionTabButton.colors.disabledColor;
     }
 }

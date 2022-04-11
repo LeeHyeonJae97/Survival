@@ -5,11 +5,11 @@ using UnityEngine;
 public class LivePotion
 {
     public int Duration { get; set; }
-    public PotionSO Potion { get; private set; }
+    public Potion Potion { get; private set; }
 
-    public LivePotion(PotionSO potion)
+    public LivePotion(Potion potion)
     {
-        Duration = Potion.Duration;
+        Duration = Potion.Info.Duration;
         Potion = potion;
     }
 }

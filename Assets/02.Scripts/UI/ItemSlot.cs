@@ -16,18 +16,20 @@ public class ItemSlot : MonoBehaviour
     [SerializeField] private Button _button;
 
     // for new item (reward)
-    public void Init(ItemSO item)
+    public void Init(Item item)
     {
-        bool contains = Player.Instance.ItemDic.ContainsKey(item.Id);
-        int level = contains ? Player.Instance.ItemDic[item.Id].Level + 1 : 0;
+        ItemSO info = item.Info;
 
-        _slotImage.color = Grade.Colors[(int)item.Grade];
-        _iconImage.sprite = item.Icon;
-        _nameText.text = item.Name;
+        bool contains = Player.Instance.ItemDic.ContainsKey(info.Id);
+        int level = contains ? Player.Instance.ItemDic[info.Id].Level + 1 : 0;
+
+        _slotImage.color = Grade.Colors[(int)info.Grade];
+        _iconImage.sprite = info.Icon;
+        _nameText.text = info.Names[level];
         _levelText.text = $"{level + 1}";
-        _statImage.sprite = Stat.Infos[(int)item.Buff.Type].Icon;
-        _statText.text = $"{item.Buff.Values[level]}";
-        _descriptionText.text = item.Description;
+        _statImage.sprite = Stat.Infos[(int)info.Buffs[level].Buffs[item.Reinforced].Type].Icon;
+        _statText.text = $"{info.Buffs[level].Buffs[item.Reinforced].Values[level]}";
+        _descriptionText.text = info.Descriptions[level];
         _button.interactable = true;
 
         _button.onClick.RemoveAllListeners();
@@ -38,7 +40,7 @@ public class ItemSlot : MonoBehaviour
                 // if already had, level up the item
                 if (contains)
                 {
-                    Player.Instance.ItemDic[item.Id].LevelUp();
+                    Player.Instance.ItemDic[info.Id].LevelUp();
                 }
 
                 // if not, equip item newly
@@ -57,15 +59,15 @@ public class ItemSlot : MonoBehaviour
     // for my item
     public void Init(LiveItem liveItem)
     {
-        ItemSO item = liveItem.Item;
+        ItemSO item = liveItem.Item.Info;
 
-        _slotImage.color = Grade.Colors[(int)liveItem.Item.Grade];
+        _slotImage.color = Grade.Colors[(int)item.Grade];
         _iconImage.sprite = item.Icon;
-        _nameText.text = item.Name;
+        _nameText.text = item.Names[liveItem.Level];
         _levelText.text = $"{liveItem.Level + 1}";
-        _statImage.sprite = Stat.Infos[(int)item.Buff.Type].Icon;
-        _statText.text = $"{item.Buff.Values[liveItem.Level]}";
-        _descriptionText.text = item.Description;
+        _statImage.sprite = Stat.Infos[(int)item.Buffs[liveItem.Level].Buffs[liveItem.Item.Reinforced].Type].Icon;
+        _statText.text = $"{item.Buffs[liveItem.Level].Buffs[liveItem.Item.Reinforced].Values[liveItem.Level]}";
+        _descriptionText.text = item.Descriptions[liveItem.Level];
         _button.interactable = false;
     }
 }

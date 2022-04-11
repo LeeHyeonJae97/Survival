@@ -4,23 +4,20 @@ using UnityEngine;
 
 public class GameManager : SingletonMonoBehaviour<GameManager>
 {
-    public UserSO User
+    public UserData User
     {
         get
         {
-            if (_user == null)
-            {
-                _user = Resources.Load<UserSO>("User");
-                _user.Load();
-            }
+            if (_user == null) JsonFileSystem<UserData>.Load(UserData.DIR_PATH, UserData.FILE_PATH, out _user);
             return _user;
         }
     }
 
-    private UserSO _user;
+    private UserData _user;
 
     private void OnDisable()
     {
-        User.Save();
+        JsonFileSystem<UserData>.Save(UserData.DIR_PATH, UserData.FILE_PATH, _user);
+        JsonFileSystem<SkillData>.Save(SkillData.DIR_PATH, SkillData.FILE_PATH, new SkillData(SkillFactory.GetAll()));
     }
 }

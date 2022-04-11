@@ -12,12 +12,12 @@ public class SkillInvocationSpawn : SkillInvocation
 
     public override IEnumerator CoInvoke(LiveSkill liveSkill)
     {
-        SkillStat stat = liveSkill.Skill.Stats[liveSkill.Level];
+        SkillStatSO stat = liveSkill.Skill.Info.Stats[liveSkill.Level].Stats[liveSkill.Skill.Reinforced];
 
         for (int i = 0; i < stat.Amount; i++)
         {
             // get target
-            GameObject target = liveSkill.Skill.Targeting.GetTarget(Player.Instance.transform.position, stat.TargetingRange);
+            GameObject target = liveSkill.Skill.Info.Targeting.GetTarget(Player.Instance.transform.position, stat.TargetingRange);
 
             // if there's no enemy just skip
             if (target != null)

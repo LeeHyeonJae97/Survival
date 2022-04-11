@@ -19,8 +19,10 @@ public class LiveStat
         }
     }
 
-    public LiveStat(Stat[] stats)
+    public LiveStat(CharacterStatSO characterStat)
     {
+        Stat[] stats = characterStat.Stats;
+
         _bases = new int[stats.Length];
         _buffs = new int[stats.Length];
         _finals = new int[stats.Length];

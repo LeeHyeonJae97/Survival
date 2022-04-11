@@ -1,42 +1,68 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using UnityEngine;
 
 public class EnemyFactory
 {
-    public static int Count => Dic.Count;
+    public static int Count { get; private set; }
 
-    private static Dictionary<int, EnemySO> Dic
+    private static Enemy[] List
+    {
+        get
+        {
+            if (_list == null)
+            {
+                // load info scriptableobjects
+                var infos = Resources.LoadAll<EnemySO>("EnemySO");
+                infos = infos.OrderBy((x) => x.Id).ToArray();
+
+                // save the count
+                Count = infos.Length;
+
+                // load saved data
+                JsonFileSystem<EnemyData>.Load(EnemyData.DIR_PATH, EnemyData.FILE_PATH, out EnemyData data);
+
+                // initialize data with info scriptableobjects
+                for (int i = 0; i < data.Enemies.Length; i++) data.Enemies[i].Init(infos[i]);
+
+                // cache the data
+                _list = data.Enemies;
+            }
+            return _list;
+        }
+    }
+    private static Dictionary<int, Enemy> Dic
     {
         get
         {
             if (_dic == null)
             {
-                var enemies = Resources.LoadAll<EnemySO>("Enemy");
+                _dic = new Dictionary<int, Enemy>();
 
-                _dic = new Dictionary<int, EnemySO>();
-                for (int i = 0; i < enemies.Length; i++)
+                for (int i = 0; i < List.Length; i++)
                 {
-                    _dic.Add(enemies[i].Id, enemies[i]);
+                    _dic.Add(List[i].Info.Id, List[i]);
                 }
             }
             return _dic;
         }
     }
 
-    private static Dictionary<int, EnemySO> _dic;
+    private static Enemy[] _list;
+    private static Dictionary<int, Enemy> _dic;
 
-    public static EnemySO Get(int id)
+    public static Enemy Get(int id)
     {
-        if (!Dic.TryGetValue(id, out EnemySO enemy))
+        if (!Dic.TryGetValue(id, out Enemy enemy))
         {
-            Debug.LogError($"There's no Enemy : {id}");
+            Debug.LogError($"There's no Item : {id}");
         }
         return enemy;
     }
 
-    public static EnemySO[] GetRandom(int count)
+    public static Enemy[] GetRandom(int count)
     {
         if (count < 1)
         {
@@ -48,6 +74,6 @@ public class EnemyFactory
         // upgrade to 'Fisher-Yates shuffle'
 
         System.Random random = new System.Random();
-        return _dic.Values.OrderBy(x => random.Next()).Take(count).ToArray();
+        return List.OrderBy(x => random.Next()).Take(count).ToArray();
     }
 }
