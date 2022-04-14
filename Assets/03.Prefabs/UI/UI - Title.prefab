@@ -405,6 +405,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 7104197064519874752, guid: e2a2d3ede5c9e634bb1f864399627ca6, type: 3}
   m_PrefabInstance: {fileID: 3883258421692366216}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &3454895461793653150 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1879790963314236438, guid: e2a2d3ede5c9e634bb1f864399627ca6, type: 3}
+  m_PrefabInstance: {fileID: 3883258421692366216}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &5589906852320973049
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -529,10 +540,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _showOnAwake: 1
-  _adventureButton: {fileID: 5428647818476242083}
-  _characterButton: {fileID: 0}
+  _storyModeButton: {fileID: 5428647818476242083}
+  _survivlaModeButton: {fileID: 3454895461793653150}
   _illustratedBookButton: {fileID: 4387128719965856673}
-  _settingsButton: {fileID: 0}
 --- !u!1001 &5854738366610561205
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -13,6 +13,9 @@ public class CharacterData
     {
         Characters = new Character[CharacterFactory.Count];
         for (int i = 0; i < Characters.Length; i++) Characters[i] = new Character();
+
+        // register default character
+        Characters[0].Register();
     }
 
     public CharacterData(Character[] characters)

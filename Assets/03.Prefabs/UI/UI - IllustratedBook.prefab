@@ -768,6 +768,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f0d10576a45ab9b44ab2d88ccccd5043, type: 3}
+--- !u!224 &4596561654525399515 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 3932157521002813203, guid: f0d10576a45ab9b44ab2d88ccccd5043, type: 3}
+  m_PrefabInstance: {fileID: 674290993627645640}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &5137254794308285709 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5625174134137893829, guid: f0d10576a45ab9b44ab2d88ccccd5043, type: 3}
@@ -779,11 +784,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!224 &4596561654525399515 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 3932157521002813203, guid: f0d10576a45ab9b44ab2d88ccccd5043, type: 3}
-  m_PrefabInstance: {fileID: 674290993627645640}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1278076163744223439
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -910,6 +910,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 3932157521002813203, guid: f0d10576a45ab9b44ab2d88ccccd5043, type: 3}
   m_PrefabInstance: {fileID: 1278076163744223439}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &6893886699523236618 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5625174134137893829, guid: f0d10576a45ab9b44ab2d88ccccd5043, type: 3}
+  m_PrefabInstance: {fileID: 1278076163744223439}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2178812324098856417
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1402,6 +1413,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6815913287218098261, guid: 4f6679aedf066c54395f2f5372e230d7, type: 3}
+      propertyPath: m_SortingOrder
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 6815913287218098261, guid: 4f6679aedf066c54395f2f5372e230d7, type: 3}
       propertyPath: m_AdditionalShaderChannelsFlag
       value: 25
       objectReference: {fileID: 0}
@@ -1431,10 +1446,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _showOnAwake: 0
   _slotPrefab: {fileID: 4877460332832994971, guid: 93ce26d77bc5c4d46857f10e24e54f86, type: 3}
+  _characterHolder: {fileID: 2318236300235800219}
   _itemHolder: {fileID: 8757511963123335170}
   _skillHolder: {fileID: 5367061565748345089}
   _potionHolder: {fileID: 2116111678041553277}
   _enemyHolder: {fileID: 9053240196146531957}
+  _characterTabButton: {fileID: 6893886699523236618}
   _itemTabButton: {fileID: 2984099595458445355}
   _skillTabButton: {fileID: 3924348546235691233}
   _potionTabButton: {fileID: 5137254794308285709}

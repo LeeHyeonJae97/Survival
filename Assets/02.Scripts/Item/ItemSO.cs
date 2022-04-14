@@ -12,7 +12,7 @@ public class ItemSO : ScriptableObject
     [field: SerializeField] public string[] Names { get; private set; }
     [field: SerializeField] public GradeType Grade { get; private set; }
     [field: SerializeField] public string[] Descriptions { get; private set; }
-    [field: SerializeField] public ItemBuffList[] Buffs { get; private set; }
+    [field: SerializeField] public ItemBuffSO[] Buffs { get; private set; }
 
     private void OnValidate()
     {
@@ -48,22 +48,17 @@ public class ItemSO : ScriptableObject
 
         if (Buffs == null)
         {
-            Buffs = new ItemBuffList[MAX_LEVEL];
+            Buffs = new ItemBuffSO[MAX_LEVEL];
         }
         else if (Buffs.Length != MAX_LEVEL)
         {
-            ItemBuffList[] replace = new ItemBuffList[MAX_LEVEL];
+            ItemBuffSO[] replace = new ItemBuffSO[MAX_LEVEL];
 
             for (int i = 0; i < Buffs.Length && i < MAX_LEVEL; i++)
             {
-                replace[i] = i < Buffs.Length ? Buffs[i] : new ItemBuffList();
+                replace[i] = i < Buffs.Length ? Buffs[i] : null;
             }
             Buffs = replace;
-        }
-
-        for (int i = 0; i < Buffs.Length; i++)
-        {
-            Buffs[i].OnValidate();
         }
     }
 }

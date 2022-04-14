@@ -36,9 +36,9 @@ public class LiveStat
         }
     }
 
-    public void Buffed(ItemBuff buff, int level)
+    public void Buffed(ItemBuff buff)
     {
-        _bases[(int)buff.Type] += buff.Values[level];
+        _bases[(int)buff.Type] += buff.Value;
     }
 
     public void Buffed(PotionBuff buff)

@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 805eccec88797d54d9138d5b5e1951cd, type: 3}
+  m_Name: ItemBuff 2
+  m_EditorClassIdentifier: 
+  <Buffs>k__BackingField:
+  - <Type>k__BackingField: 0
+    <Value>k__BackingField: 210
+  - <Type>k__BackingField: 0
+    <Value>k__BackingField: 220
+  - <Type>k__BackingField: 0
+    <Value>k__BackingField: 230
+  - <Type>k__BackingField: 0
+    <Value>k__BackingField: 240
+  - <Type>k__BackingField: 0
+    <Value>k__BackingField: 250
+  - <Type>k__BackingField: 0
+    <Value>k__BackingField: 260
+  - <Type>k__BackingField: 0
+    <Value>k__BackingField: 270
+  - <Type>k__BackingField: 0
+    <Value>k__BackingField: 280
+  - <Type>k__BackingField: 0
+    <Value>k__BackingField: 290
+  - <Type>k__BackingField: 0
+    <Value>k__BackingField: 300

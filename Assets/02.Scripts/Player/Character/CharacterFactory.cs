@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class CharacterFactory
 {
-    public static int Count { get; private set; }
+    public static int Count => Infos.Length;
 
     private static Character[] List
     {
@@ -14,11 +14,7 @@ public class CharacterFactory
             if (_list == null)
             {
                 // load info scriptableobjects
-                var infos = Resources.LoadAll<CharacterSO>("CharacterSO");
-                infos = infos.OrderBy((x) => x.Id).ToArray();
-
-                // save the count
-                Count = infos.Length;
+                var infos = Infos.OrderBy((x) => x.Id).ToArray();
 
                 // load saved data
                 JsonFileSystem<CharacterData>.Load(CharacterData.DIR_PATH, CharacterData.FILE_PATH, out CharacterData data);
@@ -32,7 +28,6 @@ public class CharacterFactory
             return _list;
         }
     }
-
     private static Dictionary<int, Character> Dic
     {
         get
@@ -49,9 +44,18 @@ public class CharacterFactory
             return _dic;
         }
     }
+    private static CharacterSO[] Infos
+    {
+        get
+        {
+            if (_infos == null) _infos = Resources.LoadAll<CharacterSO>("CharacterSO");
+            return _infos;
+        }
+    }
 
     private static Character[] _list;
     private static Dictionary<int, Character> _dic;
+    private static CharacterSO[] _infos;
 
     public static Character Get(int id)
     {

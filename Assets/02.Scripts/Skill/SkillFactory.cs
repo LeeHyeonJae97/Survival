@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class SkillFactory
 {
-    public static int Count { get; private set; }
+    public static int Count => Infos.Length;
 
     private static Skill[] List
     {
@@ -14,17 +14,13 @@ public class SkillFactory
             if (_list == null)
             {
                 // load info scriptableobjects
-                var infos = Resources.LoadAll<SkillSO>("SkillSO");
-                infos = infos.OrderBy((x) => x.Id).ToArray();
-
-                // save the count
-                Count = infos.Length;
+                var infos = Infos.OrderBy((x) => x.Id).ToArray();
 
                 // load saved data
                 JsonFileSystem<SkillData>.Load(SkillData.DIR_PATH, SkillData.FILE_PATH, out SkillData data);
 
                 // initialize data with info scriptableobjects
-                for (int i = 0; i < _list.Length; i++) _list[i].Init(infos[i]);
+                for (int i = 0; i < data.Skills.Length; i++) data.Skills[i].Init(infos[i]);
 
                 // cache the data
                 _list = data.Skills;
@@ -48,9 +44,18 @@ public class SkillFactory
             return _dic;
         }
     }
+    private static SkillSO[] Infos
+    {
+        get
+        {
+            if (_infos == null) _infos = Resources.LoadAll<SkillSO>("SkillSO");
+            return _infos;
+        }
+    }
 
     private static Skill[] _list;
     private static Dictionary<int, Skill> _dic;
+    private static SkillSO[] _infos;
 
     public static Skill Get(int id)
     {

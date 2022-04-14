@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class ItemFactory
 {
-    public static int Count { get; private set; }
+    public static int Count => Infos.Length;
 
     private static Item[] List
     {
@@ -14,17 +14,13 @@ public class ItemFactory
             if (_list == null)
             {
                 // load info scriptableobjects
-                var infos = Resources.LoadAll<ItemSO>("ItemSO");
-                infos = infos.OrderBy((x) => x.Id).ToArray();
-
-                // save the count
-                Count = infos.Length;
+                var infos = Infos.OrderBy((x) => x.Id).ToArray();
 
                 // load saved data
                 JsonFileSystem<ItemData>.Load(ItemData.DIR_PATH, ItemData.FILE_PATH, out ItemData data);
 
                 // initialize data with info scriptableobjects
-                for (int i = 0; i < _list.Length; i++) _list[i].Init(infos[i]);
+                for (int i = 0; i < data.Items.Length; i++) data.Items[i].Init(infos[i]);
 
                 // cache the data
                 _list = data.Items;
@@ -48,9 +44,18 @@ public class ItemFactory
             return _dic;
         }
     }
+    private static ItemSO[] Infos
+    {
+        get
+        {
+            if (_infos == null) _infos = Resources.LoadAll<ItemSO>("ItemSO");
+            return _infos;
+        }
+    }
 
     private static Item[] _list;
     private static Dictionary<int, Item> _dic;
+    private static ItemSO[] _infos;
 
     public static Item Get(int id)
     {

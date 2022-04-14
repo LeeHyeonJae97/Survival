@@ -28,7 +28,7 @@ public class ItemSlot : MonoBehaviour
         _nameText.text = info.Names[level];
         _levelText.text = $"{level + 1}";
         _statImage.sprite = Stat.Infos[(int)info.Buffs[level].Buffs[item.Reinforced].Type].Icon;
-        _statText.text = $"{info.Buffs[level].Buffs[item.Reinforced].Values[level]}";
+        _statText.text = $"{info.Buffs[level].Buffs[item.Reinforced].Value}";
         _descriptionText.text = info.Descriptions[level];
         _button.interactable = true;
 
@@ -66,7 +66,7 @@ public class ItemSlot : MonoBehaviour
         _nameText.text = item.Names[liveItem.Level];
         _levelText.text = $"{liveItem.Level + 1}";
         _statImage.sprite = Stat.Infos[(int)item.Buffs[liveItem.Level].Buffs[liveItem.Item.Reinforced].Type].Icon;
-        _statText.text = $"{item.Buffs[liveItem.Level].Buffs[liveItem.Item.Reinforced].Values[liveItem.Level]}";
+        _statText.text = $"{item.Buffs[liveItem.Level].Buffs[liveItem.Item.Reinforced].Value}";
         _descriptionText.text = item.Descriptions[liveItem.Level];
         _button.interactable = false;
     }

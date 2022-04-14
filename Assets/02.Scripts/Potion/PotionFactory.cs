@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class PotionFactory
 {
-    public static int Count { get; private set; }
+    public static int Count => Infos.Length;
 
     private static Potion[] List
     {
@@ -14,11 +14,7 @@ public class PotionFactory
             if (_list == null)
             {
                 // load info scriptableobjects
-                var infos = Resources.LoadAll<PotionSO>("PotionSO");
-                infos = infos.OrderBy((x) => x.Id).ToArray();
-
-                // save the count
-                Count = infos.Length;
+                var infos = Infos.OrderBy((x) => x.Id).ToArray();
 
                 // load saved data
                 JsonFileSystem<PotionData>.Load(PotionData.DIR_PATH, PotionData.FILE_PATH, out PotionData data);
@@ -32,7 +28,6 @@ public class PotionFactory
             return _list;
         }
     }
-
     private static Dictionary<int, Potion> Dic
     {
         get
@@ -49,9 +44,18 @@ public class PotionFactory
             return _dic;
         }
     }
+    private static PotionSO[] Infos
+    {
+        get
+        {
+            if (_infos == null) _infos = Resources.LoadAll<PotionSO>("PotionSO");
+            return _infos;
+        }
+    }
 
     private static Potion[] _list;
     private static Dictionary<int, Potion> _dic;
+    private static PotionSO[] _infos;
 
     public static Potion Get(int id)
     {

@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class SkillProjectile : MonoBehaviour
 {
-    public SkillStatSO Stat { get; private set; }
+    public SkillStat Stat { get; private set; }
     public SkillProperty Property { get; private set; }
     public SkillTargeting Targeting { get; private set; }
     public SkillProjection Projection { get; private set; }

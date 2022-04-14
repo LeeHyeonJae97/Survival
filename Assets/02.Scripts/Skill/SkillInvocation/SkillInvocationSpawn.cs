@@ -12,7 +12,7 @@ public class SkillInvocationSpawn : SkillInvocation
 
     public override IEnumerator CoInvoke(LiveSkill liveSkill)
     {
-        SkillStatSO stat = liveSkill.Skill.Info.Stats[liveSkill.Level].Stats[liveSkill.Skill.Reinforced];
+        SkillStat stat = liveSkill.Skill.Info.Stats[liveSkill.Level].Stats[liveSkill.Skill.Reinforced];
 
         for (int i = 0; i < stat.Amount; i++)
         {

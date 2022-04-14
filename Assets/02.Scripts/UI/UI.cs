@@ -57,7 +57,7 @@ public abstract class UI : MonoBehaviour
             _canvas.enabled = true;
 
             // if there is at least one UITween
-            if (_uiTweens.Length > 0)
+            if (_uiTweens != null && _uiTweens.Length > 0)
             {
                 for (int i = 0; i < _uiTweens.Length; i++)
                 {
@@ -84,7 +84,7 @@ public abstract class UI : MonoBehaviour
         else
         {
             // if there is at least one UITween
-            if (_uiTweens.Length > 0)
+            if (_uiTweens != null && _uiTweens.Length > 0)
             {
                 for (int i = 0; i < _uiTweens.Length; i++)
                 {

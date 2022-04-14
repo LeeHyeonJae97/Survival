@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class EnemyFactory
 {
-    public static int Count { get; private set; }
+    public static int Count => Infos.Length;
 
     private static Enemy[] List
     {
@@ -15,11 +15,7 @@ public class EnemyFactory
             if (_list == null)
             {
                 // load info scriptableobjects
-                var infos = Resources.LoadAll<EnemySO>("EnemySO");
-                infos = infos.OrderBy((x) => x.Id).ToArray();
-
-                // save the count
-                Count = infos.Length;
+                var infos = Infos.OrderBy((x) => x.Id).ToArray();
 
                 // load saved data
                 JsonFileSystem<EnemyData>.Load(EnemyData.DIR_PATH, EnemyData.FILE_PATH, out EnemyData data);
@@ -49,9 +45,18 @@ public class EnemyFactory
             return _dic;
         }
     }
+    private static EnemySO[] Infos
+    {
+        get
+        {
+            if(_infos == null) _infos = Resources.LoadAll<EnemySO>("EnemySO");
+            return _infos;
+        }
+    }
 
     private static Enemy[] _list;
     private static Dictionary<int, Enemy> _dic;
+    private static EnemySO[] _infos;
 
     public static Enemy Get(int id)
     {
@@ -60,6 +65,11 @@ public class EnemyFactory
             Debug.LogError($"There's no Item : {id}");
         }
         return enemy;
+    }
+
+    public static Enemy[] GetAll()
+    {
+        return List;
     }
 
     public static Enemy[] GetRandom(int count)

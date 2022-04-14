@@ -1,40 +1,63 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class TitleUI : UI
 {
-    [SerializeField] private Button _adventureButton;
-    [SerializeField] private Button _characterButton;
+    [SerializeField] private Button _storyModeButton;
+    [SerializeField] private Button _survivlaModeButton;
     [SerializeField] private Button _illustratedBookButton;
-    [SerializeField] private Button _settingsButton;
 
     protected override void Awake()
     {
         base.Awake();
 
-        _adventureButton.onClick.AddListener(() => OnClickTabButton(0));
-        _characterButton.onClick.AddListener(() => OnClickTabButton(1));
-        _illustratedBookButton.onClick.AddListener(() => OnClickTabButton(2));
-        _settingsButton.onClick.AddListener(() => OnClickTabButton(3));
+        _storyModeButton.onClick.AddListener(() => OnClickPlayButton(PlayMode.Story));
+        _survivlaModeButton.onClick.AddListener(() => OnClickPlayButton(PlayMode.Survival));
+        _illustratedBookButton.onClick.AddListener(OnClickIllustratedBookButton);
     }
 
     protected override void OnSetActive(bool value)
     {
-        if (value) OnClickTabButton(0);
+
     }
 
-    private void OnClickTabButton(int index)
+    private void OnClickPlayButton(PlayMode playMode)
     {
-        UIFactory.Get<AdventureUI>().SetActive(index == 0);
-        UIFactory.Get<CharacterUI>().SetActive(index == 1);
-        UIFactory.Get<IllustratedBookUI>().SetActive(index == 2);
-        UIFactory.Get<SettingsUI>().SetActive(index == 3);
+        // set mode
+        PlayManager.PlayMode = playMode;
 
-        _adventureButton.targetGraphic.color = index == 0 ? _adventureButton.colors.normalColor : _adventureButton.colors.disabledColor;
-        _characterButton.targetGraphic.color = index == 1 ? _characterButton.colors.normalColor : _characterButton.colors.disabledColor;
-        _illustratedBookButton.targetGraphic.color = index == 2 ? _illustratedBookButton.colors.normalColor : _illustratedBookButton.colors.disabledColor;
-        _settingsButton.targetGraphic.color = index == 3 ? _settingsButton.colors.normalColor : _settingsButton.colors.disabledColor;
+        // loading
+        LoadingUI loadingUI = UIFactory.Get<LoadingUI>();
+
+        loadingUI.Title = "떠날 채비를 하는 중입니다.";
+        loadingUI.onSetActive += (value) =>
+        {
+            if (value)
+            {
+                // unload title scene
+                var op1 = SceneManager.UnloadSceneAsync("Title");
+                op1.completed += (op) =>
+                {
+                    // load play scene
+                    var op2 = SceneManager.LoadSceneAsync("Play", LoadSceneMode.Additive);
+                    // after play scene is loaded, inactivate loading ui
+                    op2.completed += (op) => loadingUI.SetActive(false);
+                };
+            }
+            else
+            {
+                // after all loading is done, invoke play started event
+                EventChannelFactory.Get<PlayEventChannelSO>().OnPlayStarted();
+            }
+        };
+        loadingUI.SetActive(true);
+    }
+
+    private void OnClickIllustratedBookButton()
+    {
+        UIFactory.Get<IllustratedBookUI>().SetActive(true);
     }
 }

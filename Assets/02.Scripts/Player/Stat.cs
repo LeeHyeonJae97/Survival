@@ -13,7 +13,7 @@ public class Stat
         {
             if (_infos == null)
             {
-                List<StatInfoSO> infos = new List<StatInfoSO>(Resources.LoadAll<StatInfoSO>("StatInfo"));
+                List<StatInfoSO> infos = new List<StatInfoSO>(Resources.LoadAll<StatInfoSO>("StatInfoSO"));
 
                 if(infos != null)
                 {

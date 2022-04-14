@@ -6,10 +6,14 @@ using UnityEngine.Events;
 
 public class Player : SingletonMonoBehaviour<Player>, IDamageable
 {
-    // TODO :
-    // need to be static
-    [field: SerializeField] public Character Character { get; private set; }
-
+    public Character Character
+    {
+        get
+        {
+            if (_character == null) _character = CharacterFactory.Get(GameManager.Instance.User.EquippedCharacterId);
+            return _character;
+        }
+    }
     public LiveStat Stats { get; private set; }
     public int HP
     {
@@ -49,6 +53,7 @@ public class Player : SingletonMonoBehaviour<Player>, IDamageable
     [SerializeField] private SpriteRenderer _sr;
     [SerializeField] private SpriteMask _sm;
     [SerializeField] private SpriteRenderer _blinkSr;
+    private Character _character;
     private int _hp;
     private int _coin;
     private Coroutine _blinkCor;
@@ -130,7 +135,7 @@ public class Player : SingletonMonoBehaviour<Player>, IDamageable
     public void Equip(LiveItem liveItem)
     {
         ItemDic.Add(liveItem.Item.Info.Id, liveItem);
-        Stats.Buffed(liveItem.Item.Info.Buffs[liveItem.Level].Buffs[liveItem.Item.Reinforced], liveItem.Level);
+        Stats.Buffed(liveItem.Item.Info.Buffs[liveItem.Level].Buffs[liveItem.Item.Reinforced]);
 
         // register on illustrated book
         liveItem.Item.Register();

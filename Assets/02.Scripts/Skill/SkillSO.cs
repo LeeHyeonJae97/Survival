@@ -13,7 +13,7 @@ public class SkillSO : ScriptableObject
     [field: SerializeField] public string[] Descriptions { get; private set; }
     [field: SerializeField] public Sprite Icon { get; private set; }
     [field: SerializeField] public Sprite ProjectileSprite { get; private set; }
-    [field: SerializeField] public SkillStatList[] Stats { get; private set; }
+    [field: SerializeField] public SkillStatSO[] Stats { get; private set; }
     [field: SerializeField] public SkillProperty Property { get; private set; }
     [field: SerializeField] public SkillInvocation Invocation { get; private set; }
     [field: SerializeField] public SkillTargeting Targeting { get; private set; }
@@ -55,22 +55,17 @@ public class SkillSO : ScriptableObject
 
         if (Stats == null)
         {
-            Stats = new SkillStatList[MAX_LEVEL];
+            Stats = new SkillStatSO[MAX_LEVEL];
         }
         else if (Stats.Length != MAX_LEVEL)
         {
-            SkillStatList[] replace = new SkillStatList[MAX_LEVEL];
+            SkillStatSO[] replace = new SkillStatSO[MAX_LEVEL];
 
             for (int i = 0; i < Stats.Length && i < MAX_LEVEL; i++)
             {
-                replace[i] = i < Stats.Length ? Stats[i] : new SkillStatList();
+                replace[i] = i < Stats.Length ? Stats[i] : null;
             }
             Stats = replace;
-        }
-
-        for (int i = 0; i < Stats.Length; i++)
-        {
-            Stats[i].OnValidate();
         }
     }
 }
