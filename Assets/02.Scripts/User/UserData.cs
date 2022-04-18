@@ -13,7 +13,7 @@ public class UserData
     [field: SerializeField] public int Coin { get; set; }
     [field: SerializeField] public bool Mute { get; set; }
     [field: SerializeField] public bool Vibration { get; set; }
-    
+
     public UserData()
     {
         EquippedCharacterId = 0;

@@ -7,6 +7,8 @@ public enum PlayMode { Story, Survival }
 
 public class PlayManager : SingletonMonoBehaviour<PlayManager>
 {
+    public const int INITIAL_COIN = 500;
+
     // NOTICE :
     // any better idea than using static variable?
     public static PlayMode PlayMode { get; set; }

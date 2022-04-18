@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class WaveInfoUI : UI
 {
+    [SerializeField] private float _hideDelay;
     [SerializeField] private TextMeshProUGUI _indexText;
     [SerializeField] private TextMeshProUGUI _nameText;
 
@@ -39,6 +40,7 @@ public class WaveInfoUI : UI
         _nameText.text = WaveManager.Instance.Current.Name;
         SetActive(true);
         yield return new WaitUntil(() => IsActivated);
+        yield return WaitForSecondsFactory.Get(_hideDelay);
 
         SetActive(false);
     }

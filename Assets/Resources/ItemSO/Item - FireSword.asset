@@ -13,17 +13,18 @@ MonoBehaviour:
   m_Name: Item - FireSword
   m_EditorClassIdentifier: 
   <Id>k__BackingField: 0
-  <Icon>k__BackingField: {fileID: 5571798011262428757, guid: 2ed50ea975c0f454f81ee081ad5f991c, type: 3}
-  <Names>k__BackingField:
-  - 
-  - 
-  - 
   <Grade>k__BackingField: 3
+  <Names>k__BackingField:
+  - "\uBD88 \uAC80"
+  - "\uD654\uC5FC \uAC80"
+  - "\uD654\uB9C8 \uAC80"
   <Descriptions>k__BackingField:
-  - 
-  - 
-  - 
+  - "\uBD88"
+  - "\uD654\uC5FC"
+  - "\uD654\uB9C8"
+  <Prices>k__BackingField: 64000000c80000002c010000
   <Buffs>k__BackingField:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 11400000, guid: b22c5059086ed464cbee62d2ed011eb3, type: 2}
+  - {fileID: 11400000, guid: 29d881a70ec9f194d86c0b61baa48793, type: 2}
+  - {fileID: 11400000, guid: 596989b98f9941142b2516907ab4ca5a, type: 2}
+  <Icon>k__BackingField: {fileID: 5571798011262428757, guid: 2ed50ea975c0f454f81ee081ad5f991c, type: 3}

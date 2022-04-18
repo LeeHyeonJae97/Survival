@@ -6,14 +6,28 @@ using UnityEngine.UI;
 
 public class ItemSlot : MonoBehaviour
 {
+    private bool Enabled
+    {
+        set
+        {
+            if (value == _enabled) return;
+
+            _enabled = value;
+            _coverImage.SetActive(!value);
+        }
+    }
+
     [SerializeField] private Image _slotImage;
     [SerializeField] private Image _iconImage;
     [SerializeField] private TextMeshProUGUI _nameText;
     [SerializeField] private TextMeshProUGUI _levelText;
     [SerializeField] private Image _statImage;
     [SerializeField] private TextMeshProUGUI _statText;
+    [SerializeField] private TextMeshProUGUI _priceText;
     [SerializeField] private TextMeshProUGUI _descriptionText;
     [SerializeField] private Button _button;
+    [SerializeField] private GameObject _coverImage;
+    private bool _enabled;
 
     // for new item (reward)
     public void Init(Item item)
@@ -29,31 +43,44 @@ public class ItemSlot : MonoBehaviour
         _levelText.text = $"{level + 1}";
         _statImage.sprite = Stat.Infos[(int)info.Buffs[level].Buffs[item.Reinforced].Type].Icon;
         _statText.text = $"{info.Buffs[level].Buffs[item.Reinforced].Value}";
+        _priceText.text = $"{info.Prices[level]}";
         _descriptionText.text = info.Descriptions[level];
         _button.interactable = true;
 
         _button.onClick.RemoveAllListeners();
         _button.onClick.AddListener(() =>
         {
-            UIFactory.Get<ConfirmUI>().Confirm("확실합니까?", () =>
-            {
-                // if already had, level up the item
-                if (contains)
-                {
-                    Player.Instance.ItemDic[info.Id].LevelUp();
-                }
+            int price = info.Prices[level];
 
-                // if not, equip item newly
+            UIFactory.Get<ConfirmUI>().Confirm($"{price}원. 확실합니까?", () =>
+            {
+                if (Player.Instance.Coin >= price)
+                {
+                    // if already had, level up the item
+                    if (contains)
+                    {
+                        Player.Instance.ItemDic[info.Id].LevelUp();
+                    }
+
+                    // if not, equip item newly
+                    else
+                    {
+                        Player.Instance.Equip(new LiveItem(item));
+                    }
+
+                    // spend coin
+                    Player.Instance.Coin -= price;
+
+                    Enabled = false;
+                }
                 else
                 {
-                    Player.Instance.Equip(new LiveItem(item));
+                    UIFactory.Get<AlertUI>().Alert($"{price - Player.Instance.Coin}원 부족합니다.");
                 }
-
-                // update ui
-                UIFactory.Get<RewardUI>().SetActive(false);
-                UIFactory.Get<NextWaveSelectionUI>().SetActive(true);
             });
         });
+
+        Enabled = true;
     }
 
     // for my item
@@ -69,5 +96,7 @@ public class ItemSlot : MonoBehaviour
         _statText.text = $"{item.Buffs[liveItem.Level].Buffs[liveItem.Item.Reinforced].Value}";
         _descriptionText.text = item.Descriptions[liveItem.Level];
         _button.interactable = false;
+
+        Enabled = true;
     }
 }

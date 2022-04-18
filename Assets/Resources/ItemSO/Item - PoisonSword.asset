@@ -13,17 +13,18 @@ MonoBehaviour:
   m_Name: Item - PoisonSword
   m_EditorClassIdentifier: 
   <Id>k__BackingField: 2
-  <Icon>k__BackingField: {fileID: -2061515067759244971, guid: 2ed50ea975c0f454f81ee081ad5f991c, type: 3}
-  <Names>k__BackingField:
-  - 
-  - 
-  - 
   <Grade>k__BackingField: 1
+  <Names>k__BackingField:
+  - "\uB3C5 \uAC80"
+  - "\uCF54\uBE0C\uB77C \uB3C5 \uAC80"
+  - "\uD0C0\uB780\uD2A4\uB77C \uB3C5 \uAC80"
   <Descriptions>k__BackingField:
-  - 
-  - 
-  - 
+  - "\uB3C5"
+  - "\uCF54\uBE0C\uB77C \uB3C5"
+  - "\uD0C0\uB780\uD2A4\uB77C \uB3C5"
+  <Prices>k__BackingField: 64000000c80000002c010000
   <Buffs>k__BackingField:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 11400000, guid: b22c5059086ed464cbee62d2ed011eb3, type: 2}
+  - {fileID: 11400000, guid: 29d881a70ec9f194d86c0b61baa48793, type: 2}
+  - {fileID: 11400000, guid: 596989b98f9941142b2516907ab4ca5a, type: 2}
+  <Icon>k__BackingField: {fileID: -2061515067759244971, guid: 2ed50ea975c0f454f81ee081ad5f991c, type: 3}

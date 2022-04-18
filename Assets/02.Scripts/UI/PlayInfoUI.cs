@@ -12,6 +12,14 @@ public class PlayInfoUI : UI
     [SerializeField] private TextMeshProUGUI _coinText;
     [SerializeField] private TextMeshProUGUI _elapsedText;
 
+    protected override void Awake()
+    {
+        base.Awake();
+
+        OnElapsedUpdated(0);
+        OnCoinUpdated(0);
+    }
+
     protected override void OnSetActive(bool value)
     {
         if (value)
@@ -28,7 +36,7 @@ public class PlayInfoUI : UI
 
     private void OnElapsedUpdated(int elapsed)
     {
-        _elapsedText.text = $"{elapsed / 60}:{elapsed % 60}";
+        _elapsedText.text = $"{elapsed / 60:00}:{elapsed % 60:00}";
     }
 
     private void OnCoinUpdated(int coin)

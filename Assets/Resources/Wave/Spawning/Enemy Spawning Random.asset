@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Enemy Spawning Random
   m_EditorClassIdentifier: 
   <Type>k__BackingField: 0
-  <Duration>k__BackingField: 1
+  <Duration>k__BackingField: 30
   <Interval>k__BackingField: 1
   _boundsOffset: 0
   _enemies:
   - {fileID: 11400000, guid: 29c8e73f23cfe0c42b63f5f8c62ebb7a, type: 2}
-  <Amount>k__BackingField: 10
+  <Amount>k__BackingField: 5

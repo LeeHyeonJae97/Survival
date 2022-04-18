@@ -4,21 +4,20 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class RewardUI : UI
+public partial class RewardUI : UI
 {
+    [SerializeField] private TextMeshProUGUI _coinText;
+    [SerializeField] private Button _nextWaveButton;
     [SerializeField] private Button _itemTabButton;
     [SerializeField] private Button _skillTabButton;
     [SerializeField] private Button _potionTabButton;
     [SerializeField] private Button _gamblingTabButton;
     [SerializeField] private Button _myInfoTabButton;
-    [SerializeField] private GameObject _itemGroup;
-    [SerializeField] private GameObject _skillGroup;
-    [SerializeField] private GameObject _potionGroup;
+    [SerializeField] private Transform _itemGroup;
+    [SerializeField] private Transform _skillGroup;
+    [SerializeField] private Transform _potionGroup;
     [SerializeField] private GameObject _gamblingGroup;
     [SerializeField] private GameObject _myInfoGroup;
-    [SerializeField] private Transform _rewardItemGroup;
-    [SerializeField] private Transform _rewardSkillGroup;
-    [SerializeField] private Transform _rewardPotionGroup;
     [SerializeField] private Image _characterImage;
     [SerializeField] private Image[] _statImages;
     [SerializeField] private TextMeshProUGUI[] _statTexts;
@@ -36,10 +35,18 @@ public class RewardUI : UI
     [SerializeField] private Button _myItemTabButton;
     [SerializeField] private Button _mySkillTabButton;
     [SerializeField] private Button _myPotionTabButton;
+    [SerializeField] private TextMeshProUGUI _resultText;
+    [SerializeField] private TMP_InputField _coinInputField;
+    [SerializeField] private Button[] _keyButtons;
+    [SerializeField] private Button _backspaceButton;
+    [SerializeField] private Button _enterButton;
+    [SerializeField] private RectTransform _slotContent;
 
     protected override void Awake()
     {
         base.Awake();
+
+        _nextWaveButton.onClick.AddListener(OnClickNextWaveButton);
 
         _itemTabButton.onClick.AddListener(() => OnClickTabButton(0));
         _skillTabButton.onClick.AddListener(() => OnClickTabButton(1));
@@ -51,6 +58,14 @@ public class RewardUI : UI
         _myItemTabButton.onClick.AddListener(() => OnClickSubTabButton(1));
         _mySkillTabButton.onClick.AddListener(() => OnClickSubTabButton(2));
         _myPotionTabButton.onClick.AddListener(() => OnClickSubTabButton(3));
+
+        for (int i = 0; i < _keyButtons.Length; i++)
+        {
+            int index = i;
+            _keyButtons[index].onClick.AddListener(() => OnClickKeyButton(index));
+        }
+        _backspaceButton.onClick.AddListener(OnClickBackspaceButton);
+        _enterButton.onClick.AddListener(OnClickEnterButton);
 
         var channel = EventChannelFactory.Get<PlayEventChannelSO>();
         channel.onWaveStarted += OnWaveStarted;
@@ -70,11 +85,17 @@ public class RewardUI : UI
     {
         if (value)
         {
-            Init(WaveManager.Instance.Current.RewardType);
-            Init(Player.Instance);
+            Init();
 
             OnClickTabButton(0);
             OnClickSubTabButton(0);
+
+            OnCoinUpdated(Player.Instance.Coin);
+            Player.Instance.onCoinUpdated += OnCoinUpdated;
+        }
+        else
+        {
+            Player.Instance.onCoinUpdated -= OnCoinUpdated;
         }
     }
 
@@ -88,36 +109,27 @@ public class RewardUI : UI
         SetActive(true);
     }
 
-    private void Init(RewardType type)
+    private void Init()
     {
-        switch (type)
+        Item[] items = ItemFactory.GetRandom(Reward.Infos[(int)RewardType.Item].Count);
+
+        for (int i = 0; i < _itemGroup.childCount && i < items.Length; i++)
         {
-            case RewardType.Item:
-                Item[] items = ItemFactory.GetRandom(Reward.Infos[(int)RewardType.Item].Count);
-                for (int i = 0; i < _rewardItemGroup.childCount; i++)
-                {
-                    _rewardItemGroup.GetChild(i).GetComponent<ItemSlot>().Init(items[i]);
-                }
-                _rewardItemGroup.gameObject.SetActive(true);
-                break;
+            _itemGroup.GetChild(i).GetComponent<ItemSlot>().Init(items[i]);
+        }
 
-            case RewardType.Skill:
-                Skill[] skills = SkillFactory.GetRandom(Reward.Infos[(int)RewardType.Skill].Count);
-                for (int i = 0; i < _rewardSkillGroup.childCount; i++)
-                {
-                    _rewardSkillGroup.GetChild(i).GetComponent<SkillSlot>().Init(skills[i]);
-                }
-                _rewardSkillGroup.gameObject.SetActive(true);
-                break;
+        Skill[] skills = SkillFactory.GetRandom(Reward.Infos[(int)RewardType.Skill].Count);
 
-            case RewardType.Potion:
-                Potion[] potions = PotionFactory.GetRandom(Reward.Infos[(int)RewardType.Potion].Count);
-                for (int i = 0; i < _rewardPotionGroup.childCount; i++)
-                {
-                    _rewardPotionGroup.GetChild(i).GetComponent<PotionSlot>().Init(potions[i]);
-                }
-                _rewardPotionGroup.gameObject.SetActive(true);
-                break;
+        for (int i = 0; i < _skillGroup.childCount && i < skills.Length; i++)
+        {
+            _skillGroup.GetChild(i).GetComponent<SkillSlot>().Init(skills[i]);
+        }
+
+        Potion[] potions = PotionFactory.GetRandom(Reward.Infos[(int)RewardType.Potion].Count);
+
+        for (int i = 0; i < _potionGroup.childCount && i < potions.Length; i++)
+        {
+            _potionGroup.GetChild(i).GetComponent<PotionSlot>().Init(potions[i]);
         }
     }
 
@@ -182,11 +194,24 @@ public class RewardUI : UI
         }
     }
 
+    private void OnCoinUpdated(int coin)
+    {
+        _coinText.text = $"{coin}";
+    }
+
+    private void OnClickNextWaveButton()
+    {
+        UIFactory.Get<ConfirmUI>().Confirm("확실합니까?", () =>
+        {
+            WaveManager.Instance.StartNextWave();
+        });
+    }
+
     private void OnClickTabButton(int index)
     {
-        _itemGroup.SetActive(index == 0);
-        _skillGroup.SetActive(index == 1);
-        _potionGroup.SetActive(index == 2);
+        _itemGroup.gameObject.SetActive(index == 0);
+        _skillGroup.gameObject.SetActive(index == 1);
+        _potionGroup.gameObject.SetActive(index == 2);
         _gamblingGroup.SetActive(index == 3);
         _myInfoGroup.SetActive(index == 4);
 
@@ -195,6 +220,16 @@ public class RewardUI : UI
         _potionTabButton.targetGraphic.color = index == 2 ? _potionTabButton.colors.normalColor : _potionTabButton.colors.disabledColor;
         _gamblingTabButton.targetGraphic.color = index == 3 ? _gamblingTabButton.colors.normalColor : _gamblingTabButton.colors.disabledColor;
         _myInfoTabButton.targetGraphic.color = index == 4 ? _myInfoTabButton.colors.normalColor : _myInfoTabButton.colors.disabledColor;
+
+        if (index == 3)
+        {
+            float top = (_slotContent.childCount - 1) * ((RectTransform)_slotContent.GetChild(0)).sizeDelta.y;
+            _slotContent.anchoredPosition = new Vector2(_slotContent.anchoredPosition.x, top);
+        }
+        else if (index == 4)
+        {
+            Init(Player.Instance);
+        }
     }
 
     private void OnClickSubTabButton(int index)
@@ -208,5 +243,56 @@ public class RewardUI : UI
         _myItemTabButton.targetGraphic.color = index == 1 ? _myItemTabButton.colors.normalColor : _myItemTabButton.colors.disabledColor;
         _mySkillTabButton.targetGraphic.color = index == 2 ? _mySkillTabButton.colors.normalColor : _mySkillTabButton.colors.disabledColor;
         _myPotionTabButton.targetGraphic.color = index == 3 ? _myPotionTabButton.colors.normalColor : _myPotionTabButton.colors.disabledColor;
+    }
+
+    private void OnClickKeyButton(int value)
+    {
+        _coinInputField.text += $"{value + 1}";
+    }
+
+    private void OnClickBackspaceButton()
+    {
+        if (_coinInputField.text.Length > 0)
+        {
+            _coinInputField.text = _coinInputField.text.Remove(_coinInputField.text.Length - 1);
+        }
+    }
+
+    private void OnClickEnterButton()
+    {
+        if (string.IsNullOrEmpty(_coinInputField.text)) return;
+
+        // start gambling
+        StartCoroutine(CoSlot());
+    }
+
+    private IEnumerator CoSlot()
+    {
+        int minRound = 5;
+        int maxRound = 13;
+        int slowThreshold = -5;
+        float fastSpeed = 200;
+        float slowSpeed = 100;
+
+        int childCount = _slotContent.childCount - 1;
+        int count = (childCount) * Random.Range(minRound, maxRound) + Random.Range(0, childCount);
+        float height = ((RectTransform)_slotContent.GetChild(0)).sizeDelta.y;
+        float top = (childCount) * height;
+
+        _slotContent.anchoredPosition = new Vector2(_slotContent.anchoredPosition.x, top);
+
+        for (int i = 0; i < count; i++)
+        {
+            Vector2 target = new Vector2(_slotContent.anchoredPosition.x, _slotContent.anchoredPosition.y - height);
+
+            while (!Mathf.Approximately(_slotContent.anchoredPosition.y, target.y))
+            {
+                _slotContent.anchoredPosition = Vector2.MoveTowards(_slotContent.anchoredPosition, target,
+                    (i < count + slowThreshold ? fastSpeed : slowSpeed) * Time.unscaledDeltaTime);
+                yield return null;
+            }
+
+            if (Mathf.Approximately(target.y, 0)) _slotContent.anchoredPosition = new Vector2(_slotContent.anchoredPosition.x, top);
+        }
     }
 }

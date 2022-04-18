@@ -13,21 +13,22 @@ MonoBehaviour:
   m_Name: Skill PoisonGas
   m_EditorClassIdentifier: 
   <Id>k__BackingField: 4
-  <Icon>k__BackingField: {fileID: 0}
-  <Name>k__BackingField: PoisonGas
   <Grade>k__BackingField: 0
-  <Description>k__BackingField: 
-  <ProjectileSprite>k__BackingField: {fileID: 0}
+  <Names>k__BackingField:
+  - "\uB3C5 \uAC00\uC2A4"
+  - "\uC720\uB3C5 \uAC00\uC2A4"
+  - "\uB9F9\uB3C5 \uAC00\uC2A4"
+  <Descriptions>k__BackingField:
+  - 
+  - 
+  - 
+  <Prices>k__BackingField: 64000000c80000002c010000
+  <Icon>k__BackingField: {fileID: 7007725183902490956, guid: 2ed50ea975c0f454f81ee081ad5f991c, type: 3}
+  <ProjectileSprite>k__BackingField: {fileID: 3371168828401391763, guid: c36a3034ca286ba44bc9644cad3f65b2, type: 3}
   <Stats>k__BackingField:
-  - <Scale>k__BackingField: 1
-    <Damage>k__BackingField: 3
-    <Cooldown>k__BackingField: 1
-    <LifeSpan>k__BackingField: 5
-    <FlySpeed>k__BackingField: 3
-    <Amount>k__BackingField: 5
-    <Interval>k__BackingField: 0.1
-    <TargetingRange>k__BackingField: 7
-    <DamagingCooldown>k__BackingField: 0.2
+  - {fileID: 11400000, guid: 6d4f84e24c0f17047ab33220334b3260, type: 2}
+  - {fileID: 11400000, guid: 6fbad77456b9a4e4db1567fe3941e675, type: 2}
+  - {fileID: 11400000, guid: 9a781a30a98ec774eaa8b890457eca0f, type: 2}
   <Property>k__BackingField: {fileID: 11400000, guid: 0c9a2c7357470324c97abbb47d3112bb, type: 2}
   <Invocation>k__BackingField: {fileID: 11400000, guid: 33632184c5e6875468d1cb9816ab47bb, type: 2}
   <Targeting>k__BackingField: {fileID: 11400000, guid: 2ab73104e954b0447897fd131287e655, type: 2}

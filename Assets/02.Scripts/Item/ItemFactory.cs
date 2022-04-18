@@ -82,6 +82,8 @@ public class ItemFactory
         // TODO :
         // upgrade to 'Fisher-Yates shuffle'
 
+        count = Mathf.Min(count, List.Length);
+
         System.Random random = new System.Random();
         return List.OrderBy(x => random.Next()).Take(count).ToArray();
     }

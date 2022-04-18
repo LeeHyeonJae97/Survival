@@ -6,7 +6,6 @@ using UnityEngine;
 public class WaveSO : ScriptableObject
 {
     [field: SerializeField] public string Name { get; private set; }
-    [field: SerializeField] public RewardType RewardType { get; private set; }
     [field: SerializeField] public EnemySpawning[] Spawnings { get; private set; }
     public EnemySpawning Next { get { return _idx == Spawnings.Length ? null : Spawnings[_idx++]; } }
     public float Duration

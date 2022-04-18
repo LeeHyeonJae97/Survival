@@ -13,21 +13,22 @@ MonoBehaviour:
   m_Name: Skill IceBall
   m_EditorClassIdentifier: 
   <Id>k__BackingField: 1
-  <Icon>k__BackingField: {fileID: 0}
-  <Name>k__BackingField: IceBall
   <Grade>k__BackingField: 0
-  <Description>k__BackingField: 
-  <ProjectileSprite>k__BackingField: {fileID: 0}
+  <Names>k__BackingField:
+  - "\uC544\uC774\uC2A4 \uBCFC"
+  - "\uC544\uC774\uC2A4 \uC2A4\uD53C\uC5B4"
+  - "\uC544\uC774\uC2A4 \uD50C\uB798\uB2DB"
+  <Descriptions>k__BackingField:
+  - 
+  - 
+  - 
+  <Prices>k__BackingField: 64000000c80000002c010000
+  <Icon>k__BackingField: {fileID: 7007725183902490956, guid: 2ed50ea975c0f454f81ee081ad5f991c, type: 3}
+  <ProjectileSprite>k__BackingField: {fileID: 3371168828401391763, guid: c36a3034ca286ba44bc9644cad3f65b2, type: 3}
   <Stats>k__BackingField:
-  - <Scale>k__BackingField: 1
-    <Damage>k__BackingField: 3
-    <Cooldown>k__BackingField: 1
-    <LifeSpan>k__BackingField: 5
-    <FlySpeed>k__BackingField: 3
-    <Amount>k__BackingField: 5
-    <Interval>k__BackingField: 0.1
-    <TargetingRange>k__BackingField: 7
-    <DamagingCooldown>k__BackingField: 0.2
+  - {fileID: 11400000, guid: 6d4f84e24c0f17047ab33220334b3260, type: 2}
+  - {fileID: 11400000, guid: 6fbad77456b9a4e4db1567fe3941e675, type: 2}
+  - {fileID: 11400000, guid: 9a781a30a98ec774eaa8b890457eca0f, type: 2}
   <Property>k__BackingField: {fileID: 11400000, guid: 298d8d8f24348c34793664d811b0ec81, type: 2}
   <Invocation>k__BackingField: {fileID: 11400000, guid: b69d67e105d7d934cb5138a3e83ee3c5, type: 2}
   <Targeting>k__BackingField: {fileID: 11400000, guid: 4ccbc879a3b119f43b814394d2391ab0, type: 2}

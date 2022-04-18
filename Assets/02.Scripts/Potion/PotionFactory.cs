@@ -82,7 +82,9 @@ public class PotionFactory
         // TODO :
         // upgrade to 'Fisher-Yates shuffle'
 
+        count = Mathf.Min(count, List.Length);
+
         System.Random random = new System.Random();
-        return _dic.Values.OrderBy(x => random.Next()).Take(count).ToArray();
+        return List.OrderBy(x => random.Next()).Take(count).ToArray();
     }
 }

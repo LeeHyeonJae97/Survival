@@ -23,9 +23,17 @@ public class Player : SingletonMonoBehaviour<Player>, IDamageable
         {
             if (value < _hp)
             {
-                PoolingManager.Instance.Spawn<DamagePopUpText>().Init(transform.position, _hp - value);
+                // spawn damage text
+                PoolingManager.Instance.Spawn<DamagePopUpText>().Init(transform.position, _hp - value, Color.red);
+
+                // blink
                 Blink();
+
+                // check die
                 if (value <= 0) CoDie();
+
+                // shake camera
+                MainCamera.Shake();
             }
 
             _hp = value;
@@ -61,22 +69,18 @@ public class Player : SingletonMonoBehaviour<Player>, IDamageable
     public event UnityAction<float> onHpUpdated;
     public event UnityAction<int> onCoinUpdated;
 
-    protected override void Awake()
+    private void Start()
     {
-        base.Awake();
-
         Stats = new LiveStat(Character.Info.Stats[Character.Reinforced]);
+
+        // initialize values
+        HP = Stats[(int)StatType.Hp];
+        Coin = PlayManager.INITIAL_COIN;
+        _sr.sprite = Character.Info.Sprite;
+        _sm.sprite = Character.Info.Sprite;
 
         // set main camera as a child
         MainCamera.Camera.transform.SetParent(transform);
-    }
-
-    private void Start()
-    {
-        // initialize values
-        HP = Stats[(int)StatType.Hp];
-        _sr.sprite = Character.Info.Sprite;
-        _sm.sprite = Character.Info.Sprite;
     }
 
     private void OnEnable()

@@ -13,15 +13,15 @@ MonoBehaviour:
   m_Name: SkillStat 0
   m_EditorClassIdentifier: 
   <Stats>k__BackingField:
-  - <Scale>k__BackingField: 0
-    <Damage>k__BackingField: 0
-    <Cooldown>k__BackingField: 0
-    <LifeSpan>k__BackingField: 0
-    <FlySpeed>k__BackingField: 0
-    <Amount>k__BackingField: 0
-    <Interval>k__BackingField: 0
-    <TargetingRange>k__BackingField: 0
-    <DamagingCooldown>k__BackingField: 0
+  - <Scale>k__BackingField: 2
+    <Damage>k__BackingField: 2
+    <Cooldown>k__BackingField: 1
+    <LifeSpan>k__BackingField: 5
+    <FlySpeed>k__BackingField: 7
+    <Amount>k__BackingField: 3
+    <Interval>k__BackingField: 0.3
+    <TargetingRange>k__BackingField: 20
+    <DamagingCooldown>k__BackingField: 0.2
   - <Scale>k__BackingField: 0
     <Damage>k__BackingField: 0
     <Cooldown>k__BackingField: 0

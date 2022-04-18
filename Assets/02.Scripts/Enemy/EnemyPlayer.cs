@@ -29,9 +29,14 @@ public class EnemyPlayer : MonoBehaviour, IDamageable
 
         set
         {
-            if (value < _hp) Blink();
+            if (value < _hp)
+            {
+                PoolingManager.Instance.Spawn<DamagePopUpText>().Init(transform.position, _hp - value, Color.yellow);
+                Blink();
+                if (value <= 0) StartCoroutine(CoDie());
+            }
+
             _hp = value;
-            if (_hp <= 0) StartCoroutine(CoDie());
         }
     }
     public float Speed

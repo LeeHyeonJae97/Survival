@@ -17,10 +17,13 @@ public class DamagePopUpText : MonoBehaviour
         _damageText = GetComponent<TextMeshPro>();
     }
 
-    public void Init(Vector2 position, int damage)
+    public void Init(Vector2 position, int damage, Color color)
     {
         // set text
         _damageText.text = $"{damage}";
+
+        // set color
+        _damageText.color = color;
 
         // TODO :
         // balance value that is multiplied with Random.insideUnitCircle

@@ -14,6 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Infinite>k__BackingField: 1
   <Waves>k__BackingField:
-  - <Waves>k__BackingField:
-    - {fileID: 11400000, guid: 89723fb2fd8fff843a3d93b7e7d8a75b, type: 2}
-    - {fileID: 11400000, guid: b73f148b835bf7645b914c1d2fdb094c, type: 2}
+  - {fileID: 11400000, guid: 89723fb2fd8fff843a3d93b7e7d8a75b, type: 2}

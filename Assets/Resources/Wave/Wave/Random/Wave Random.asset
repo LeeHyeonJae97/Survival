@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e724445f90b26924ebff568b25554e92, type: 3}
-  m_Name: Wave Random (2)
+  m_Name: Wave Random
   m_EditorClassIdentifier: 
   <Name>k__BackingField: "\uC6E8\uC774\uBE0C\uC758 \uC774\uB984\uC744 \uC785\uB825\uD558\uC138\uC694
-    (2)"
-  <RewardType>k__BackingField: 1
+    (1)"
+  <RewardType>k__BackingField: 0
   <Spawnings>k__BackingField:
   - {fileID: 11400000, guid: 6a3d1a221677d2d4ca4ca538a95ebb0a, type: 2}

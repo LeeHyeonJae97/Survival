@@ -6,14 +6,28 @@ using UnityEngine.UI;
 
 public class SkillSlot : MonoBehaviour
 {
+    private bool Enabled
+    {
+        set
+        {
+            if (value == _enabled) return;
+
+            _enabled = value;
+            _coverImage.SetActive(!value);
+        }
+    }
+
     [SerializeField] private Image _slotImage;
     [SerializeField] private Image _iconImage;
     [SerializeField] private TextMeshProUGUI _nameText;
     [SerializeField] private TextMeshProUGUI _levelText;
     [SerializeField] private TextMeshProUGUI _damageText;
     [SerializeField] private TextMeshProUGUI _cooldownText;
+    [SerializeField] private TextMeshProUGUI _priceText;
     [SerializeField] private TextMeshProUGUI _descriptionText;
     [SerializeField] private Button _button;
+    [SerializeField] private GameObject _coverImage;
+    private bool _enabled;
 
     // for new skill (reward)
     public void Init(Skill skill)
@@ -21,7 +35,7 @@ public class SkillSlot : MonoBehaviour
         SkillSO info = skill.Info;
 
         bool contains = Player.Instance.SkillDic.ContainsKey(info.Id);
-        int level = contains ? Player.Instance.SkillDic[info.Id].Level : 0;
+        int level = contains ? Player.Instance.SkillDic[info.Id].Level + 1 : 0;
 
         _slotImage.color = Grade.Colors[(int)info.Grade];
         _iconImage.sprite = info.Icon;
@@ -29,31 +43,44 @@ public class SkillSlot : MonoBehaviour
         _levelText.text = $"{level + 1}";
         _damageText.text = $"{info.Stats[level].Stats[skill.Reinforced].Damage}";
         _cooldownText.text = $"{info.Stats[level].Stats[skill.Reinforced].Cooldown}";
+        _priceText.text = $"{info.Prices[level]}";
         _descriptionText.text = info.Descriptions[level];
         _button.interactable = true;
 
         _button.onClick.RemoveAllListeners();
         _button.onClick.AddListener(() =>
         {
-            UIFactory.Get<ConfirmUI>().Confirm("확실합니까?", () =>
-            {
-                // if already had, level up the skill
-                if (contains)
-                {
-                    Player.Instance.SkillDic[info.Id].LevelUp();
-                }
+            int price = info.Prices[level];
 
-                // if not, equip skill newly
+            UIFactory.Get<ConfirmUI>().Confirm($"{price}원. 확실합니까?", () =>
+            {
+                if (Player.Instance.Coin >= price)
+                {
+                    // if already had, level up the skill
+                    if (contains)
+                    {
+                        Player.Instance.SkillDic[info.Id].LevelUp();
+                    }
+
+                    // if not, equip skill newly
+                    else
+                    {
+                        Player.Instance.Equip(new LiveSkill(skill));
+                    }
+
+                    // spend coin
+                    Player.Instance.Coin -= price;
+
+                    Enabled = false;
+                }
                 else
                 {
-                    Player.Instance.Equip(new LiveSkill(skill));
+                    UIFactory.Get<AlertUI>().Alert($"{price - Player.Instance.Coin}원 부족합니다.");
                 }
-
-                // update ui
-                UIFactory.Get<RewardUI>().SetActive(false);
-                UIFactory.Get<NextWaveSelectionUI>().SetActive(true);
             });
         });
+
+        Enabled = true;
     }
 
     // for my skill
@@ -69,5 +96,7 @@ public class SkillSlot : MonoBehaviour
         _cooldownText.text = $"{skill.Stats[liveSkill.Level].Stats[liveSkill.Skill.Reinforced].Cooldown}";
         _descriptionText.text = skill.Descriptions[liveSkill.Level];
         _button.interactable = false;
+
+        Enabled = true;
     }
 }
