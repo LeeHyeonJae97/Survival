@@ -53,7 +53,7 @@ public class PoolingManager : SingletonMonoBehaviour<PoolingManager>
             }
             else
             {
-                go = Instantiate(_prefab);
+                go = Instantiate(_prefab, Instance.transform);
                 go.name = _prefab.name;
             }
             return go;

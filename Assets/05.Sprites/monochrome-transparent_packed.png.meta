@@ -134,6 +134,51 @@ TextureImporter:
   - first:
       213: -1320808930008434384
     second: monochrome-transparent_packed_43
+  - first:
+      213: 8776130691975172006
+    second: monochrome-transparent_packed_44
+  - first:
+      213: 5344490691136786131
+    second: monochrome-transparent_packed_45
+  - first:
+      213: -9210464485024093702
+    second: monochrome-transparent_packed_46
+  - first:
+      213: -3578106543976185353
+    second: monochrome-transparent_packed_47
+  - first:
+      213: -1059042122451815383
+    second: monochrome-transparent_packed_48
+  - first:
+      213: 2015615659553153299
+    second: monochrome-transparent_packed_49
+  - first:
+      213: -2969990242587264381
+    second: monochrome-transparent_packed_50
+  - first:
+      213: 3047669809995384731
+    second: monochrome-transparent_packed_51
+  - first:
+      213: 4677092766540590010
+    second: monochrome-transparent_packed_52
+  - first:
+      213: 5802375433161085721
+    second: monochrome-transparent_packed_53
+  - first:
+      213: -4276081841160695950
+    second: monochrome-transparent_packed_54
+  - first:
+      213: 923753319997292076
+    second: monochrome-transparent_packed_55
+  - first:
+      213: -8704069911143923686
+    second: monochrome-transparent_packed_56
+  - first:
+      213: 3542406499020886910
+    second: monochrome-transparent_packed_57
+  - first:
+      213: 4665804880710539532
+    second: monochrome-transparent_packed_58
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -1125,7 +1170,7 @@ TextureImporter:
         width: 12
         height: 12
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1146,7 +1191,7 @@ TextureImporter:
         width: 12
         height: 12
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1154,6 +1199,27 @@ TextureImporter:
       bones: []
       spriteID: 039feaea64b8bade0800000000000000
       internalID: -1320808930008434384
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monochrome-transparent_packed_44
+      rect:
+        serializedVersion: 2
+        x: 529
+        y: 81
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6af459dcd541bc970800000000000000
+      internalID: 8776130691975172006
       vertices: []
       indices: 
       edges: []

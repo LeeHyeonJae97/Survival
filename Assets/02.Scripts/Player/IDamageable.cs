@@ -4,9 +4,9 @@ using UnityEngine;
 
 public interface IDamageable
 {
-    public int HP { get; set; }
+    public int Hp { get; set; }
 
-    public IEnumerator CoDie();
+    public void Die();
     public void Blink();
     public IEnumerator CoBlink();
 }

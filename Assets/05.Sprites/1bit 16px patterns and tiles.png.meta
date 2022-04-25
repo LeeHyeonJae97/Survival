@@ -50,6 +50,12 @@ TextureImporter:
   - first:
       213: -480678032172101782
     second: 1bit 16px patterns and tiles_15
+  - first:
+      213: 1951533846601694061
+    second: 1bit 16px patterns and tiles_16
+  - first:
+      213: -6111863520662942111
+    second: 1bit 16px patterns and tiles_17
   externalObjects: {}
   serializedVersion: 11
   mipmaps:

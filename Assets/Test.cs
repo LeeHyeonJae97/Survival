@@ -6,62 +6,117 @@ using UnityEngine.EventSystems;
 
 public class Test : MonoBehaviour
 {
-    private string[] operators = { "+", "-", "*", "/" };
+    private static readonly string[] operators = { "+", "-", "*", "/" };
+
+    private string Operator => operators[Random.Range(0, operators.Length)];
+    private int Operand => Random.Range(_operandRange.x, _operandRange.y);
+    private int OpCount => _round / 2 + 1;
+
+    [SerializeField] Vector2Int _operandRange;
+    [SerializeField] private int _round;
+    private int _curRound;
 
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            string s = "";
-
-            int count = Random.Range(1, 10);
-
-            for (int i = 0; i < count; i++)
-            {
-                if (i == 0)
-                {
-                    s = Random.Range(0, 100) + operators[Random.Range(0, operators.Length)] + Random.Range(0, 100);
-                }
-                else
-                {
-                    string op = operators[Random.Range(0, operators.Length)];
-                    int operand;
-
-                    if (op.Equals("/"))
-                    {
-                        List<int> operands = new List<int>();
-
-                        Debug.Log(new System.Data.DataTable().Compute(s, null).ToString());
-
-                        int result = int.Parse(new System.Data.DataTable().Compute(s, null).ToString());
-                        float sqrt = Mathf.Sqrt(result);
-
-                        for (int j = 1; j < sqrt; j++)
-                        {
-                            if (result % j == 0) operands.Add(j);
-                        }
-
-                        operand = operands[Random.Range(0, operands.Count)];
-                    }
-                    else
-                    {
-                        operand = Random.Range(0, 100);
-                    }
-
-                    bool left = Random.Range(0, 2) == 0;
-
-                    if (left)
-                    {
-                        s = operand + op + s;
-                    }
-                    else
-                    {
-                        s = s + op + operand;
-                    }
-                }
-            }
-
+            string s = Operand.ToString();
+            Generate(Random.Range(2, 5), ref s);
             Debug.Log($"{s} = {new System.Data.DataTable().Compute(s, null)}");
         }
     }
+
+    private void Generate(int count, ref string operand)
+    {
+        if (count <= 0) return;
+
+        string op = Operator;
+
+        switch (op)
+        {
+            case "+":
+                {
+                    int l = Operand;
+                    string ls = l.ToString();
+                    Generate(--count, ref ls);
+                    operand = "(" + ls + op + (int.Parse(operand) - l) + ")";
+                    break;
+                }
+
+            case "-":
+                {
+                    int l = Operand;
+                    string ls = l.ToString();
+                    Generate(--count, ref ls);
+                    operand = "(" + ls + op + (l - int.Parse(operand)) + ")";
+                    break;
+                }
+
+            case "*":
+                {
+                    List<int> operands = new List<int>();
+
+                    int result = int.Parse(operand);
+
+                    for (int j = (result == 1 ? 1 : 2); j <= result; j++)
+                    {
+                        if (result % j == 0) operands.Add(j);
+                    }
+
+                    int l = operands[Random.Range(0, operands.Count)];
+                    string ls = l.ToString();
+                    Generate(--count, ref ls);
+                    operand = ls + op + (int.Parse(operand) / l);
+                    break;
+                }
+
+            case "/":
+                {
+                    int r = Operand;
+                    string rs = r.ToString();
+                    Generate(--count, ref rs);
+                    operand = "(" + (int.Parse(operand) * r) + op + rs + ")";
+                    break;
+                }
+        }
+    }
+
+    //private void Legacy()
+    //{
+    //        string s = $"{Operand}";
+
+    //        int count = Random.Range(1, 10);
+
+    //        for (int i = 0; i < count; i++)
+    //        {
+    //            string op = Operator;
+
+    //            switch (op)
+    //            {
+    //                case "+":
+    //                case "-":
+    //                    s = "(" + s + op + Operand + ")";
+    //                    break;
+
+    //                case "*":
+    //                    s = s + op + Operand;
+    //                    break;
+
+    //                case "/":
+    //                    List<int> operands = new List<int>();
+
+    //                    int result = int.Parse(new System.Data.DataTable().Compute(s, null).ToString());
+
+    //                    for (int j = (result == 1 ? 1 : 2); j <= result; j++)
+    //                    {
+    //                        if (result % j == 0) operands.Add(j);
+    //                    }
+
+    //                    s = s + op + operands[Random.Range(0, operands.Count)];
+    //                    break;
+    //            }
+    //        }
+
+    //        Debug.Log($"{s} = {new System.Data.DataTable().Compute(s, null)}");
+    //}
 }

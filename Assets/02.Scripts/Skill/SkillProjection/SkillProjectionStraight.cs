@@ -17,6 +17,6 @@ public class SkillProjectionStraight : SkillProjection
 
     public override void Projection_Update(SkillProjectile projectile)
     {
-        projectile.transform.Translate(Vector2.right * projectile.Stat.FlySpeed * Time.deltaTime);
+        projectile.transform.Translate(Vector2.right * projectile.Stat.FlySpeed * PlayTime.deltaTime);
     }
 }

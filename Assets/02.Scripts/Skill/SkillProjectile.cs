@@ -85,11 +85,8 @@ public class SkillProjectile : MonoBehaviour
     {
         if (enemy != null)
         {
-            // apply damage
-            enemy.HP -= Stat.Damage;
-
-            // apply property effect
-            if (enemy.HP > 0) Property.OnHit(this, enemy);
+            // apply damage property effect
+            if (enemy.Hp > 0) Property.OnHit(this, enemy);
         }
     }
 

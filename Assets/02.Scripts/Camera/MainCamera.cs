@@ -13,6 +13,9 @@ public static class MainCamera
             return _camera;
         }
     }
+    public static Transform Transform { get { return Camera.transform.parent; } }
+    public static Transform Target { get; set; }
+    public static Vector3 Offset { get; set; } = Camera.transform.position;
 
     private static Camera _camera;
     private static Bounds _bounds;
@@ -25,7 +28,7 @@ public static class MainCamera
 
         if (_bounds == null) _bounds = new Bounds();
 
-        _bounds.center = Camera.transform.position;
+        _bounds.center = Transform.position;
         _bounds.size = new Vector3(cameraHeight * screenAspect, cameraHeight, 0);
 
         return _bounds;
@@ -35,7 +38,12 @@ public static class MainCamera
     {
         if (_tweener == null || !_tweener.IsActive())
         {
-            _tweener = _camera.DOShakePosition(0.1f, .3f, 1, 9f);
+            _tweener = Camera.DOShakePosition(0.1f, .3f, 1, 9f);
         }
+    }
+
+    public static void Follow()
+    {
+        if (Target != null) Transform.position = Target.position + Offset;
     }
 }

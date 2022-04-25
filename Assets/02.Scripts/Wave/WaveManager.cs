@@ -49,10 +49,21 @@ public class WaveManager : SingletonMonoBehaviour<WaveManager>
 
     private void OnEnable()
     {
-        EventChannelFactory.Get<PlayEventChannelSO>().onPlayStarted += FinishWave;
+        var channel = EventChannelFactory.Get<PlayEventChannelSO>();
+        channel.OnPlayStarted += channel.FinishWave;
+        channel.OnWaveStarted += OnWaveStarted;
+        channel.OnWaveFinished += OnWaveFinished;
     }
 
-    public void StartNextWave()
+    private void OnDisable()
+    {
+        var channel = EventChannelFactory.Get<PlayEventChannelSO>();
+        channel.OnPlayStarted -= channel.FinishWave;
+        channel.OnWaveStarted -= OnWaveStarted;
+        channel.OnWaveFinished -= OnWaveFinished;
+    }
+
+    private void OnWaveStarted()
     {
         // start spawning
         StartCoroutine(CoSpawn());
@@ -62,24 +73,15 @@ public class WaveManager : SingletonMonoBehaviour<WaveManager>
 
         // check elapsed time
         StartCoroutine(CoElapse());
-
-        // resume
-        Time.timeScale = 1;
-
-        EventChannelFactory.Get<PlayEventChannelSO>().OnWaveStarted();
     }
 
-    private void FinishWave()
+    private void OnWaveFinished()
     {
-        EventChannelFactory.Get<PlayEventChannelSO>().onPlayStarted -= FinishWave;
+        var channel = EventChannelFactory.Get<PlayEventChannelSO>();
+        channel.OnPlayStarted -= channel.FinishWave;
 
         // stop spawning and checking enemy out of range and duration
         StopAllCoroutines();
-
-        // pause
-        Time.timeScale = 0;
-
-        EventChannelFactory.Get<PlayEventChannelSO>().OnWaveFinished();
     }
 
     private IEnumerator CoSpawn()
@@ -135,10 +137,10 @@ public class WaveManager : SingletonMonoBehaviour<WaveManager>
         {
             float ratio = 1 - (remainDuration / duration);
             onElapsedUpdated?.Invoke(ratio);
-            if (ratio >= 1) FinishWave();
+            if (ratio >= 1) EventChannelFactory.Get<PlayEventChannelSO>().FinishWave();
             yield return null;
 
-            remainDuration -= Time.deltaTime;
+            remainDuration -= PlayTime.deltaTime;
         }
     }
 

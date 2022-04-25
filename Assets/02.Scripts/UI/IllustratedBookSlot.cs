@@ -13,7 +13,7 @@ public class IllustratedBookSlot : MonoBehaviour
     {
         _iconImage.sprite = character.Info.Sprite;
         _coverImage.SetActive(!character.Registered);
-        //_button.interactable = character.Registered;
+        _button.interactable = character.Registered;
         _button.onClick.AddListener(() => UIFactory.Get<IllustratedBookCharacterInfoUI>().SetActive(true, character));
     }
 
@@ -21,7 +21,7 @@ public class IllustratedBookSlot : MonoBehaviour
     {
         _iconImage.sprite = item.Info.Icon;
         _coverImage.SetActive(!item.Registered);
-        //_button.interactable = item.Registered;
+        _button.interactable = item.Registered;
         _button.onClick.AddListener(() => UIFactory.Get<IllustratedBookItemInfoUI>().SetActive(true, item));
     }
 
@@ -29,7 +29,7 @@ public class IllustratedBookSlot : MonoBehaviour
     {
         _iconImage.sprite = skill.Info.Icon;
         _coverImage.SetActive(!skill.Registered);
-        //_button.interactable = skill.Registered;
+        _button.interactable = skill.Registered;
         _button.onClick.AddListener(() => UIFactory.Get<IllustratedBookSkillInfoUI>().SetActive(true, skill));
     }
 
@@ -37,7 +37,7 @@ public class IllustratedBookSlot : MonoBehaviour
     {
         _iconImage.sprite = potion.Info.Icon;
         _coverImage.SetActive(!potion.Registered);
-        //_button.interactable = potion.Registered;
+        _button.interactable = potion.Registered;
         _button.onClick.AddListener(() => UIFactory.Get<IllustratedBookPotionInfoUI>().SetActive(true, potion));
     }
 
@@ -45,7 +45,7 @@ public class IllustratedBookSlot : MonoBehaviour
     {
         _iconImage.sprite = enemy.Info.Sprite;
         _coverImage.SetActive(!enemy.Registered);
-        //_button.interactable = enemy.Registered;
+        _button.interactable = enemy.Registered;
         _button.onClick.AddListener(() => UIFactory.Get<IllustratedBookEnemyInfoUI>().SetActive(true, enemy));
     }
 }

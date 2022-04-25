@@ -29,8 +29,8 @@ public class Coin : MonoBehaviour
         }
         else
         {
-            transform.position = Vector2.MoveTowards(transform.position, target, _curSpeed * Time.deltaTime);
-            _curSpeed = Mathf.Min(_curSpeed += Time.deltaTime, _speed.y);
+            transform.position = Vector2.MoveTowards(transform.position, target, _curSpeed * PlayTime.deltaTime);
+            _curSpeed = Mathf.Min(_curSpeed += PlayTime.deltaTime, _speed.y);
         }
     }
 }

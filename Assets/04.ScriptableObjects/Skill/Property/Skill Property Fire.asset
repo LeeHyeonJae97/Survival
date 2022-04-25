@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43cd841f9862d1d49921f57361f6c7a0, type: 3}
   m_Name: Skill Property Fire
   m_EditorClassIdentifier: 
-  <Type>k__BackingField: 0
+  <Type>k__BackingField: 1
+  <Color>k__BackingField: {r: 0.92549026, g: 0.3372549, b: 0.2901961, a: 1}
   _ccInfo:
     <Type>k__BackingField: 0
-    <Icon>k__BackingField: {fileID: -2413806693520163455, guid: 4adeaf2d2b1c7417e89f026626d8264f, type: 3}
     <Percent>k__BackingField: 100
     <Durations>k__BackingField:
     - 1
@@ -29,3 +29,4 @@ MonoBehaviour:
     - 0.5
     - 0.35
     - 0.2
+    <Range>k__BackingField: 0

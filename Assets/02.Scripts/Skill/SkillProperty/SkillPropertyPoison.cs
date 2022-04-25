@@ -14,13 +14,18 @@ public class SkillPropertyPoison : SkillProperty
 
     public override void OnHit(SkillProjectile projectile, EnemyPlayer enemy)
     {
-        // check constraint
-        if (enemy.Enemy.Constraint == Constraint.Poison) return;
+        // apply damage
+        enemy.BlinkColor = Color;
+        enemy.Hp -= projectile.Stat.Damage;
 
-        // check percent
-        if (!RandomExtension.CheckPercent(_ccInfo.Percent)) return;
-
-        Poisoning(enemy);
+        if (enemy.Hp > 0)
+        {
+            // check constraint and percent
+            if (enemy.Enemy.Constraint != Constraint.Poison && RandomExtension.CheckPercent(_ccInfo.Percent))
+            {
+                Poisoning(enemy);
+            }
+        }
     }
 
     private void Poisoning(EnemyPlayer enemy)
@@ -31,12 +36,14 @@ public class SkillPropertyPoison : SkillProperty
             // if crowd control is active, just reset the duration
             if (cc.IsActive)
             {
+                // if more than half of the duration is remained, level up the cc
                 if (cc.Duration > _ccInfo.Durations[cc.Level] / 2)
                 {
                     cc.Level = Mathf.Min(cc.Level + 1, CrowdControlInfo.MAX_LEVEL);
                 }
                 cc.Duration = _ccInfo.Durations[cc.Level];
             }
+
             // restart coroutine
             else
             {
@@ -56,25 +63,18 @@ public class SkillPropertyPoison : SkillProperty
 
     private IEnumerator CoPoisoning(CrowdControl cc, EnemyPlayer enemy)
     {
-        // spawn icon
-        var icon = PoolingManager.Instance.Spawn<SpriteRenderer>("CrowdControlIcon");
-        icon.sprite = _ccInfo.Icon;
-        icon.transform.SetParent(enemy.CrowdControlIconsHolder);
-
         // damage is increased by time
         float increasing = 20f;
         float elapsed = 0;
 
         while (cc.Duration > 0)
         {
-            enemy.HP -= (int)(_ccInfo.Values[cc.Level] + (elapsed * increasing));
+            enemy.BlinkColor = Color;
+            enemy.Hp -= (int)(_ccInfo.Values[cc.Level] + (elapsed * increasing));
             yield return WaitForSecondsFactory.Get(_ccInfo.Intervals[cc.Level]);
 
             cc.Duration -= _ccInfo.Intervals[cc.Level];
             elapsed += _ccInfo.Intervals[cc.Level];
         }
-
-        // despawn icon
-        PoolingManager.Instance.Despawn<SpriteRenderer>(icon);
     }
 }

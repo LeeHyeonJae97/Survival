@@ -14,18 +14,23 @@ public class SkillPropertyFire : SkillProperty
 
     public override void OnHit(SkillProjectile projectile, EnemyPlayer enemy)
     {
-        // check constraint
-        if (enemy.Enemy.Constraint == Constraint.Fire) return;
+        // apply damage
+        enemy.BlinkColor = Color;
+        enemy.Hp -= projectile.Stat.Damage;
 
-        // check percent
-        if (!RandomExtension.CheckPercent(_ccInfo.Percent)) return;
-
-        Burning(enemy);
+        if (enemy.Hp > 0)
+        {
+            // check constraint and percent
+            if (enemy.Enemy.Constraint != Constraint.Fire && RandomExtension.CheckPercent(_ccInfo.Percent))
+            {
+                Burning(enemy);
+            }
+        }
     }
 
     private void Burning(EnemyPlayer enemy)
     {
-        // if enemy has already crowd controlled before, continue it
+        // if enemy has already crowd controlled, continue it
         if (enemy.CrowdControlDic.TryGetValue(_ccInfo.Type, out CrowdControl cc))
         {
             if (cc.Infinite) return;
@@ -33,11 +38,13 @@ public class SkillPropertyFire : SkillProperty
             // if crowd control is active, just reset the duration
             if (cc.IsActive)
             {
+                // if more than half of the duration is remained, level up the cc
                 if (cc.Duration > _ccInfo.Durations[cc.Level] / 2)
                 {
                     cc.Level = Mathf.Min(cc.Level + 1, CrowdControlInfo.MAX_LEVEL);
                 }
 
+                // if reach the max level, make burn infinitively
                 if (cc.Level == CrowdControlInfo.MAX_LEVEL)
                 {
                     cc.Infinite = true;
@@ -47,6 +54,7 @@ public class SkillPropertyFire : SkillProperty
                     cc.Duration = _ccInfo.Durations[cc.Level];
                 }
             }
+
             // restart coroutine
             else
             {
@@ -66,20 +74,13 @@ public class SkillPropertyFire : SkillProperty
 
     private IEnumerator CoBurning(CrowdControl cc, EnemyPlayer enemy)
     {
-        // spawn icon
-        var icon = PoolingManager.Instance.Spawn<SpriteRenderer>("CrowdControlIcon");
-        icon.sprite = _ccInfo.Icon;
-        icon.transform.SetParent(enemy.CrowdControlIconsHolder);
-
         while (cc.Infinite || cc.Duration > 0)
         {
-            enemy.HP -= (int)_ccInfo.Values[cc.Level];
+            enemy.BlinkColor = Color;
+            enemy.Hp -= (int)_ccInfo.Values[cc.Level];
             yield return WaitForSecondsFactory.Get(_ccInfo.Intervals[cc.Level]);
 
             if (!cc.Infinite) cc.Duration -= _ccInfo.Intervals[cc.Level];
         }
-
-        // despawn icon
-        PoolingManager.Instance.Despawn<SpriteRenderer>(icon);
     }
 }

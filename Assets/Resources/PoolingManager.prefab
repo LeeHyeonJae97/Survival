@@ -47,12 +47,15 @@ MonoBehaviour:
   - <Key>k__BackingField: EnemyPlayer
     _prefab: {fileID: 5268629335176984782, guid: c97170ed1330bc246b2bd87f8118cde3, type: 3}
     _amount: 10
-  - <Key>k__BackingField: CrowdControlIcon
-    _prefab: {fileID: 6808955073483212204, guid: bf808f5f08b0bea46b9c1c33a3524915, type: 3}
-    _amount: 3
   - <Key>k__BackingField: Coin
     _prefab: {fileID: 4070479033444804562, guid: b450201dedaac6f438f78263a427ac9e, type: 3}
     _amount: 5
+  - <Key>k__BackingField: SkillProjectile
+    _prefab: {fileID: 8960175137677019452, guid: 950ff38954be93a4bb83f5bb8da603ba, type: 3}
+    _amount: 10
   - <Key>k__BackingField: DamagePopUpText
     _prefab: {fileID: 485807916737497476, guid: 049eabc47f535e647856749e52eaf67a, type: 3}
+    _amount: 3
+  - <Key>k__BackingField: HpRecovery
+    _prefab: {fileID: 2866043834435794208, guid: 1225e0d3c2b28984b911df0f6d0943db, type: 3}
     _amount: 3

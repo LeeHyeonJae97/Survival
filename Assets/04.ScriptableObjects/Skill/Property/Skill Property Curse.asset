@@ -12,7 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 763c7ac3169e475458172607aa7ab217, type: 3}
   m_Name: Skill Property Curse
   m_EditorClassIdentifier: 
-  <Type>k__BackingField: 5
-  _percent: 100
-  _duration: 3
+  <Type>k__BackingField: 6
+  <Color>k__BackingField: {r: 0.7411765, g: 0.28627452, b: 0.5058824, a: 1}
   _emc: {fileID: 11400000, guid: 6274c5deda46d6c4e9b630f9a69c4cb2, type: 2}
+  _ccInfo:
+    <Type>k__BackingField: 0
+    <Percent>k__BackingField: 0
+    <Durations>k__BackingField: []
+    <Values>k__BackingField: []
+    <Intervals>k__BackingField: []
+    <Range>k__BackingField: 0

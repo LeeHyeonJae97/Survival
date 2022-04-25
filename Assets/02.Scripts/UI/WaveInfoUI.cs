@@ -14,14 +14,14 @@ public class WaveInfoUI : UI
     {
         base.Awake();
 
-        EventChannelFactory.Get<PlayEventChannelSO>().onWaveStarted += OnWaveStarted;
+        EventChannelFactory.Get<PlayEventChannelSO>().OnWaveStarted += OnWaveStarted;
     }
 
     protected override void OnDestroy()
     {
         base.OnDestroy();
 
-        EventChannelFactory.Get<PlayEventChannelSO>().onWaveStarted -= OnWaveStarted;
+        EventChannelFactory.Get<PlayEventChannelSO>().OnWaveStarted -= OnWaveStarted;
     }
 
     protected override void OnSetActive(bool value)

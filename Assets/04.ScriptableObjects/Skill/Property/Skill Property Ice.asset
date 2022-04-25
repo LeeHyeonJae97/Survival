@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Skill Property Ice
   m_EditorClassIdentifier: 
   <Type>k__BackingField: 2
+  <Color>k__BackingField: {r: 0.3019608, g: 0.6509804, b: 1, a: 1}
   _ccInfo:
     <Type>k__BackingField: 1
-    <Icon>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
     <Percent>k__BackingField: 100
     <Durations>k__BackingField:
     - 1
@@ -26,3 +26,4 @@ MonoBehaviour:
     - 3
     - 5
     <Intervals>k__BackingField: []
+    <Range>k__BackingField: 0

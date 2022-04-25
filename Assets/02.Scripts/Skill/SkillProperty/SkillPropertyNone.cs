@@ -12,6 +12,8 @@ public class SkillPropertyNone : SkillProperty
 
     public override void OnHit(SkillProjectile projectile, EnemyPlayer enemy)
     {
-
+        // apply damage
+        enemy.BlinkColor = Color;
+        enemy.Hp -= projectile.Stat.Damage;
     }
 }

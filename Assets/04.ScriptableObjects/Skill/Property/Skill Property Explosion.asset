@@ -12,7 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7c17e82226b39742ba07c224171ba23, type: 3}
   m_Name: Skill Property Explosion
   m_EditorClassIdentifier: 
-  <Type>k__BackingField: 4
-  _percent: 100
-  _splash: 100
-  _range: 3
+  <Type>k__BackingField: 5
+  <Color>k__BackingField: {r: 1, g: 0.8941177, b: 0.47058827, a: 1}
+  _ccInfo:
+    <Type>k__BackingField: 0
+    <Percent>k__BackingField: 0
+    <Durations>k__BackingField: []
+    <Values>k__BackingField: []
+    <Intervals>k__BackingField: []
+    <Range>k__BackingField: 0

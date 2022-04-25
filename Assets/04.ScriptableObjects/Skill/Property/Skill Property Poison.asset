@@ -12,8 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0cde0bfc25e2de4893eef4ee32331f7, type: 3}
   m_Name: Skill Property Poison
   m_EditorClassIdentifier: 
-  <Type>k__BackingField: 3
-  _percent: 100
-  _duration: 3
-  _continuous: 1
-  _interval: 0.1
+  <Type>k__BackingField: 4
+  <Color>k__BackingField: {r: 0.23529413, g: 0.6392157, b: 0.43921572, a: 1}
+  _ccInfo:
+    <Type>k__BackingField: 0
+    <Percent>k__BackingField: 0
+    <Durations>k__BackingField: []
+    <Values>k__BackingField: []
+    <Intervals>k__BackingField: []
+    <Range>k__BackingField: 0

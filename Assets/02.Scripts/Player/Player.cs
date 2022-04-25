@@ -15,7 +15,7 @@ public class Player : SingletonMonoBehaviour<Player>, IDamageable
         }
     }
     public LiveStat Stats { get; private set; }
-    public int HP
+    public int Hp
     {
         get { return _hp; }
 
@@ -30,7 +30,7 @@ public class Player : SingletonMonoBehaviour<Player>, IDamageable
                 Blink();
 
                 // check die
-                if (value <= 0) CoDie();
+                if (_hp > 0 && value <= 0) Die();
 
                 // shake camera
                 MainCamera.Shake();
@@ -74,13 +74,18 @@ public class Player : SingletonMonoBehaviour<Player>, IDamageable
         Stats = new LiveStat(Character.Info.Stats[Character.Reinforced]);
 
         // initialize values
-        HP = Stats[(int)StatType.Hp];
+        Hp = Stats[(int)StatType.Hp];
         Coin = PlayManager.INITIAL_COIN;
         _sr.sprite = Character.Info.Sprite;
         _sm.sprite = Character.Info.Sprite;
 
-        // set main camera as a child
-        MainCamera.Camera.transform.SetParent(transform);
+        // set camera's following target
+        MainCamera.Target = transform;
+    }
+
+    private void OnDestroy()
+    {
+        MainCamera.Target = null;
     }
 
     private void OnEnable()
@@ -90,8 +95,8 @@ public class Player : SingletonMonoBehaviour<Player>, IDamageable
         joystickEventChannel.onDrag += Move;
 
         PlayEventChannelSO playEventChannel = EventChannelFactory.Get<PlayEventChannelSO>();
-        playEventChannel.onWaveStarted += OnWaveStarted;
-        playEventChannel.onWaveFinished += OnWaveFinished;
+        playEventChannel.OnWaveStarted += OnWaveStarted;
+        playEventChannel.OnWaveFinished += OnWaveFinished;
     }
 
     private void OnDisable()
@@ -101,23 +106,27 @@ public class Player : SingletonMonoBehaviour<Player>, IDamageable
         joystickEventChannel.onDrag -= Move;
 
         PlayEventChannelSO playEventChannel = EventChannelFactory.Get<PlayEventChannelSO>();
-        playEventChannel.onWaveStarted -= OnWaveStarted;
-        playEventChannel.onWaveFinished -= OnWaveFinished;
+        playEventChannel.OnWaveStarted -= OnWaveStarted;
+        playEventChannel.OnWaveFinished -= OnWaveFinished;
+    }
+
+    private void Update()
+    {
+        MainCamera.Follow();
     }
 
     private void Move(Vector2 dir)
     {
         // move
-        transform.Translate(dir.normalized * Stats[(int)StatType.Speed] * Time.deltaTime);
+        transform.Translate(dir.normalized * Stats[(int)StatType.Speed] * PlayTime.deltaTime);
 
         // flip sprite
         _sr.transform.rotation = Quaternion.Euler(new Vector3(0, dir.x > 0 ? 0 : 180, 0));
     }
 
-    public IEnumerator CoDie()
+    public void Die()
     {
-        Debug.Log("Game Over");
-        yield return null;
+        EventChannelFactory.Get<PlayEventChannelSO>().FinishPlay();
     }
 
     public void Blink()

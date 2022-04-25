@@ -14,8 +14,9 @@ public class EnemyPlayer : MonoBehaviour, IDamageable
         {
             _enemy = value;
 
-            HP = _enemy.Stats[(int)StatType.Hp].Value;
+            Hp = _enemy.Stats[(int)StatType.Hp].Value;
             Speed = _enemy.Stats[(int)StatType.Speed].Value;
+            Color = _defaultColor;
             _sr.sprite = _enemy.Sprite;
             _sm.sprite = _enemy.Sprite;
             Movement = _enemy.Movement;
@@ -23,7 +24,7 @@ public class EnemyPlayer : MonoBehaviour, IDamageable
             Movement.Movement_Start(this);
         }
     }
-    public int HP
+    public int Hp
     {
         get { return _hp; }
 
@@ -33,7 +34,7 @@ public class EnemyPlayer : MonoBehaviour, IDamageable
             {
                 PoolingManager.Instance.Spawn<DamagePopUpText>().Init(transform.position, _hp - value, Color.yellow);
                 Blink();
-                if (value <= 0) StartCoroutine(CoDie());
+                if (value <= 0) Die();
             }
 
             _hp = value;
@@ -67,14 +68,20 @@ public class EnemyPlayer : MonoBehaviour, IDamageable
             _sr.transform.rotation = Quaternion.Euler(new Vector3(0, _direction.x > 0 ? 0 : 180, 0));
         }
     }
+    public Color Color
+    {
+        set { if (_sr.color == _defaultColor) _sr.color = value == default ? _defaultColor : value; }
+    }
+    public Color BlinkColor { set { _blinkSr.color = value; } }
     public Dictionary<SkillPropertyType, IEnumerator> CrowdControlCorDic { get; private set; } = new Dictionary<SkillPropertyType, IEnumerator>();
     public Dictionary<CrowdControlType, CrowdControl> CrowdControlDic { get; private set; } = new Dictionary<CrowdControlType, CrowdControl>();
-    public Transform CrowdControlIconsHolder => _crowdControlIconsHolder;
 
     [SerializeField] private SpriteRenderer _sr;
     [SerializeField] private SpriteMask _sm;
     [SerializeField] private SpriteRenderer _blinkSr;
-    [SerializeField] private Transform _crowdControlIconsHolder;
+    [SerializeField] private Color _defaultColor;
+    [SerializeField] private int _coin;
+    [SerializeField] private int _hpRecoveryPercent;
     private int _hp;
     private float _speed;
     private EnemySO _enemy;
@@ -89,7 +96,7 @@ public class EnemyPlayer : MonoBehaviour, IDamageable
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player")) collision.GetComponentInParent<Player>().HP -= Enemy.Stats[(int)StatType.Hp].Value;
+        if (collision.CompareTag("Player")) collision.GetComponentInParent<Player>().Hp -= Enemy.Stats[(int)StatType.Hp].Value;
     }
 
     public void Init(EnemySO enemy)
@@ -103,15 +110,23 @@ public class EnemyPlayer : MonoBehaviour, IDamageable
         _blinkCor = null;
     }
 
-    public IEnumerator CoDie()
+    public void Die()
     {
         // drop coins
-        for (int i = 0; i < Enemy.Coin; i++)
+        int count = _coin * (Enemy.Level + 1);
+
+        for (int i = 0; i < count; i++)
         {
             PoolingManager.Instance.Spawn<Coin>().Init(transform.position);
         }
 
-        yield return WaitForSecondsFactory.Get(0.15f);
+        // drop hp recovery
+        if (Random.Range(0, 100) < _hpRecoveryPercent)
+        {
+            PoolingManager.Instance.Spawn<HpRecovery>().Init(transform.position);
+        }
+
+        // return WaitForSecondsFactory.Get(0.15f);
         Despawn();
     }
 

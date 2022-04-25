@@ -11,11 +11,11 @@ public class EnemySO : ScriptableObject
     [field: SerializeField] public int Level { get; private set; }
     [field: SerializeField] public string Name { get; private set; }
     [field: SerializeField] public string Description { get; private set; }
+    [field: SerializeField] public float Size { get; private set; }
     [field: SerializeField] public Stat[] Stats { get; private set; }
     [field: SerializeField] public Constraint Constraint { get; private set; }
     [field: SerializeField] public Sprite Sprite { get; private set; }
     [field: SerializeField] public EnemyMovement Movement { get; private set; }
-    [field: SerializeField] public int Coin { get; private set; }
 
     private void OnValidate()
     {

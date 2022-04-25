@@ -14,14 +14,20 @@ public class SkillPropertyIce : SkillProperty
 
     public override void OnHit(SkillProjectile projectile, EnemyPlayer enemy)
     {
-        // check constraint
-        if (enemy.Enemy.Constraint == Constraint.Ice) return;
+        // apply damage
+        enemy.BlinkColor = Color;
+        enemy.Hp -= projectile.Stat.Damage;
 
-        // check percent
-        if (!RandomExtension.CheckPercent(_ccInfo.Percent)) return;
-
-        SlowDown(enemy);
+        if (enemy.Hp > 0)
+        {
+            // check constraint and percent
+            if (enemy.Enemy.Constraint != Constraint.Ice && RandomExtension.CheckPercent(_ccInfo.Percent))
+            {
+                SlowDown(enemy);
+            }
+        }
     }
+    
 
     private void SlowDown(EnemyPlayer enemy)
     {
@@ -31,12 +37,14 @@ public class SkillPropertyIce : SkillProperty
             // if crowd control is active, just reset the duration
             if (cc.IsActive)
             {
+                // if more than half of the duration is remained, level up the cc
                 if (cc.Duration > _ccInfo.Durations[cc.Level] / 2)
                 {
                     cc.Level = Mathf.Min(cc.Level + 1, CrowdControlInfo.MAX_LEVEL);
                 }
                 cc.Duration = _ccInfo.Durations[cc.Level];
             }
+
             // restart coroutine
             else
             {
@@ -56,10 +64,8 @@ public class SkillPropertyIce : SkillProperty
 
     private IEnumerator CoSlowDown(CrowdControl cc, EnemyPlayer enemy)
     {
-        // spawn icon
-        var icon = PoolingManager.Instance.Spawn<SpriteRenderer>("CrowdControlIcon");
-        icon.sprite = _ccInfo.Icon;
-        icon.transform.SetParent(enemy.CrowdControlIconsHolder);
+        // set color
+        enemy.Color = Color;
 
         while (cc.Duration > 0)
         {
@@ -70,13 +76,12 @@ public class SkillPropertyIce : SkillProperty
             enemy.Speed = enemy.Enemy.Stats[(int)StatType.Speed].Value - _ccInfo.Values[cc.Level];
             yield return null;
 
-            cc.Duration -= Time.deltaTime;
+            cc.Duration -= PlayTime.deltaTime;
         }
 
+        // recover color
+        enemy.Color = default;
         // recover speed
         enemy.Speed = enemy.Enemy.Stats[(int)StatType.Speed].Value;
-        
-        // despawn icon
-        PoolingManager.Instance.Despawn<SpriteRenderer>(icon);
     }
 }

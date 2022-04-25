@@ -12,6 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84e3fc3ec6c6bc745892d68d796246de, type: 3}
   m_Name: Skill Property Wind
   m_EditorClassIdentifier: 
-  <Type>k__BackingField: 2
-  _percent: 100
-  _knockback: 0.4
+  <Type>k__BackingField: 3
+  <Color>k__BackingField: {r: 0.40000004, g: 1, b: 0.8941177, a: 1}
+  _ccInfo:
+    <Type>k__BackingField: 0
+    <Percent>k__BackingField: 0
+    <Durations>k__BackingField: []
+    <Values>k__BackingField: []
+    <Intervals>k__BackingField: []
+    <Range>k__BackingField: 0

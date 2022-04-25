@@ -5,9 +5,8 @@ using UnityEngine;
 [CreateAssetMenu(fileName = FILE_NAME + "Curse", menuName = MENU_NAME + "Curse")]
 public class SkillPropertyCurse : SkillProperty
 {
-    [SerializeField] private int _percent;
-    [SerializeField] private float _duration;
     [SerializeField] private EnemyMovementCursed _emc;
+    [SerializeField] private CrowdControlInfo _ccInfo;
 
     private void OnValidate()
     {
@@ -16,39 +15,60 @@ public class SkillPropertyCurse : SkillProperty
 
     public override void OnHit(SkillProjectile projectile, EnemyPlayer enemy)
     {
-        // check constraint
-        if (enemy.Enemy.Constraint == Constraint.Curse) return;
+        // apply damage
+        enemy.BlinkColor = Color;
+        enemy.Hp -= projectile.Stat.Damage;
 
-        // check aroused
-        if (RandomExtension.CheckPercent(_percent))
+        if (enemy.Hp > 0)
         {
-            IEnumerator cor = CoCursed(enemy);
-
-            // check already applied
-            if (enemy.CrowdControlCorDic.ContainsKey(Type))
+            // check constraint and percent
+            if (enemy.Enemy.Constraint != Constraint.Curse && RandomExtension.CheckPercent(_ccInfo.Percent))
             {
-                // stop already ongoing one
-                enemy.StopCoroutine(enemy.CrowdControlCorDic[Type]);
-                enemy.CrowdControlCorDic[Type] = cor;
+                Cursed(enemy);
             }
-            else
-            {
-                enemy.CrowdControlCorDic.Add(Type, cor);
-            }
-
-            // start coroutine
-            enemy.StartCoroutine(cor);
         }
     }
 
-    private IEnumerator CoCursed(EnemyPlayer enemy)
+    private void Cursed(EnemyPlayer enemy)
     {
+        // if enemy has already crowd controlled, continue it
+        if (enemy.CrowdControlDic.TryGetValue(_ccInfo.Type, out CrowdControl cc))
+        {
+            // if crowd control is active, just reset the duration
+            if (cc.IsActive)
+            {
+                cc.Duration = _ccInfo.Durations[cc.Level];
+            }
+
+            // restart coroutine
+            else
+            {
+                cc.Reset(_ccInfo);
+                enemy.StartCoroutine(CoCursed(cc, enemy));
+            }
+        }
+
+        // add new coroutine and start it
+        else
+        {
+            cc = new CrowdControl(_ccInfo);
+            enemy.CrowdControlDic.Add(cc.Type, cc);
+            enemy.StartCoroutine(CoCursed(cc, enemy));
+        }
+    }
+
+    private IEnumerator CoCursed(CrowdControl cc, EnemyPlayer enemy)
+    {
+        // set color
+        enemy.Color = Color;
         // change enemy's movement type
         EnemyMovement org = enemy.Movement;
         enemy.Movement = _emc;
 
-        yield return WaitForSecondsFactory.Get(_duration);
+        yield return WaitForSecondsFactory.Get(cc.Duration);
 
+        // recover color
+        enemy.Color = default;
         // recover enemy's movement type
         enemy.Movement = org;
     }

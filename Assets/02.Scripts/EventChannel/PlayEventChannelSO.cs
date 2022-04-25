@@ -6,32 +6,46 @@ using UnityEngine.Events;
 [CreateAssetMenu(fileName = FILE_NAME + "Play", menuName = MENU_NAME + "Play")]
 public class PlayEventChannelSO : EventChannelSO
 {
-    public event UnityAction onPlayStarted;
-    public event UnityAction onPlayFinished;
-    public event UnityAction onWaveStarted;
-    public event UnityAction onWaveFinished;
+    public event UnityAction OnPlayStarted;
+    public event UnityAction OnPlayFinished;
+    public event UnityAction OnWaveStarted;
+    public event UnityAction OnWaveFinished;
+    public event UnityAction OnPaused;
+    public event UnityAction OnResumed;
 
-    public void OnPlayStarted()
+    public void StartPlay()
     {
-       if(_log) Debug.Log("Play Started");
-        onPlayStarted?.Invoke();
+        if (_log) Debug.Log("Play Started");
+        OnPlayStarted?.Invoke();
     }
 
-    public void OnPlayFinished()
+    public void FinishPlay()
     {
         if (_log) Debug.Log("Play Finished");
-        onPlayFinished?.Invoke();
+        OnPlayFinished?.Invoke();
     }
 
-    public void OnWaveStarted()
+    public void StartWave()
     {
         if (_log) Debug.Log("Wave Started");
-        onWaveStarted?.Invoke();
+        OnWaveStarted?.Invoke();
     }
 
-    public void OnWaveFinished()
+    public void FinishWave()
     {
         if (_log) Debug.Log("Wave Finished");
-        onWaveFinished?.Invoke();
+        OnWaveFinished?.Invoke();
+    }
+
+    public void Pause()
+    {
+        if (_log) Debug.Log("Pause");
+        OnPaused?.Invoke();
+    }
+
+    public void Resume()
+    {
+        if (_log) Debug.Log("Resume");
+        OnResumed?.Invoke();
     }
 }

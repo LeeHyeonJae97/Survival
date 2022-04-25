@@ -42,11 +42,6 @@ public abstract class UI : MonoBehaviour
         onSetActive -= OnSetActive;
     }
 
-    protected void ResetOnSetActive()
-    {
-        onSetActive = null;
-    }
-
     public void SetActive(bool value, bool directly = false)
     {
         // NOTICE :

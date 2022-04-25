@@ -19,7 +19,7 @@ public class SkillProjectionSpiral : SkillProjection
 
     public override void Projection_Update(SkillProjectile projectile)
     {
-        projectile.transform.Rotate(Vector3.forward, Mathf.PingPong(Time.timeSinceLevelLoad, 1) * _rotateSpeed * Time.deltaTime);
-        projectile.transform.Translate(Vector2.right * projectile.Stat.FlySpeed * Time.deltaTime);
+        projectile.transform.Rotate(Vector3.forward, Mathf.PingPong(Time.timeSinceLevelLoad, 1) * _rotateSpeed * PlayTime.deltaTime);
+        projectile.transform.Translate(Vector2.right * projectile.Stat.FlySpeed * PlayTime.deltaTime);
     }
 }

@@ -22,7 +22,7 @@ MonoBehaviour:
   - "\uD654\uC5FC \uACF5\uC744 \uBC1C\uC0AC\uD55C\uB2E4"
   - "\uD654\uC5FC \uAD6C\uB97C \uBC1C\uC0AC\uD55C\uB2E4"
   - "\uD654\uC5FC \uD589\uC131\uC744 \uBC1C\uC0AC\uD55C\uB2E4"
-  <Prices>k__BackingField: e8030000d0070000b80b0000
+  <Prices>k__BackingField: 64000000c80000002c010000
   <Icon>k__BackingField: {fileID: 7007725183902490956, guid: 2ed50ea975c0f454f81ee081ad5f991c, type: 3}
   <ProjectileSprite>k__BackingField: {fileID: 3371168828401391763, guid: c36a3034ca286ba44bc9644cad3f65b2, type: 3}
   <Stats>k__BackingField:

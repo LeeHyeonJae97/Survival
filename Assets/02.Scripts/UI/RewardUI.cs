@@ -68,8 +68,8 @@ public partial class RewardUI : UI
         _enterButton.onClick.AddListener(OnClickEnterButton);
 
         var channel = EventChannelFactory.Get<PlayEventChannelSO>();
-        channel.onWaveStarted += OnWaveStarted;
-        channel.onWaveFinished += OnWaveFinished;
+        channel.OnWaveStarted += OnWaveStarted;
+        channel.OnWaveFinished += OnWaveFinished;
     }
 
     protected override void OnDestroy()
@@ -77,8 +77,8 @@ public partial class RewardUI : UI
         base.OnDestroy();
 
         var channel = EventChannelFactory.Get<PlayEventChannelSO>();
-        channel.onWaveStarted -= OnWaveStarted;
-        channel.onWaveFinished -= OnWaveFinished;
+        channel.OnWaveStarted -= OnWaveStarted;
+        channel.OnWaveFinished -= OnWaveFinished;
     }
 
     protected override void OnSetActive(bool value)
@@ -201,10 +201,7 @@ public partial class RewardUI : UI
 
     private void OnClickNextWaveButton()
     {
-        UIFactory.Get<ConfirmUI>().Confirm("확실합니까?", () =>
-        {
-            WaveManager.Instance.StartNextWave();
-        });
+        UIFactory.Get<ConfirmUI>().Confirm("확실합니까?", EventChannelFactory.Get<PlayEventChannelSO>().StartWave);
     }
 
     private void OnClickTabButton(int index)
@@ -275,9 +272,9 @@ public partial class RewardUI : UI
         float slowSpeed = 100;
 
         int childCount = _slotContent.childCount - 1;
-        int count = (childCount) * Random.Range(minRound, maxRound) + Random.Range(0, childCount);
+        int count = childCount * Random.Range(minRound, maxRound) + Random.Range(0, childCount);
         float height = ((RectTransform)_slotContent.GetChild(0)).sizeDelta.y;
-        float top = (childCount) * height;
+        float top = childCount * height;
 
         _slotContent.anchoredPosition = new Vector2(_slotContent.anchoredPosition.x, top);
 

@@ -42,7 +42,7 @@ public class NextWaveInfoSlot : MonoBehaviour
                 UIFactory.Get<NextWaveSelectionUI>().SetActive(false);
 
                 // move on to the next wave
-                WaveManager.Instance.StartNextWave();
+                EventChannelFactory.Get<PlayEventChannelSO>().StartWave();
             });
         });
     }

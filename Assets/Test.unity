@@ -235,6 +235,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e272b38548208d14a886543486bc7e1e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _operandRange: {x: 3, y: 9}
+  _round: 0
 --- !u!4 &787510487
 Transform:
   m_ObjectHideFlags: 0

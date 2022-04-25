@@ -23,7 +23,7 @@ public class EnemyMovementCrossPlayer : EnemyMovement
 
     public override void Movement_Update(EnemyPlayer enemy)
     {
-        enemy.transform.Translate(enemy.Direction * enemy.Speed * Time.deltaTime);
+        enemy.transform.Translate(enemy.Direction * enemy.Speed * PlayTime.deltaTime);
         Avoid(enemy);
     }
 }

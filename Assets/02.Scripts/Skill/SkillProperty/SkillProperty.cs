@@ -8,6 +8,7 @@ public abstract class SkillProperty : ScriptableObject
     public const string MENU_NAME = "ScriptableObject/Skill/Property/";
 
     [field: SerializeField] public SkillPropertyType Type { get; protected set; }
+    [field: SerializeField] public Color Color { get; protected set; }
 
     public abstract void OnHit(SkillProjectile projectile, EnemyPlayer enemy);
 }

@@ -5,8 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = FILE_NAME + "Wind", menuName = MENU_NAME + "Wind")]
 public class SkillPropertyWind : SkillProperty
 {
-    [SerializeField] private int _percent;
-    [SerializeField] private float _knockback;
+    [SerializeField] private CrowdControlInfo _ccInfo;
 
     private void OnValidate()
     {
@@ -15,13 +14,18 @@ public class SkillPropertyWind : SkillProperty
 
     public override void OnHit(SkillProjectile projectile, EnemyPlayer enemy)
     {
-        // check constraint
-        if (enemy.Enemy.Constraint == Constraint.Wind) return;
+        // apply damage
+        enemy.BlinkColor = Color;
+        enemy.Hp -= projectile.Stat.Damage;
 
-        // check percent
-        if (!RandomExtension.CheckPercent(_percent)) return;
-
-        // knockback enemy
-        enemy.transform.position += (enemy.transform.position - projectile.transform.position).normalized * _knockback;
+        if (enemy.Hp > 0)
+        {
+            // check constraint and percent
+            if (enemy.Enemy.Constraint != Constraint.Wind && RandomExtension.CheckPercent(_ccInfo.Percent))
+            {
+                // knockback enemy
+                enemy.transform.position += (enemy.transform.position - projectile.transform.position).normalized * _ccInfo.Values[0];
+            }
+        }
     }
 }
