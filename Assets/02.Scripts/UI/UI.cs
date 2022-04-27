@@ -11,8 +11,8 @@ public abstract class UI : MonoBehaviour
     public bool IsActivated { get; private set; }
 
     [SerializeField] protected bool _showOnAwake;
+    [SerializeField] private UITween[] _uiTweens;
     private Canvas _canvas;
-    private UITween[] _uiTweens;
 
     public event UnityAction<bool> onSetActive;
 
@@ -21,7 +21,6 @@ public abstract class UI : MonoBehaviour
     protected virtual void Awake()
     {
         _canvas = GetComponent<Canvas>();
-        _uiTweens = GetComponentsInChildren<UITween>();
 
         _canvas.worldCamera = MainCamera.Camera;
         _canvas.planeDistance = MainCamera.Camera.transform.position.z * -1;

@@ -19,7 +19,7 @@ public class WaitForSeconds : IEnumerator
 
     public bool MoveNext()
     {
-        _elapsed += PlayTime.deltaTime;
+        _elapsed += Time.deltaTime;
 
         if (_elapsed >= _seconds)
         {

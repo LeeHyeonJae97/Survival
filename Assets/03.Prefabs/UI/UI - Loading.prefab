@@ -378,4 +378,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _showOnAwake: 0
+  _uiTweens:
+  - {fileID: 6623755853442732546}
   _titleText: {fileID: 8920849411949340040}

@@ -91,30 +91,39 @@ public class PlayOverUI : UI
         }
 
         // delay
-        //yield return WaitForSecondsFactory.Get(0.5f);
+        yield return WaitForSecondsFactory.Get(0.5f);
 
         // animation
         for (int i = 0; i < elapsedSec; i++)
         {
             for (int j = _elapsedTextHolders.Length - 1; j >= 0; j--)
             {
-                Vector2 target = new Vector2(_elapsedTextHolders[j].anchoredPosition.x, _elapsedTextHolders[j].anchoredPosition.y + height);
-
-                while (!Mathf.Approximately(_elapsedTextHolders[j].anchoredPosition.y, target.y))
+                if (Mathf.Approximately(_elapsedTextHolders[j].anchoredPosition.y, top - height))
                 {
-                    _elapsedTextHolders[j].anchoredPosition = Vector2.MoveTowards(_elapsedTextHolders[j].anchoredPosition, target, speed * Time.unscaledDeltaTime);
-                    yield return null;
-                }
-
-                if (Mathf.Approximately(target.y, top))
-                {
-                    _elapsedTextHolders[j].anchoredPosition = new Vector2(_elapsedTextHolders[j].anchoredPosition.x, 0);
+                    StartCoroutine(CoSlotInternal(j, height, speed, top));
                 }
                 else
                 {
+                    yield return StartCoroutine(CoSlotInternal(j, height, speed, top));
                     break;
                 }
             }
+        }
+    }
+
+    private IEnumerator CoSlotInternal(int index, float height, float speed, float top)
+    {
+        Vector2 target = new Vector2(_elapsedTextHolders[index].anchoredPosition.x, _elapsedTextHolders[index].anchoredPosition.y + height);
+
+        while (!Mathf.Approximately(_elapsedTextHolders[index].anchoredPosition.y, target.y))
+        {
+            _elapsedTextHolders[index].anchoredPosition = Vector2.MoveTowards(_elapsedTextHolders[index].anchoredPosition, target, speed * Time.unscaledDeltaTime);
+            yield return null;
+        }
+
+        if (Mathf.Approximately(target.y, top))
+        {
+            _elapsedTextHolders[index].anchoredPosition = new Vector2(_elapsedTextHolders[index].anchoredPosition.x, 0);
         }
     }
 }
