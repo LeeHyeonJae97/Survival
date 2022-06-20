@@ -24,7 +24,7 @@ public abstract class SkillHit : ScriptableObject
 
             case "Wall":
                 // just despawn projectile
-                PoolingManager.Instance.Despawn<SkillProjectile>(projectile);
+                PoolingManager.GetInstance().Despawn<SkillProjectile>(projectile);
                 break;
         }
     }

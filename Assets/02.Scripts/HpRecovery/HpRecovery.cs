@@ -20,12 +20,12 @@ public class HpRecovery : MonoBehaviour
         // NOTICE :
         // maybe need to cachee 'PlayInfoUI'
 
-        Vector2 target = Player.Instance.transform.position;
+        Vector2 target = Player.GetInstance().transform.position;
 
         if ((target - (Vector2)transform.position).sqrMagnitude < VANISH_DST_THRESHOLD)
         {
-            Player.Instance.Hp += (int)(Player.Instance.Stats[(int)StatType.Hp] * 0.2f);
-            PoolingManager.Instance.Despawn<HpRecovery>(this);
+            Player.GetInstance().Hp += (int)(Player.GetInstance().Stats[(int)StatType.Hp] * 0.2f);
+            PoolingManager.GetInstance().Despawn<HpRecovery>(this);
         }
         else
         {

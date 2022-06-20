@@ -13,6 +13,6 @@ public class SkillOnHitDespawn : SkillOnHit
     public override void OnHit(SkillProjectile projectile)
     {
         // despawn
-        PoolingManager.Instance.Despawn<SkillProjectile>(projectile);
+        PoolingManager.GetInstance().Despawn<SkillProjectile>(projectile);
     }
 }

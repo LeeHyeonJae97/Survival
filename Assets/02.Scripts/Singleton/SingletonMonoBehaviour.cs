@@ -4,13 +4,10 @@ using UnityEngine;
 
 public abstract class SingletonMonoBehaviour<T> : MonoBehaviour where T : Object
 {
-    public static T Instance
+    public static T GetInstance(bool instantiateIfNot = true)
     {
-        get
-        {
-            if (_instance == null) _instance = Instantiate(Resources.Load<T>(typeof(T).ToString()));
-            return _instance;
-        }
+        if (instantiateIfNot && _instance == null) _instance = Instantiate(Resources.Load<T>(typeof(T).ToString()));
+        return _instance;
     }
 
     private static T _instance;

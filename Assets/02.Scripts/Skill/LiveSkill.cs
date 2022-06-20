@@ -39,10 +39,10 @@ public class LiveSkill
         while (true)
         {
             // wait for cooldown
-            yield return WaitForSecondsFactory.Get(Skill.Info.Stats[Level].Stats[Skill.Reinforced].Cooldown);
+            yield return WaitForSecondsFactory.GetPlayTime(Skill.Info.Stats[Level].Stats[Skill.Reinforced].Cooldown);
 
             // invoke skill
-            Player.Instance.StartCoroutine(Skill.Info.Invocation?.CoInvoke(this));
+            Player.GetInstance().StartCoroutine(Skill.Info.Invocation?.CoInvoke(this));
         }
     }
 }

@@ -17,20 +17,20 @@ public class SkillInvocationSpawn : SkillInvocation
         for (int i = 0; i < stat.Amount; i++)
         {
             // get target
-            GameObject target = liveSkill.Skill.Info.Targeting.GetTarget(Player.Instance.transform.position, stat.TargetingRange);
+            GameObject target = liveSkill.Skill.Info.Targeting.GetTarget(Player.GetInstance().transform.position, stat.TargetingRange);
 
             // if there's no enemy just skip
             if (target != null)
             {
                 // get projectile and initialize it
-                var projectile = PoolingManager.Instance.Spawn<SkillProjectile>();
+                var projectile = PoolingManager.GetInstance().Spawn<SkillProjectile>();
 
                 projectile.Init(liveSkill);
                 projectile.Init(target.transform.position);
                 projectile.Init();
 
                 // wait for interval
-                yield return WaitForSecondsFactory.Get(stat.Interval);
+                yield return WaitForSecondsFactory.GetPlayTime(stat.Interval);
             }
         }
     }

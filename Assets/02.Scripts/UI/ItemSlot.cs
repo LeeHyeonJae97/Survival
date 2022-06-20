@@ -34,8 +34,8 @@ public class ItemSlot : MonoBehaviour
     {
         ItemSO info = item.Info;
 
-        bool contains = Player.Instance.ItemDic.ContainsKey(info.Id);
-        int level = contains ? Player.Instance.ItemDic[info.Id].Level + 1 : 0;
+        bool contains = Player.GetInstance().ItemDic.ContainsKey(info.Id);
+        int level = contains ? Player.GetInstance().ItemDic[info.Id].Level + 1 : 0;
 
         _slotImage.color = Grade.Colors[(int)info.Grade];
         _iconImage.sprite = info.Icon;
@@ -54,28 +54,28 @@ public class ItemSlot : MonoBehaviour
 
             UIFactory.Get<ConfirmUI>().Confirm($"{price}원. 확실합니까?", () =>
             {
-                if (Player.Instance.Coin >= price)
+                if (Player.GetInstance().Coin >= price)
                 {
                     // if already had, level up the item
                     if (contains)
                     {
-                        Player.Instance.ItemDic[info.Id].LevelUp();
+                        Player.GetInstance().ItemDic[info.Id].LevelUp();
                     }
 
                     // if not, equip item newly
                     else
                     {
-                        Player.Instance.Equip(new LiveItem(item));
+                        Player.GetInstance().Equip(new LiveItem(item));
                     }
 
                     // spend coin
-                    Player.Instance.Coin -= price;
+                    Player.GetInstance().Coin -= price;
 
                     Enabled = false;
                 }
                 else
                 {
-                    UIFactory.Get<AlertUI>().Alert($"{price - Player.Instance.Coin}원 부족합니다.");
+                    UIFactory.Get<AlertUI>().Alert($"{price - Player.GetInstance().Coin}원 부족합니다.");
                 }
             });
         });

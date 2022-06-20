@@ -16,8 +16,8 @@ public class UITweenPosition : UITween
         }
     }
 
-    [SerializeField, MoveTool] private Vector2 _start;
-    [SerializeField, MoveTool] private Vector2 _end;
+    [SerializeField] private Vector2 _start;
+    [SerializeField] private Vector2 _end;
     [SerializeField] private float _duration;
     [SerializeField] private Ease _ease;
     private RectTransform _target;
@@ -38,11 +38,5 @@ public class UITweenPosition : UITween
             Tween = Target.DOAnchorPos(end, directly ? 0 : _duration).SetEase(_ease);
             Tween.onComplete += () => IsActive = value;
         }
-    }
-
-    private void OnDrawGizmosSelected()
-    {
-        GizmosExtension.DrawRect(Target.rect.min + _start, Target.rect.max + _start);
-        GizmosExtension.DrawRect(Target.rect.min + _end, Target.rect.max + _end);
     }
 }

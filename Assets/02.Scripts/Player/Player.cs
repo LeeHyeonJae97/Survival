@@ -10,7 +10,7 @@ public class Player : SingletonMonoBehaviour<Player>, IDamageable
     {
         get
         {
-            if (_character == null) _character = CharacterFactory.Get(GameManager.Instance.User.EquippedCharacterId);
+            if (_character == null) _character = CharacterFactory.Get(GameManager.GetInstance().User.EquippedCharacterId);
             return _character;
         }
     }
@@ -24,7 +24,7 @@ public class Player : SingletonMonoBehaviour<Player>, IDamageable
             if (value < _hp)
             {
                 // spawn damage text
-                PoolingManager.Instance.Spawn<DamagePopUpText>().Init(transform.position, _hp - value, Color.red);
+                PoolingManager.GetInstance().Spawn<DamagePopUpText>().Init(transform.position, _hp - value, Color.red);
 
                 // blink
                 Blink();
@@ -138,7 +138,7 @@ public class Player : SingletonMonoBehaviour<Player>, IDamageable
     {
         _sm.enabled = true;
         _blinkSr.gameObject.SetActive(true);
-        yield return WaitForSecondsFactory.Get(0.1f);
+        yield return WaitForSecondsFactory.GetPlayTime(0.1f);
 
         _sm.enabled = false;
         _blinkSr.gameObject.SetActive(false);

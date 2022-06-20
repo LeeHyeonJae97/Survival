@@ -24,13 +24,13 @@ public class PlayInfoUI : UI
     {
         if (value)
         {
-            PlayManager.Instance.onElapsedUpdated += OnElapsedUpdated;
-            Player.Instance.onCoinUpdated += OnCoinUpdated;
+            PlayManager.GetInstance().onElapsedUpdated += OnElapsedUpdated;
+            Player.GetInstance().onCoinUpdated += OnCoinUpdated;
         }
         else
         {
-            PlayManager.Instance.onElapsedUpdated -= OnElapsedUpdated;
-            Player.Instance.onCoinUpdated += OnCoinUpdated;
+            PlayManager.GetInstance().onElapsedUpdated -= OnElapsedUpdated;
+            Player.GetInstance().onCoinUpdated += OnCoinUpdated;
         }
     }
 

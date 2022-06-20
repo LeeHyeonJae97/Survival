@@ -5,18 +5,19 @@ using UnityEngine.UI;
 
 public class IllustratedBookUI : UI
 {
-    [SerializeField] private IllustratedBookSlot _slotPrefab;
-    [SerializeField] private Transform _characterHolder;
-    [SerializeField] private Transform _itemHolder;
-    [SerializeField] private Transform _skillHolder;
-    [SerializeField] private Transform _potionHolder;
-    [SerializeField] private Transform _enemyHolder;
+    [SerializeField] private ScrollRect _slotScrollRect;
+    [SerializeField] private RectTransform _characterHolder;
+    [SerializeField] private RectTransform _itemHolder;
+    [SerializeField] private RectTransform _skillHolder;
+    [SerializeField] private RectTransform _potionHolder;
+    [SerializeField] private RectTransform _enemyHolder;
     [SerializeField] private Button _characterTabButton;
     [SerializeField] private Button _itemTabButton;
     [SerializeField] private Button _skillTabButton;
     [SerializeField] private Button _potionTabButton;
     [SerializeField] private Button _enemyTabButton;
     [SerializeField] private Button _backButton;
+    [SerializeField] private IllustratedBookSlot _slotPrefab;
 
     protected override void Awake()
     {
@@ -87,6 +88,14 @@ public class IllustratedBookUI : UI
 
     private void OnClickTabButton(int index)
     {
+        _slotScrollRect.content =
+            index == 0 ? _characterHolder :
+            index == 1 ? _itemHolder :
+            index == 2 ? _skillHolder :
+            index == 3 ? _potionHolder :
+            index == 4 ? _enemyHolder :
+            null;
+
         _characterHolder.gameObject.SetActive(index == 0);
         _itemHolder.gameObject.SetActive(index == 1);
         _skillHolder.gameObject.SetActive(index == 2);

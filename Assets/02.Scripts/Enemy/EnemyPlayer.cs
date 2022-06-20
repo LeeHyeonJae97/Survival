@@ -32,7 +32,7 @@ public class EnemyPlayer : MonoBehaviour, IDamageable
         {
             if (value < _hp)
             {
-                PoolingManager.Instance.Spawn<DamagePopUpText>().Init(transform.position, _hp - value, Color.yellow);
+                PoolingManager.GetInstance().Spawn<DamagePopUpText>().Init(transform.position, _hp - value, Color.yellow);
                 Blink();
                 if (value <= 0) Die();
             }
@@ -117,13 +117,13 @@ public class EnemyPlayer : MonoBehaviour, IDamageable
 
         for (int i = 0; i < count; i++)
         {
-            PoolingManager.Instance.Spawn<Coin>().Init(transform.position);
+            PoolingManager.GetInstance().Spawn<Coin>().Init(transform.position);
         }
 
         // drop hp recovery
         if (Random.Range(0, 100) < _hpRecoveryPercent)
         {
-            PoolingManager.Instance.Spawn<HpRecovery>().Init(transform.position);
+            PoolingManager.GetInstance().Spawn<HpRecovery>().Init(transform.position);
         }
 
         // return WaitForSecondsFactory.Get(0.15f);
@@ -133,7 +133,7 @@ public class EnemyPlayer : MonoBehaviour, IDamageable
     public void Despawn()
     {
         // despawn
-        WaveManager.Instance.Despawn(this);
+        WaveManager.GetInstance().Despawn(this);
     }
 
     public void Blink()
@@ -145,7 +145,7 @@ public class EnemyPlayer : MonoBehaviour, IDamageable
     {
         _sm.enabled = true;
         _blinkSr.gameObject.SetActive(true);
-        yield return WaitForSecondsFactory.Get(0.1f);
+        yield return WaitForSecondsFactory.GetPlayTime(0.1f);
 
         _sm.enabled = false;
         _blinkSr.gameObject.SetActive(false);

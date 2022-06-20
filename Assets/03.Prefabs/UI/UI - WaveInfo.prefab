@@ -439,6 +439,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _showOnAwake: 0
+  _uiTweens:
+  - {fileID: 2524937541960803257}
   _hideDelay: 1
   _indexText: {fileID: 7913463159858485805}
   _nameText: {fileID: 6325113863401404598}

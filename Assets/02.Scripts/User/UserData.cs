@@ -11,22 +11,9 @@ public class UserData
 
     [field: SerializeField] public int EquippedCharacterId { get; set; }
     [field: SerializeField] public int Coin { get; set; }
-    [field: SerializeField] public int Level { get; private set; }
     [field: SerializeField] public bool Mute { get; set; }
     [field: SerializeField] public bool Vibration { get; set; }
-    public int Exp
-    {
-        get { return _exp; }
-
-        set
-        {
-            _exp = value;
-            if (_exp > MaxExp) Level++;
-        }
-    }
-    public int MaxExp { get { return (Level + 1) * (Level + 1) * 10; } }
-
-    [SerializeField] private int _exp;
+    [field: SerializeField] public int Time { get; set; }
 
     public UserData()
     {

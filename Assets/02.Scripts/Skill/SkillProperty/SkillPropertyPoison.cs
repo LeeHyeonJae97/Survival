@@ -71,7 +71,7 @@ public class SkillPropertyPoison : SkillProperty
         {
             enemy.BlinkColor = Color;
             enemy.Hp -= (int)(_ccInfo.Values[cc.Level] + (elapsed * increasing));
-            yield return WaitForSecondsFactory.Get(_ccInfo.Intervals[cc.Level]);
+            yield return WaitForSecondsFactory.GetPlayTime(_ccInfo.Intervals[cc.Level]);
 
             cc.Duration -= _ccInfo.Intervals[cc.Level];
             elapsed += _ccInfo.Intervals[cc.Level];

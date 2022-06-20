@@ -92,8 +92,8 @@ public class SkillProjectile : MonoBehaviour
 
     private IEnumerator CoCalculateLifeSpan()
     {
-        yield return WaitForSecondsFactory.Get(Stat.LifeSpan);
+        yield return WaitForSecondsFactory.GetPlayTime(Stat.LifeSpan);
 
-        PoolingManager.Instance.Despawn<SkillProjectile>(this);
+        PoolingManager.GetInstance().Despawn<SkillProjectile>(this);
     }
 }

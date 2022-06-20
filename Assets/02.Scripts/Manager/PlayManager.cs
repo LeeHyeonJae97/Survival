@@ -9,11 +9,7 @@ public class PlayManager : SingletonMonoBehaviour<PlayManager>
 {
     public const int INITIAL_COIN = 500;
 
-    // NOTICE :
-    // any better idea than using static variable?
-    public static PlayMode PlayMode { get; set; }
-
-    public int ElapsedSec { get; private set; }
+    public int ElapsedSec { get; private set; } = 0;
 
     public event UnityAction<int> onElapsedUpdated;
 
@@ -79,7 +75,7 @@ public class PlayManager : SingletonMonoBehaviour<PlayManager>
         {
             onElapsedUpdated?.Invoke(ElapsedSec);
             ElapsedSec++;
-            yield return WaitForSecondsFactory.Get(1f);
+            yield return WaitForSecondsFactory.GetPlayTime(1f);
         }
     }
 }

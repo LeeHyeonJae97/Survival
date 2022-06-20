@@ -34,8 +34,8 @@ public class SkillSlot : MonoBehaviour
     {
         SkillSO info = skill.Info;
 
-        bool contains = Player.Instance.SkillDic.ContainsKey(info.Id);
-        int level = contains ? Player.Instance.SkillDic[info.Id].Level + 1 : 0;
+        bool contains = Player.GetInstance().SkillDic.ContainsKey(info.Id);
+        int level = contains ? Player.GetInstance().SkillDic[info.Id].Level + 1 : 0;
 
         _slotImage.color = Grade.Colors[(int)info.Grade];
         _iconImage.sprite = info.Icon;
@@ -54,28 +54,28 @@ public class SkillSlot : MonoBehaviour
 
             UIFactory.Get<ConfirmUI>().Confirm($"{price}원. 확실합니까?", () =>
             {
-                if (Player.Instance.Coin >= price)
+                if (Player.GetInstance().Coin >= price)
                 {
                     // if already had, level up the skill
                     if (contains)
                     {
-                        Player.Instance.SkillDic[info.Id].LevelUp();
+                        Player.GetInstance().SkillDic[info.Id].LevelUp();
                     }
 
                     // if not, equip skill newly
                     else
                     {
-                        Player.Instance.Equip(new LiveSkill(skill));
+                        Player.GetInstance().Equip(new LiveSkill(skill));
                     }
 
                     // spend coin
-                    Player.Instance.Coin -= price;
+                    Player.GetInstance().Coin -= price;
 
                     Enabled = false;
                 }
                 else
                 {
-                    UIFactory.Get<AlertUI>().Alert($"{price - Player.Instance.Coin}원 부족합니다.");
+                    UIFactory.Get<AlertUI>().Alert($"{price - Player.GetInstance().Coin}원 부족합니다.");
                 }
             });
         });

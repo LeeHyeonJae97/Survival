@@ -10,13 +10,13 @@ public class WaveDurationUI : UI
 
     protected override void OnSetActive(bool value)
     {
-        if (value)
+        if (value) 
         {
-            WaveManager.Instance.onElapsedUpdated += OnDurationUpdated;
+            WaveManager.GetInstance().onElapsedUpdated += OnDurationUpdated;
         }
         else
         {
-            WaveManager.Instance.onElapsedUpdated -= OnDurationUpdated;
+            WaveManager.GetInstance().onElapsedUpdated -= OnDurationUpdated;
         }
     }
 

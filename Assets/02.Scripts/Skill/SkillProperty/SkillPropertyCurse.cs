@@ -65,7 +65,7 @@ public class SkillPropertyCurse : SkillProperty
         EnemyMovement org = enemy.Movement;
         enemy.Movement = _emc;
 
-        yield return WaitForSecondsFactory.Get(cc.Duration);
+        yield return WaitForSecondsFactory.GetPlayTime(cc.Duration);
 
         // recover color
         enemy.Color = default;

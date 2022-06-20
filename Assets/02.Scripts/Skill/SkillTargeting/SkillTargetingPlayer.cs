@@ -12,6 +12,6 @@ public class SkillTargetingPlayer : SkillTargeting
 
     public override GameObject GetTarget(Vector3 position, float range)
     {
-        return Player.Instance.gameObject;
+        return Player.GetInstance().gameObject;
     }
 }

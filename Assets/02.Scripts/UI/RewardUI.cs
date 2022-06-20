@@ -90,12 +90,12 @@ public partial class RewardUI : UI
             OnClickTabButton(0);
             OnClickSubTabButton(0);
 
-            OnCoinUpdated(Player.Instance.Coin);
-            Player.Instance.onCoinUpdated += OnCoinUpdated;
+            OnCoinUpdated(Player.GetInstance().Coin);
+            Player.GetInstance().onCoinUpdated += OnCoinUpdated;
         }
         else
         {
-            Player.Instance.onCoinUpdated -= OnCoinUpdated;
+            Player.GetInstance().onCoinUpdated -= OnCoinUpdated;
         }
     }
 
@@ -225,7 +225,7 @@ public partial class RewardUI : UI
         }
         else if (index == 4)
         {
-            Init(Player.Instance);
+            Init(Player.GetInstance());
         }
     }
 

@@ -78,7 +78,7 @@ public class SkillPropertyFire : SkillProperty
         {
             enemy.BlinkColor = Color;
             enemy.Hp -= (int)_ccInfo.Values[cc.Level];
-            yield return WaitForSecondsFactory.Get(_ccInfo.Intervals[cc.Level]);
+            yield return WaitForSecondsFactory.GetPlayTime(_ccInfo.Intervals[cc.Level]);
 
             if (!cc.Infinite) cc.Duration -= _ccInfo.Intervals[cc.Level];
         }

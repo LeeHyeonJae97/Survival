@@ -17,15 +17,15 @@ public class SkillInvocationProjection : SkillInvocation
         for (int i = 0; i < stat.Amount; i++)
         {
             // get target
-            GameObject target = liveSkill.Skill.Info.Targeting.GetTarget(Player.Instance.transform.position, stat.TargetingRange);
+            GameObject target = liveSkill.Skill.Info.Targeting.GetTarget(Player.GetInstance().transform.position, stat.TargetingRange);
 
             // if there's no enemy just skip
             if (target != null)
             {
                 // get projectile and initialize it
-                var projectile = PoolingManager.Instance.Spawn<SkillProjectile>();
+                var projectile = PoolingManager.GetInstance().Spawn<SkillProjectile>();
 
-                Vector3 position = Player.Instance.transform.position;
+                Vector3 position = Player.GetInstance().transform.position;
                 Vector3 direction = target.transform.position - position;
 
                 projectile.Init(liveSkill);
@@ -33,7 +33,7 @@ public class SkillInvocationProjection : SkillInvocation
                 projectile.Init();
 
                 // wait for interval
-                yield return WaitForSecondsFactory.Get(stat.Interval);
+                yield return WaitForSecondsFactory.GetPlayTime(stat.Interval);
             }
         }
     }

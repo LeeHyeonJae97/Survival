@@ -13,7 +13,7 @@ public class EnemyMovementCrossPlayer : EnemyMovement
     public override void Movement_Start(EnemyPlayer enemy)
     {
         // move toward center
-        enemy.Direction = Player.Instance.transform.position - enemy.transform.position;
+        enemy.Direction = Player.GetInstance().transform.position - enemy.transform.position;
     }
 
     public override void Movement_OnEanble(EnemyPlayer enemy)

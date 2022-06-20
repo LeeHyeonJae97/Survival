@@ -24,8 +24,8 @@ public class Coin : MonoBehaviour
 
         if ((target - (Vector2)transform.position).sqrMagnitude < VANISH_DST_THRESHOLD)
         {
-            Player.Instance.Coin += 1;
-            PoolingManager.Instance.Despawn<Coin>(this);
+            Player.GetInstance().Coin += 1;
+            PoolingManager.GetInstance().Despawn<Coin>(this);
         }
         else
         {

@@ -5,46 +5,26 @@ using UnityEngine.Events;
 
 public class WaveManager : SingletonMonoBehaviour<WaveManager>
 {
-    [field: SerializeField] public WaveSO InitialWave { get; private set; }
-    public WaveBundleSO WaveBundle
+    public int StageId { get; set; }
+    public StageSO Stage
     {
         get
         {
-            if (_waveBundle == null) _waveBundle = Resources.Load<WaveBundleSO>($"Wave/WaveBundle {PlayManager.PlayMode}");
-            return _waveBundle;
+            if (_stage == null) _stage = StageFactory.Get(StageId).Info;
+            return _stage;
         }
     }
-    public WaveSO Next
-    {
-        get
-        {
-            Current = WaveBundle.Next;
-            return Current;
-        }
-    }
-    public WaveSO Current
-    {
-        get
-        {
-            if (_current == null) _current = InitialWave;
-            return _current;
-        }
-
-        private set { _current = value; }
-    }
-    public int Index { get { return WaveBundle.Index; } }
     public List<EnemyPlayer> Enemies { get; private set; } = new List<EnemyPlayer>();
 
     [SerializeField] private float _range;
     [SerializeField] private float _checkOutOfRangeInterval;
-    private WaveBundleSO _waveBundle;
-    private WaveSO _current;
+    private StageSO _stage;
 
     public event UnityAction<float> onElapsedUpdated;
 
     private void OnDestroy()
     {
-        WaveBundle.Reset();
+        Stage.Reset();
     }
 
     private void OnEnable()
@@ -77,16 +57,13 @@ public class WaveManager : SingletonMonoBehaviour<WaveManager>
 
     private void OnWaveFinished()
     {
-        var channel = EventChannelFactory.Get<PlayEventChannelSO>();
-        channel.OnPlayStarted -= channel.FinishWave;
-
         // stop spawning and checking enemy out of range and duration
         StopAllCoroutines();
     }
 
     private IEnumerator CoSpawn()
     {
-        WaveSO wave = Next;
+        WaveSO wave = Stage.Next;
         EnemySpawning spawning;
 
         while ((spawning = wave.Next) != null)
@@ -96,7 +73,7 @@ public class WaveManager : SingletonMonoBehaviour<WaveManager>
             while (elapsed < spawning.Duration)
             {
                 Enemies.AddRange(spawning.Spawn());
-                yield return WaitForSecondsFactory.Get(spawning.Interval);
+                yield return WaitForSecondsFactory.GetPlayTime(spawning.Interval);
 
                 elapsed += spawning.Interval;
             }
@@ -107,7 +84,7 @@ public class WaveManager : SingletonMonoBehaviour<WaveManager>
     {
         Enemies.Remove(enemy);
 
-        PoolingManager.Instance.Despawn(enemy);
+        PoolingManager.GetInstance().Despawn(enemy);
     }
 
     private IEnumerator CoCheckOutOfRange()
@@ -117,20 +94,20 @@ public class WaveManager : SingletonMonoBehaviour<WaveManager>
             // check enemy is out of range (too far from player)
             for (int i = 0; i < Enemies.Count; i++)
             {
-                if ((Enemies[i].transform.position - Player.Instance.transform.position).sqrMagnitude >= _range * _range)
+                if ((Enemies[i].transform.position - Player.GetInstance().transform.position).sqrMagnitude >= _range * _range)
                 {
                     // decrease 'i' not to skip erased index
                     Enemies[i--].Despawn();
                 }
             }
 
-            yield return WaitForSecondsFactory.Get(_checkOutOfRangeInterval);
+            yield return WaitForSecondsFactory.GetPlayTime(_checkOutOfRangeInterval);
         }
     }
 
     private IEnumerator CoElapse()
     {
-        float duration = WaveBundle.Current.Duration;
+        float duration = Stage.Current.Duration;
         float remainDuration = duration;
 
         while (true)
@@ -184,6 +161,6 @@ public class WaveManager : SingletonMonoBehaviour<WaveManager>
 
     private void OnDrawGizmosSelected()
     {
-        if (Application.isPlaying) GizmosExtension.DrawCircle(Player.Instance.transform.position, _range);
+        if (Application.isPlaying) GizmosExtension.DrawCircle(Player.GetInstance().transform.position, _range);
     }
 }

@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class WaveInfoUI : UI
 {
@@ -36,11 +35,12 @@ public class WaveInfoUI : UI
 
     private IEnumerator CoOnWaveStarted()
     {
-        _indexText.text = $"{WaveManager.Instance.Index}¹øÂ° ¸ô·Á¿È";
-        _nameText.text = WaveManager.Instance.Current.Name;
+        var stage = WaveManager.GetInstance().Stage;
+        _indexText.text = $"{stage.Index}¹øÂ° ¸ô·Á¿È";
+        _nameText.text = stage.Current.Name;
         SetActive(true);
         yield return new WaitUntil(() => IsActivated);
-        yield return WaitForSecondsFactory.Get(_hideDelay);
+        yield return WaitForSecondsFactory.GetPlayTime(_hideDelay);
 
         SetActive(false);
     }

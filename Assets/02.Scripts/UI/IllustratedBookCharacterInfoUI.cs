@@ -56,7 +56,7 @@ public class IllustratedBookCharacterInfoUI : UI
                 _reinforcedStatTexts[i].text = $"{character.Info.Stats[character.Reinforced + 1].Stats[i].Value}";
             }
 
-            bool equipped = character.Info.Id == GameManager.Instance.User.EquippedCharacterId;
+            bool equipped = character.Info.Id == GameManager.GetInstance().User.EquippedCharacterId;
             _equipButtonText.text = equipped ? "함께하는 중" : "함께하기";
             _equipButton.interactable = !equipped;
 
@@ -122,7 +122,7 @@ public class IllustratedBookCharacterInfoUI : UI
         if (_character == null) return;
 
         // save reference at 'Player'
-        GameManager.Instance.User.EquippedCharacterId = _character.Info.Id;
+        GameManager.GetInstance().User.EquippedCharacterId = _character.Info.Id;
 
         // update ui
         _equipButtonText.text = "함께하는 중";

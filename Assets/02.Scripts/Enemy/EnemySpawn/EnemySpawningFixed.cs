@@ -19,7 +19,7 @@ public class EnemySpawningFixed : EnemySpawning
 
         for (int i = 0; i < enemies.Length; i++)
         {
-            enemies[i] = PoolingManager.Instance.Spawn<EnemyPlayer>();
+            enemies[i] = PoolingManager.GetInstance().Spawn<EnemyPlayer>();
             enemies[i].transform.position = (Vector2)MainCamera.Transform.position + _points[i];
             enemies[i].Init(_enemies[Random.Range(0, _enemies.Length)]);
         }

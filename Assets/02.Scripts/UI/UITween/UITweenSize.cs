@@ -39,7 +39,7 @@ public class UITweenSize : UITween
 
     private void OnDrawGizmosSelected()
     {
-        GizmosExtension.DrawRect(Target.position, _start.x, _start.y);
-        GizmosExtension.DrawRect(Target.position, _end.x, _end.y);
+        GizmosExtension.DrawRect(Target.position, _start);
+        GizmosExtension.DrawRect(Target.position, _end);
     }
 }

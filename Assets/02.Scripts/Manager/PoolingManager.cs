@@ -36,7 +36,7 @@ public class PoolingManager : SingletonMonoBehaviour<PoolingManager>
             for (int i = 0; i < _amount; i++)
             {
                 GameObject go = Instantiate(_prefab);
-                go.transform.SetParent(Instance.transform);
+                go.transform.SetParent(GetInstance().transform);
                 go.name = _prefab.name;
                 _queue.Enqueue(go);
             }
@@ -53,7 +53,7 @@ public class PoolingManager : SingletonMonoBehaviour<PoolingManager>
             }
             else
             {
-                go = Instantiate(_prefab, Instance.transform);
+                go = Instantiate(_prefab, GetInstance().transform);
                 go.name = _prefab.name;
             }
             return go;

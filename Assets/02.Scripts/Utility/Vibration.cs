@@ -6,6 +6,6 @@ public class Vibration
 {
     public static void Vibrate()
     {
-        if (GameManager.Instance.User.Vibration) Handheld.Vibrate();
+        if (GameManager.GetInstance().User.Vibration) Handheld.Vibrate();
     }
 }

@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 9070656771989107698}
   - component: {fileID: 7255620359070794205}
   m_Layer: 5
-  m_Name: Scroll View
+  m_Name: ScrollView
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -95,7 +95,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Content: {fileID: 0}
-  m_Horizontal: 1
+  m_Horizontal: 0
   m_Vertical: 1
   m_MovementType: 1
   m_Elasticity: 0.1
@@ -618,10 +618,10 @@ RectTransform:
   m_Father: {fileID: 1698706952319269879}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 25, y: -25}
-  m_SizeDelta: {x: 50, y: 50}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &6463495268724465816
 MonoBehaviour:
@@ -1022,11 +1022,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7931033364993210549, guid: abdbc7a4930af5f4a9b37b2c6fb75145, type: 3}
       propertyPath: m_fontSize
-      value: 25
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 7931033364993210549, guid: abdbc7a4930af5f4a9b37b2c6fb75145, type: 3}
       propertyPath: m_fontSizeBase
-      value: 25
+      value: 20
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: abdbc7a4930af5f4a9b37b2c6fb75145, type: 3}
@@ -1445,7 +1445,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _showOnAwake: 0
-  _slotPrefab: {fileID: 4877460332832994971, guid: 93ce26d77bc5c4d46857f10e24e54f86, type: 3}
+  _uiTweens: []
+  _slotScrollRect: {fileID: 9070656771989107698}
   _characterHolder: {fileID: 2318236300235800219}
   _itemHolder: {fileID: 8757511963123335170}
   _skillHolder: {fileID: 5367061565748345089}
@@ -1457,6 +1458,7 @@ MonoBehaviour:
   _potionTabButton: {fileID: 5137254794308285709}
   _enemyTabButton: {fileID: 869143629712143742}
   _backButton: {fileID: 471539161521897426}
+  _slotPrefab: {fileID: 4877460332832994971, guid: 93ce26d77bc5c4d46857f10e24e54f86, type: 3}
 --- !u!1001 &7455995983188538350
 PrefabInstance:
   m_ObjectHideFlags: 0

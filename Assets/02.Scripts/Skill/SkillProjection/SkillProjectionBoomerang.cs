@@ -20,13 +20,13 @@ public class SkillProjectionBoomerang : SkillProjection
         if (projectile.Elapsed > projectile.Stat.LifeSpan / 2)
         {
             // when projectile retrieved by player, just despawn it
-            if ((projectile.transform.position - Player.Instance.transform.position).sqrMagnitude < 0.01f)
+            if ((projectile.transform.position - Player.GetInstance().transform.position).sqrMagnitude < 0.01f)
             {
-                PoolingManager.Instance.Despawn<SkillProjectile>(projectile);
+                PoolingManager.GetInstance().Despawn<SkillProjectile>(projectile);
             }
 
             // set projectile's move direction
-            projectile.transform.right = Player.Instance.transform.position - projectile.transform.position;
+            projectile.transform.right = Player.GetInstance().transform.position - projectile.transform.position;
         }
 
         // move

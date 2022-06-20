@@ -9,19 +9,19 @@ public class SkillStatSO : ScriptableObject
 
     public void OnValidate()
     {
-        if (Stats == null)
-        {
-            Stats = new SkillStat[Skill.MAX_REINFORCED];
-        }
-        else if (Stats.Length != Skill.MAX_REINFORCED)
-        {
-            SkillStat[] replace = new SkillStat[Skill.MAX_REINFORCED];
+        //if (Stats == null)
+        //{
+        //    Stats = new SkillStat[Skill.MAX_REINFORCED];
+        //}
+        //else if (Stats.Length != Skill.MAX_REINFORCED)
+        //{
+        //    SkillStat[] replace = new SkillStat[Skill.MAX_REINFORCED];
 
-            for (int i = 0; i < Stats.Length && i < Skill.MAX_REINFORCED; i++)
-            {
-                replace[i] = Stats[i];
-            }
-            Stats = replace;
-        }
+        //    for (int i = 0; i < Stats.Length && i < Skill.MAX_REINFORCED; i++)
+        //    {
+        //        replace[i] = Stats[i];
+        //    }
+        //    Stats = replace;
+        //}
     }
 }

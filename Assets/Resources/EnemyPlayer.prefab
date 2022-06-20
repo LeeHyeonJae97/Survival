@@ -351,7 +351,7 @@ MonoBehaviour:
   _blinkSr: {fileID: 7654039336360568485}
   _defaultColor: {r: 0.8113208, g: 0.8113208, b: 0.8113208, a: 1}
   _coin: 3
-  _hpRecoveryPercent: 100
+  _hpRecoveryPercent: 0
 --- !u!50 &4015516730274857677
 Rigidbody2D:
   serializedVersion: 4

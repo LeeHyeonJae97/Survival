@@ -27,7 +27,7 @@ public class SkillHitSingle : SkillHit
             // if despawned on hit enemy, just stop coroutine
             if (!projectile.isActiveAndEnabled) yield break;
 
-            yield return WaitForSecondsFactory.Get(projectile.Stat.DamagingCooldown);
+            yield return WaitForSecondsFactory.GetPlayTime(projectile.Stat.DamagingCooldown);
         }
     }
 }

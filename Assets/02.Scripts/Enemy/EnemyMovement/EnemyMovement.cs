@@ -27,7 +27,7 @@ public abstract class EnemyMovement : ScriptableObject
 
     private void AvoidPlayer(EnemyPlayer enemy)
     {
-        Vector2 dir = enemy.transform.position - Player.Instance.transform.position;
+        Vector2 dir = enemy.transform.position - Player.GetInstance().transform.position;
         if (dir.sqrMagnitude < avoidDstThreshold)
         {
             enemy.transform.position += (Vector3)dir.normalized * avoidOffset;
@@ -36,7 +36,7 @@ public abstract class EnemyMovement : ScriptableObject
 
     private void AvoidEnemy(EnemyPlayer enemy)
     {
-        var enemies = WaveManager.Instance.Enemies;
+        var enemies = WaveManager.GetInstance().Enemies;
 
         for (int i = 0; i < enemies.Count; i++)
         {

@@ -27,7 +27,7 @@ public class SkillHitMultiple : SkillHit
                 }
                 projectile.OnHit.OnHit(projectile);
             }
-            yield return WaitForSecondsFactory.Get(projectile.Stat.DamagingCooldown);
+            yield return WaitForSecondsFactory.GetPlayTime(projectile.Stat.DamagingCooldown);
         }
     }
 }

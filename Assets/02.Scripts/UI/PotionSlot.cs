@@ -50,14 +50,14 @@ public class PotionSlot : MonoBehaviour
 
             UIFactory.Get<ConfirmUI>().Confirm($"{price}원. 확실합니까?", () =>
             {
-                if (Player.Instance.Coin >= price)
+                if (Player.GetInstance().Coin >= price)
                 {
-                    Player.Instance.Equip(new LivePotion(potion));
+                    Player.GetInstance().Equip(new LivePotion(potion));
                     Enabled = false;
                 }
                 else
                 {
-                    UIFactory.Get<AlertUI>().Alert($"{price - Player.Instance.Coin}원 부족합니다.");
+                    UIFactory.Get<AlertUI>().Alert($"{price - Player.GetInstance().Coin}원 부족합니다.");
                 }
             });
         });

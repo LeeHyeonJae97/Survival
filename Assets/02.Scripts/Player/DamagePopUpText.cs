@@ -35,6 +35,6 @@ public class DamagePopUpText : MonoBehaviour
         // fade
         _damageText.alpha = 1;
         _damageText.DOFade(0, _duration).SetEase(Ease.InCubic)
-            .onComplete += () => PoolingManager.Instance.Despawn<DamagePopUpText>(this);
+            .onComplete += () => PoolingManager.GetInstance().Despawn<DamagePopUpText>(this);
     }
 }

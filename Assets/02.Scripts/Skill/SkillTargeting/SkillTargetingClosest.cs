@@ -12,6 +12,6 @@ public class SkillTargetingClosest : SkillTargeting
 
     public override GameObject GetTarget(Vector3 position, float range)
     {
-        return WaveManager.Instance.Closest(position, range)?.gameObject;
+        return WaveManager.GetInstance().Closest(position, range)?.gameObject;
     }
 }

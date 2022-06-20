@@ -24,7 +24,7 @@ public class SettingsUI : UI
     {
         if (value)
         {
-            UserData user = GameManager.Instance.User;
+            UserData user = GameManager.GetInstance().User;
 
             _muteToggle.isOn = !user.Mute;
             _vibrationToggle.isOn = user.Vibration;
@@ -33,12 +33,12 @@ public class SettingsUI : UI
 
     private void OnMuteToggleValueChanged(bool value)
     {
-        GameManager.Instance.User.Mute = !value;
+        GameManager.GetInstance().User.Mute = !value;
     }
 
     private void OnVibrationToggleValueChanged(bool value)
     {
-        GameManager.Instance.User.Vibration = value;
+        GameManager.GetInstance().User.Vibration = value;
     }
 
     private void OnClickSaveButton()
