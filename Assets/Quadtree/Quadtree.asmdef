@@ -1,0 +1,16 @@
+{
+    "name": "QuadTree",
+    "rootNamespace": "",
+    "references": [
+        "GUID:13350d3dcb0517d44a464aa0e177a7eb"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

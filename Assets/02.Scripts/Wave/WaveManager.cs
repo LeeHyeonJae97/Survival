@@ -18,9 +18,18 @@ public class WaveManager : SingletonMonoBehaviour<WaveManager>
 
     [SerializeField] private float _range;
     [SerializeField] private float _checkOutOfRangeInterval;
+    [SerializeField] private QuadtreeSettings _quadtreeSettings;
+    private Quadtree<EnemyPlayer> _quadtree;
+    private List<EnemyPlayer> _neighbors;
     private StageSO _stage;
 
     public event UnityAction<float> onElapsedUpdated;
+
+    private void Start()
+    {
+        _quadtree = new Quadtree<EnemyPlayer>(_quadtreeSettings.Center, _quadtreeSettings.Size, _quadtreeSettings.MinDepth);
+        _neighbors = new List<EnemyPlayer>();
+    }
 
     private void OnDestroy()
     {
@@ -41,6 +50,30 @@ public class WaveManager : SingletonMonoBehaviour<WaveManager>
         channel.OnPlayStarted -= channel.FinishWave;
         channel.OnWaveStarted -= OnWaveStarted;
         channel.OnWaveFinished -= OnWaveFinished;
+    }
+
+    private void Update()
+    {
+        UpdateQuadTree();
+        MoveEnemies();
+
+        void UpdateQuadTree()
+        {
+            _quadtree.Reset();
+
+            foreach (var enemy in Enemies)
+            {
+                _quadtree.Add(enemy);
+            }
+        }
+
+        void MoveEnemies()
+        {
+            for (int i = 0; i < Enemies.Count; i++)
+            {
+                Enemies[i].Move(GetNeighborEnemies(Enemies[i]));
+            }
+        }
     }
 
     private void OnWaveStarted()
@@ -78,6 +111,14 @@ public class WaveManager : SingletonMonoBehaviour<WaveManager>
                 elapsed += spawning.Interval;
             }
         }
+    }
+
+    public List<EnemyPlayer> GetNeighborEnemies(EnemyPlayer enemy)
+    {
+        _neighbors.Clear();
+        _quadtree.GetColliding(_neighbors, enemy.transform.position, 1f);
+
+        return _neighbors;
     }
 
     public void Despawn(EnemyPlayer enemy)
@@ -161,6 +202,6 @@ public class WaveManager : SingletonMonoBehaviour<WaveManager>
 
     private void OnDrawGizmosSelected()
     {
-        if (Application.isPlaying) GizmosExtension.DrawCircle(Player.GetInstance().transform.position, _range);
+        if (Application.isPlaying) Gizmos.DrawWireCircle(Player.GetInstance().transform.position, _range);
     }
 }

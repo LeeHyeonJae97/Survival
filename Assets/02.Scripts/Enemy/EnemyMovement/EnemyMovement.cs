@@ -17,36 +17,40 @@ public abstract class EnemyMovement : ScriptableObject
 
     public abstract void Movement_Start(EnemyPlayer enemy);
     public abstract void Movement_OnEanble(EnemyPlayer enemy);
-    public abstract void Movement_Update(EnemyPlayer enemy);
+    public abstract void Movement_Update(EnemyPlayer enemy, List<EnemyPlayer> neighbors);
 
-    protected void Avoid(EnemyPlayer enemy)
-    {
-        AvoidPlayer(enemy);
-        AvoidEnemy(enemy);
-    }
+    //protected Vector2 Avoid(EnemyPlayer enemy, List<EnemyPlayer> neighbors)
+    //{
+    //    var direction = Vector2.zero;
 
-    private void AvoidPlayer(EnemyPlayer enemy)
-    {
-        Vector2 dir = enemy.transform.position - Player.GetInstance().transform.position;
-        if (dir.sqrMagnitude < avoidDstThreshold)
-        {
-            enemy.transform.position += (Vector3)dir.normalized * avoidOffset;
-        }
-    }
+    //    //direction += AvoidPlayer(enemy);
+    //    direction += AvoidEnemy(enemy, neighbors);
 
-    private void AvoidEnemy(EnemyPlayer enemy)
-    {
-        var enemies = WaveManager.GetInstance().Enemies;
+    //    return direction;
+    //}
 
-        for (int i = 0; i < enemies.Count; i++)
-        {
-            if (enemies[i] == enemy) continue;
+    //private Vector2 AvoidPlayer(EnemyPlayer enemy)
+    //{
+    //    Vector2 dir = enemy.transform.position - Player.GetInstance().transform.position;
 
-            Vector2 dir = enemy.transform.position - enemies[i].transform.position;
-            if (dir.sqrMagnitude < avoidDstThreshold)
-            {
-                enemy.transform.position += (Vector3)dir.normalized * avoidOffset;
-            }
-        }
-    }
+    //    return dir.sqrMagnitude < avoidDstThreshold ? dir.normalized * avoidOffset : Vector2.zero;
+    //}
+
+    //private Vector2 AvoidEnemy(EnemyPlayer enemy, List<EnemyPlayer> neighbors)
+    //{
+    //    var direction = Vector2.zero;
+
+    //    foreach (var other in neighbors)
+    //    {
+    //        if (enemy != other)
+    //        {
+    //            var dir = (Vector2)(enemy.transform.position - other.transform.position);
+    //            var dst = dir.magnitude;
+
+    //            direction += dir.normalized / dst * 11.52f;
+    //        }
+    //    }
+
+    //    return direction * neighbors.Count;
+    //}
 }

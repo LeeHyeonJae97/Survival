@@ -22,7 +22,7 @@ public class SkillPropertyCurse : SkillProperty
         if (enemy.Hp > 0)
         {
             // check constraint and percent
-            if (enemy.Enemy.Constraint != Constraint.Curse && RandomExtension.CheckPercent(_ccInfo.Percent))
+            if (enemy.Enemy.Constraint != Constraint.Curse && Random.CheckPercent(_ccInfo.Percent))
             {
                 Cursed(enemy);
             }

@@ -17,14 +17,14 @@ public class EnemyMovementCursed : EnemyMovement
 
     public override void Movement_OnEanble(EnemyPlayer enemy)
     {
-        // move toward random direction
-        enemy.Direction = enemy.transform.position - Player.GetInstance().transform.position;
-        enemy.Direction += enemy.Direction * Random.Range(-1f, 1f);
+        //// move toward random direction
+        //enemy.Direction = enemy.transform.position - Player.GetInstance().transform.position;
+        //enemy.Direction += enemy.Direction * Random.Range(-1f, 1f);
     }
 
-    public override void Movement_Update(EnemyPlayer enemy)
+    public override void Movement_Update(EnemyPlayer enemy, List<EnemyPlayer> neighbors)
     {
-        enemy.transform.Translate(enemy.Direction * enemy.Speed * PlayTime.deltaTime);
-        Avoid(enemy);
+        //enemy.transform.Translate(enemy.Direction * enemy.Speed * PlayTime.deltaTime);
+        //Avoid(enemy, neighbors);
     }
 }

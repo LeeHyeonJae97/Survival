@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: Enemy Movement FollowPlayer
   m_EditorClassIdentifier: 
   <Type>k__BackingField: 0
+  _weight: 20

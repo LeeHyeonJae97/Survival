@@ -43,6 +43,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 762556e98c5f6a34d8885ca1cf4bc0aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <InitialWave>k__BackingField: {fileID: 11400000, guid: e90a917fa2d29424e8533ec624c502c6, type: 2}
   _range: 27
   _checkOutOfRangeInterval: 5
+  _quadtreeSettings:
+    _center: {x: 0, y: 0}
+    _size: {x: 13, y: 13}
+    _minDepth: 8

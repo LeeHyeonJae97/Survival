@@ -21,7 +21,7 @@ public class SkillPropertyIce : SkillProperty
         if (enemy.Hp > 0)
         {
             // check constraint and percent
-            if (enemy.Enemy.Constraint != Constraint.Ice && RandomExtension.CheckPercent(_ccInfo.Percent))
+            if (enemy.Enemy.Constraint != Constraint.Ice && Random.CheckPercent(_ccInfo.Percent))
             {
                 SlowDown(enemy);
             }

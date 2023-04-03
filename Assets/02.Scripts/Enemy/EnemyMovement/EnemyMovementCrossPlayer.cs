@@ -12,8 +12,8 @@ public class EnemyMovementCrossPlayer : EnemyMovement
 
     public override void Movement_Start(EnemyPlayer enemy)
     {
-        // move toward center
-        enemy.Direction = Player.GetInstance().transform.position - enemy.transform.position;
+        //// move toward center
+        //enemy.Direction = Player.GetInstance().transform.position - enemy.transform.position;
     }
 
     public override void Movement_OnEanble(EnemyPlayer enemy)
@@ -21,9 +21,9 @@ public class EnemyMovementCrossPlayer : EnemyMovement
 
     }
 
-    public override void Movement_Update(EnemyPlayer enemy)
+    public override void Movement_Update(EnemyPlayer enemy, List<EnemyPlayer> neighbors)
     {
-        enemy.transform.Translate(enemy.Direction * enemy.Speed * PlayTime.deltaTime);
-        Avoid(enemy);
+        //enemy.transform.Translate(enemy.Direction * enemy.Speed * PlayTime.deltaTime);
+        //Avoid(enemy, neighbors);
     }
 }

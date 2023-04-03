@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public static class VectorExtension
@@ -104,68 +102,19 @@ public static class VectorExtension
         return new Vector2(vec.x, vec.z);
     }
 
-    public static Vector2 Divide(this Vector2 vec)
+    public static int Snap4(this Vector2 vec)
     {
-        Vector2 base1 = new Vector2(Mathf.Cos(Mathf.Deg2Rad * 22.5f), Mathf.Sin(Mathf.Deg2Rad * 22.5f));
-        Vector2 base2 = new Vector2(Mathf.Cos(Mathf.Deg2Rad * 67.5f), Mathf.Sin(Mathf.Deg2Rad * 67.5f));
-
-        if (-base2.x < vec.x && vec.x <= base2.x)
-        {
-            return vec.y > 0 ? Vector2.up : Vector2.down;
-        }
-        else if (base2.x < vec.x && vec.x <= base1.x)
-        {
-            return vec.y > 0 ? new Vector2(1, 1) : new Vector2(1, -1);
-        }
-        else if (-base1.x < vec.x && vec.x <= -base2.x)
-        {
-            return vec.y > 0 ? new Vector2(-1, 1) : new Vector2(-1, -1);
-        }
-        else if (vec.x <= -base1.x)
-        {
-            return Vector2.left;
-        }
-        else if (base1.x < vec.x)
-        {
-            return Vector2.right;
-        }
-        else
-        {
-            Debug.LogError("Error");
-            return Vector2.zero;
-        }
+        return Snap(vec, 4);
     }
 
-    public static Vector3 DivideXZ(this Vector3 vec)
+    public static int Snap8(this Vector2 vec)
     {
-        Vector3 base1 = new Vector3(Mathf.Cos(Mathf.Deg2Rad * 22.5f), 0, Mathf.Sin(Mathf.Deg2Rad * 22.5f));
-        Vector3 base2 = new Vector3(Mathf.Cos(Mathf.Deg2Rad * 67.5f), 0, Mathf.Sin(Mathf.Deg2Rad * 67.5f));
+        return Snap(vec, 8);
+    }
 
-        if (-base2.x < vec.x && vec.x <= base2.x)
-        {
-            return vec.z > 0 ? Vector3.forward : Vector3.back;
-        }
-        else if (base2.x < vec.x && vec.x <= base1.x)
-        {
-            return vec.z > 0 ? new Vector3(1, 0, 1) : new Vector3(1, 0, -1);
-        }
-        else if (-base1.x < vec.x && vec.x <= -base2.x)
-        {
-            return vec.z > 0 ? new Vector3(-1, 0, 1) : new Vector3(-1, 0, -1);
-        }
-        else if (vec.x <= -base1.x)
-        {
-            return Vector3.left;
-        }
-        else if (base1.x < vec.x)
-        {
-            return Vector3.right;
-        }
-        else
-        {
-            Debug.LogError("Error");
-            return Vector3.zero;
-        }
+    private static int Snap(Vector2 vec, int count)
+    {
+        return (Mathf.RoundToInt(Mathf.Atan2(vec.y, vec.x) / (2 * Mathf.PI / count)) + count) % count;
     }
 
     public static float Dst(this Vector2 from, Vector2 to)
@@ -186,5 +135,15 @@ public static class VectorExtension
     public static float SqrDst(this Vector3 from, Vector3 to)
     {
         return (from - to).sqrMagnitude;
+    }
+
+    public static Vector2 Clamp(this Vector2 vec, Vector2 min, Vector2 max)
+    {
+        return new Vector2(Mathf.Clamp(vec.x, min.x, max.x), Mathf.Clamp(vec.y, min.y, max.y));
+    }
+
+    public static Vector3 Clamp(this Vector3 vec, Vector3 min, Vector3 max)
+    {
+        return new Vector3(Mathf.Clamp(vec.x, min.x, max.x), Mathf.Clamp(vec.y, min.y, max.y), Mathf.Clamp(vec.z, min.z, max.z));
     }
 }

@@ -21,7 +21,7 @@ public class SkillPropertyWind : SkillProperty
         if (enemy.Hp > 0)
         {
             // check constraint and percent
-            if (enemy.Enemy.Constraint != Constraint.Wind && RandomExtension.CheckPercent(_ccInfo.Percent))
+            if (enemy.Enemy.Constraint != Constraint.Wind && Random.CheckPercent(_ccInfo.Percent))
             {
                 // knockback enemy
                 enemy.transform.position += (enemy.transform.position - projectile.transform.position).normalized * _ccInfo.Values[0];

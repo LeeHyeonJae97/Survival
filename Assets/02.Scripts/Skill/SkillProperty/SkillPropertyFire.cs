@@ -21,7 +21,7 @@ public class SkillPropertyFire : SkillProperty
         if (enemy.Hp > 0)
         {
             // check constraint and percent
-            if (enemy.Enemy.Constraint != Constraint.Fire && RandomExtension.CheckPercent(_ccInfo.Percent))
+            if (enemy.Enemy.Constraint != Constraint.Fire && Random.CheckPercent(_ccInfo.Percent))
             {
                 Burning(enemy);
             }

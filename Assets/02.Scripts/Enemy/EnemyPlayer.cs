@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyPlayer : MonoBehaviour, IDamageable
+public class EnemyPlayer : MonoBehaviour, IDamageable, IQuadtreeObject
 {
     public const float MIN_SPEED = 0.1f;
 
@@ -65,7 +65,7 @@ public class EnemyPlayer : MonoBehaviour, IDamageable
             _direction = value.normalized;
 
             // flip sprite
-            _sr.transform.rotation = Quaternion.Euler(new Vector3(0, _direction.x > 0 ? 0 : 180, 0));
+            //_sr.transform.rotation = Quaternion.Euler(new Vector3(0, _direction.x > 0 ? 0 : 180, 0));
         }
     }
     public Color Color
@@ -75,6 +75,7 @@ public class EnemyPlayer : MonoBehaviour, IDamageable
     public Color BlinkColor { set { _blinkSr.color = value; } }
     public Dictionary<SkillPropertyType, IEnumerator> CrowdControlCorDic { get; private set; } = new Dictionary<SkillPropertyType, IEnumerator>();
     public Dictionary<CrowdControlType, CrowdControl> CrowdControlDic { get; private set; } = new Dictionary<CrowdControlType, CrowdControl>();
+    public Bounds Bounds { get { return _sr.bounds; } }
 
     [SerializeField] private SpriteRenderer _sr;
     [SerializeField] private SpriteMask _sm;
@@ -88,11 +89,6 @@ public class EnemyPlayer : MonoBehaviour, IDamageable
     private EnemyMovement _movement;
     private Vector2 _direction;
     private Coroutine _blinkCor;
-
-    private void Update()
-    {
-        Movement.Movement_Update(this);
-    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -108,6 +104,11 @@ public class EnemyPlayer : MonoBehaviour, IDamageable
         _sm.enabled = false;
         _blinkSr.gameObject.SetActive(false);
         _blinkCor = null;
+    }
+
+    public void Move(List<EnemyPlayer> neighbors)
+    {
+        Movement.Movement_Update(this, neighbors);
     }
 
     public void Die()
@@ -150,5 +151,10 @@ public class EnemyPlayer : MonoBehaviour, IDamageable
         _sm.enabled = false;
         _blinkSr.gameObject.SetActive(false);
         _blinkCor = null;
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawWireRect(Bounds.center, Bounds.size);
     }
 }

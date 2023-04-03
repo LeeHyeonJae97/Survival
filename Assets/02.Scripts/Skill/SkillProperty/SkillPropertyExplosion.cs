@@ -19,7 +19,7 @@ public class SkillPropertyExplosion : SkillProperty
         enemy.Hp -= projectile.Stat.Damage;
 
         // check percent
-        if (!RandomExtension.CheckPercent(_ccInfo.Percent)) return;
+        if (!Random.CheckPercent(_ccInfo.Percent)) return;
 
         // NOTICE :
         // enemy(from parameter) should be applied splash damage?
