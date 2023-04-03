@@ -351,3 +351,4 @@ MonoBehaviour:
   _defaultColor: {r: 0.8113208, g: 0.8113208, b: 0.8113208, a: 1}
   _coin: 3
   _hpRecoveryPercent: 0
+  _sight: 0.5

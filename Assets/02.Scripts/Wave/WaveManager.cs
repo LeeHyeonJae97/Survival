@@ -116,7 +116,7 @@ public class WaveManager : SingletonMonoBehaviour<WaveManager>
     public List<EnemyPlayer> GetNeighborEnemies(EnemyPlayer enemy)
     {
         _neighbors.Clear();
-        _quadtree.GetColliding(_neighbors, enemy.transform.position, 1f);
+        _quadtree.GetColliding(_neighbors, enemy.transform.position, enemy.Sight);
 
         return _neighbors;
     }

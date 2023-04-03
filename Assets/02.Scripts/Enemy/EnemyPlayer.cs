@@ -46,6 +46,7 @@ public class EnemyPlayer : MonoBehaviour, IDamageable, IQuadtreeObject
 
         set { _speed = Mathf.Max(value, MIN_SPEED); }
     }
+    public float Sight { get { return _sight; } }
     public EnemyMovement Movement
     {
         get { return _movement; }
@@ -83,6 +84,7 @@ public class EnemyPlayer : MonoBehaviour, IDamageable, IQuadtreeObject
     [SerializeField] private Color _defaultColor;
     [SerializeField] private int _coin;
     [SerializeField] private int _hpRecoveryPercent;
+    [SerializeField] private float _sight;
     private int _hp;
     private float _speed;
     private EnemySO _enemy;
